@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matte — JPG to PNG converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="matte-styles.css">
+</head>
+<body data-page="jpg2png">
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="brand-mark"></div><h1>Matte</h1></div>
+    <div class="tagline">Convert JPG photos to PNG. Everything happens in your browser, so nothing is uploaded anywhere.</div>
+  </header>
+
+  <nav class="toolsnav" id="toolsNav">
+    <button type="button" class="toolsnav-trigger" aria-haspopup="true" aria-expanded="false">
+      Image Tools
+      <svg class="chev" width="10" height="6" viewBox="0 0 10 6" fill="currentColor"><path d="M0 0l5 6 5-6z"/></svg>
+    </button>
+    <div class="toolsnav-menu">
+      <a href="matte-remove-background.html" data-page="remove">Remove Background</a>
+      <a href="matte-resize-upscale.html" data-page="resize">Resize / Upscale</a>
+      <a href="matte-change-background.html" data-page="change">Change Background</a>
+      <a href="image-editor.html" data-page="editor">Image Editor</a>
+      <a href="jpg-to-png.html" data-page="jpg2png">JPG to PNG</a>
+    </div>
+  </nav>
+
+  <div id="jpStage" class="stage">
+    <div id="jpDropMsg" class="drop-msg">
+      <div class="jp-flow">
+        <span class="jp-badge">JPG</span>
+        <span class="jp-arrow">→</span>
+        <span class="jp-badge is-target">PNG</span>
+      </div>
+      <div class="big">Drop JPG photos here</div>
+      <div class="small">or <b>click to browse</b> — select as many as you like</div>
+    </div>
+  </div>
+
+  <div id="jpErr" class="err"></div>
+
+  <div id="jpToolbar" class="toolbar">
+    <div class="toolbar-status" id="jpToolbarStatus">Ready</div>
+    <div class="toolbar-actions">
+      <button type="button" class="btn btn-ghost" id="jpClearBtn">Clear all</button>
+      <button type="button" class="btn btn-orange" id="jpDownloadAllBtn" disabled>Download all (.zip)</button>
+    </div>
+  </div>
+
+  <div id="jpGrid" class="grid"></div>
+
+  <input type="file" id="jpFileInput" accept="image/jpeg, .jpg, .jpeg, .jfif" multiple>
+
+  <footer>
+    Each PNG keeps the original pixel size. Converting to PNG doesn't improve a JPG's quality, and PNG files are usually larger.<br>
+    JPG has no transparency, so the PNGs are fully opaque.
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="matte-nav.js"></script>
+<script src="jpg-to-png.js"></script>
+</body>
+</html>

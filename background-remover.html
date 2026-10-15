@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Background Remover</title>
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl">
+			<div class="container align-items-center justify-content-between">
+				<button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-logo.png" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-start offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-center">
+						<ul class="navbar-nav">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Image Tools</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="background-remover.html">Background Remover</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="resize.html">Resize & Upscale</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="change-background.html">Change Background</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<div id="bgStage" class="stage">
+				<div id="bgDropMsg" class="drop-msg">
+					<div class="big">Drop photos here</div>
+					<div class="small">or <b>click to browse</b> — select as many as you like, JPG/PNG/WEBP</div>
+				</div>
+			</div>
+
+			<div id="bgErr" class="err"></div>
+
+			<div id="bgToolbar" class="toolbar">
+				<div class="toolbar-status" id="bgToolbarStatus">Ready</div>
+				<div class="toolbar-actions">
+					<select id="bgFormatSelect" class="form-select img-convert" title="PNG keeps transparency. JPEG/WEBP fill the cut-out area with white.">
+						<option value="png">PNG</option>
+						<option value="webp">WEBP</option>
+						<option value="jpeg">JPEG</option>
+					</select>
+					<button class="btn btn-secondary" id="bgClearBtn">Clear all</button>
+					<button class="btn btn-orange" id="bgDownloadAllBtn" disabled>Download all (.zip)</button>
+				</div>
+			</div>
+
+			<div id="bgGrid" class="grid"></div>
+
+			<input type="file" id="bgFileInput" accept="image/png, image/jpeg, image/webp" multiple>
+		</div>
+	</main>
+
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/vendors/jszip/jszip.min.js"></script>
+	<script type="module" src="assets/js/background-remover.js"> </script>
+</body>
+
+</html>

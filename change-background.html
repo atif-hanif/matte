@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Change Remover</title>
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl">
+			<div class="container align-items-center justify-content-between">
+				<button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-logo.png" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-start offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-center">
+						<ul class="navbar-nav">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Image Tools</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="background-remover.html">Background Remover</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="resize.html">Resize & Upscale</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="change-background.html">Change Background</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<div id="cbStage" class="stage">
+				<div id="cbDropMsg" class="drop-msg">
+					<div class="big">Drop photos here</div>
+					<div class="small">or <b>click to browse</b> — select as many as you like, JPG/PNG/WEBP</div>
+				</div>
+			</div>
+
+			<div id="cbErr" class="err"></div>
+
+			<div id="cbSettings" class="settings-bar">
+				<div class="mode-switch">
+					<button type="button" class="mode-btn active" data-mode="color">Solid Color</button>
+					<button type="button" class="mode-btn" data-mode="gradient">Gradient</button>
+					<button type="button" class="mode-btn" data-mode="image">Image</button>
+				</div>
+
+				<div class="settings-group" id="colorControls">
+					<input type="color" id="cbColorInput" class="color-input" value="#ffffff" title="Background color">
+				</div>
+
+				<div class="settings-group is-hidden" id="gradientControls">
+					<select id="cbGradType" class="form-select img-convert">
+						<option value="linear">Linear</option>
+						<option value="radial">Radial</option>
+						<option value="conic">Conic</option>
+					</select>
+
+					<label class="grad-field" id="cbGradAngleWrap">Angle
+						<input type="range" id="cbGradAngle" min="0" max="360" step="1" value="135">
+						<input type="number" id="cbGradAngleNum" class="angle-num" min="0" max="360" step="1" value="135">°
+					</label>
+
+					<div class="grad-colors">
+						<input type="color" id="cbGradFrom" class="color-input" value="#FF6224" title="Start color">
+						<span><i class="fa-solid fa-right-long"></i></span>
+						<input type="color" id="cbGradTo" class="color-input" value="#3B4051" title="End color">
+					</div>
+
+					<div class="grad-preview" id="cbGradPreview" title="Preview"></div>
+				</div>
+
+				<div class="settings-group is-hidden" id="imageControls">
+					<label class="bg-upload-btn">
+						<img id="cbBgThumb" class="bg-thumb">
+						<span id="cbBgLabel">Choose background image</span>
+						<input type="file" id="cbBgFileInput" accept="image/png, image/jpeg, image/webp">
+					</label>
+				</div>
+
+				<select id="cbFormatSelect" class="form-select img-convert" title="Output format">
+					<option value="jpeg">JPEG</option>
+					<option value="png">PNG</option>
+					<option value="webp">WEBP</option>
+				</select>
+
+				<button class="btn btn-orange ms-auto" id="cbApplyBtn" disabled>Apply to selected</button>
+
+			</div>
+
+			<div id="cbToolbar" class="toolbar">
+				<div class="toolbar-status" id="cbToolbarStatus">Ready</div>
+				<div class="toolbar-actions">
+					<button class="btn btn-orange" id="cbSelectAllBtn" disabled>Select all</button>
+					<button class="btn btn-secondary" id="cbClearBtn">Clear all</button>
+					<button class="btn btn-orange" id="cbDownloadAllBtn" disabled>Download all (.zip)</button>
+				</div>
+			</div>
+
+			<div id="cbGrid" class="grid"></div>
+			
+			<input type="file" id="cbFileInput" accept="image/png, image/jpeg, image/webp" multiple>
+		</div>
+	</main>
+
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/vendors/jszip/jszip.min.js"></script>
+	<script type="module" src="assets/js/background-change.js"> </script>
+</body>
+
+</html>

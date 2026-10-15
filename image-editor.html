@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Image Editor</title>
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl">
+			<div class="container align-items-center justify-content-between">
+				<button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-logo.png" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-start offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-center">
+						<ul class="navbar-nav">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Image Tools</a>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="background-remover.html">Background Remover</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="resize.html">Resize & Upscale</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="change-background.html">Change Background</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<div id="edStage" class="stage">
+				<div class="drop-msg">
+					<div class="big">Drop an image here</div>
+					<div class="small">or <b>click to browse</b> — JPG, PNG or WEBP</div>
+				</div>
+			</div>
+
+			<div id="edErr" class="err"></div>
+
+			<input type="file" id="edFileInput" accept="image/png, image/jpeg, image/webp">
+			<input type="file" id="edAddImageInput" accept="image/png, image/jpeg, image/webp">
+
+			<div id="edWorkspace" class="is-hidden">
+				<div class="ed-toolbar">
+					<div class="mode-switch" id="edTools">
+						<button type="button" class="mode-btn active" data-tool="move">Move</button>
+						<button type="button" class="mode-btn" data-tool="erase">Erase</button>
+					</div> <span class="ed-sep"></span>
+					<button type="button" class="btn btn-primary-outlined btn-sm" id="edAddTextBtn">+ Text</button>
+					<button type="button" class="btn btn-secondary-outlined btn-sm" id="edAddImageBtn">+ Image</button> <span class="ed-sep"></span>
+					<button type="button" class="btn btn-primary-outlined btn-sm" id="edUndoBtn" disabled>Undo</button>
+					<button type="button" class="btn btn-secondary-outlined btn-sm" id="edRedoBtn" disabled>Redo</button>
+					<div class="ed-toolbar-right">
+						<select id="edFormat" class="form-select img-convert" title="Download format">
+							<option value="png">PNG</option>
+							<option value="jpeg">JPEG</option>
+							<option value="webp">WEBP</option>
+						</select>
+						<button type="button" class="btn btn-secondary btn-sm" id="edNewBtn">New image</button>
+						<button type="button" class="btn btn-primary btn-sm" id="edDownloadBtn">Download</button>
+					</div>
+				</div>
+
+				<div class="ed-layout">
+					<div class="ed-canvas-wrap">
+						<canvas id="edCanvas" class="cursor-default"></canvas>
+					</div>
+					<aside class="ed-panel">
+						<p id="edEmptyHint" class="ed-hint">Click a text or image layer to edit it, or add one with <b>+ Text</b> / <b>+ Image</b>. Use <b>Erase</b> to remove text or objects from the picture itself.</p>
+
+						<section id="edErasePanel" class="ed-section is-hidden">
+							<h3>Erase</h3>
+							<p class="ed-hint">Paint over the text or object you want to remove, then press <b>Erase</b>.</p>
+							<div class="mode-switch" id="edMethod">
+								<button type="button" class="mode-btn active" data-method="fast">Lightweight</button>
+								<button type="button" class="mode-btn" data-method="ai">AI inpainting</button>
+							</div>
+							<p id="edAiNote" class="ed-hint is-hidden">AI mode downloads a ~209 MB model the first time (lama_fp32.onnx, see CONFIG in image-editor.js). Best for people, objects and busy backgrounds.</p>
+							<div class="ed-row">
+								<label for="edBrushSize">Brush</label>
+								<input type="range" id="edBrushSize" min="4" max="150" step="1" value="36">
+								<output id="edBrushVal">36</output>
+							</div>
+							<div class="ed-actions">
+								<button type="button" class="btn btn-ghost btn-sm is-active" id="edPaintBtn">Paint</button>
+								<button type="button" class="btn btn-ghost btn-sm" id="edUnpaintBtn">Unpaint</button>
+								<button type="button" class="btn btn-ghost btn-sm" id="edClearMaskBtn">Clear</button>
+							</div>
+							<button type="button" class="btn btn-primary" id="edEraseBtn" disabled>Erase marked area</button>
+							<progress id="edProgress" class="ed-progress is-hidden" max="100" value="0"></progress>
+							<p id="edStatus" class="ed-status"></p>
+						</section>
+						
+						<section id="edLayerPanel" class="ed-section is-hidden">
+							<h3 id="edLayerTitle">Layer</h3>
+							<div id="edTextProps" class="ed-section is-hidden">
+								<textarea id="edTextValue" class="ed-textarea" rows="3" placeholder="Type your text"></textarea>
+								<div class="ed-grid">
+									<div class="ed-field ed-field-wide"> <span>Font</span>
+										<button type="button" class="ed-fontbtn" id="edFontBtn" aria-haspopup="listbox" aria-expanded="false"> <span class="ed-fontbtn-name" id="edFontCurrent">Inter</span>
+											<svg class="chev" width="10" height="6" viewBox="0 0 10 6" fill="currentColor">
+												<path d="M0 0l5 6 5-6z" />
+											</svg>
+										</button>
+									</div>
+									<div class="ed-field">
+										<label>Size (px)</label>
+										<input type="number" id="edFontSize" class="ed-number" min="6" max="1000" step="1" value="48"> 
+									</div>
+									<div class="ed-field">
+										<label>Align</label>
+										<select id="edAlign" class="ed-select">
+											<option value="left">Left</option>
+											<option value="center">Center</option>
+											<option value="right">Right</option>
+										</select> 
+									</div>
+									<div class="ed-field">
+										<label>Color</label>
+										<input type="color" id="edTextColor" class="color-input" value="#ffffff"> </label> 
+									</div>
+								</div>
+
+								<div class="ed-fontpop is-hidden" id="edFontPop">
+									<input type="search" id="edFontSearch" class="ed-select" placeholder="Search fonts…" autocomplete="off" spellcheck="false">
+									<div class="ed-chips" id="edFontCats">
+										<button type="button" class="ed-chip is-active" data-cat="all">All</button>
+										<button type="button" class="ed-chip" data-cat="s">Sans</button>
+										<button type="button" class="ed-chip" data-cat="f">Serif</button>
+										<button type="button" class="ed-chip" data-cat="d">Display</button>
+										<button type="button" class="ed-chip" data-cat="h">Handwriting</button>
+										<button type="button" class="ed-chip" data-cat="m">Mono</button>
+										<button type="button" class="ed-chip" data-cat="system">System</button>
+									</div>
+									<div class="ed-fontlist" id="edFontList" role="listbox"></div>
+									<div class="ed-fontcount" id="edFontCount"></div>
+								</div>
+
+								<p class="ed-hint is-hidden" id="edFontNote"></p>
+								<div class="ed-actions">
+									<button type="button" class="btn btn-primary-outlined btn-sm" id="edBold"><b>B</b> Bold</button>
+									<button type="button" class="btn btn-secondary-outlined btn-sm" id="edItalic"><i>I</i> Italic</button>
+								</div>
+
+								<div class="ed-row">
+									<label for="edStrokeColor">Outline</label>
+									<input type="color" id="edStrokeColor" class="color-input" value="#000000">
+									<input type="range" id="edStrokeWidth" min="0" max="40" step="1" value="3">
+									<output id="edStrokeVal">3</output>
+								</div>
+							</div>
+
+							<div class="ed-row">
+								<label for="edOpacity">Opacity</label>
+								<input type="range" id="edOpacity" min="0" max="100" step="1" value="100">
+								<output id="edOpacityVal">100%</output>
+							</div>
+
+							<div class="ed-row">
+								<label for="edRotation">Rotate</label>
+								<input type="range" id="edRotation" min="-180" max="180" step="1" value="0">
+								<output id="edRotationVal">0°</output>
+							</div>
+
+							<div class="ed-actions">
+								<button type="button" class="btn btn-primary btn-sm" id="edDupBtn">Duplicate</button>
+								<button type="button" class="btn btn-secondary btn-sm" id="edForwardBtn">Bring forward</button>
+								<button type="button" class="btn btn-primary btn-sm" id="edBackBtn">Send back</button>
+								<button type="button" class="btn btn-secondary btn-sm" id="edDeleteBtn">Delete</button>
+							</div>
+						</section>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/google-fonts-list.js"></script>
+	<script type="module" src="assets/js/image-editor.js"> </script>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matte — PNG to JPG converter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="matte-styles.css">
+</head>
+<body data-page="png2jpg">
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="brand-mark"></div><h1>Matte</h1></div>
+    <div class="tagline">Convert PNG images to JPG. Everything happens in your browser, so nothing is uploaded anywhere.</div>
+  </header>
+
+  <nav class="toolsnav" id="toolsNav">
+    <button type="button" class="toolsnav-trigger" aria-haspopup="true" aria-expanded="false">
+      Image Tools
+      <svg class="chev" width="10" height="6" viewBox="0 0 10 6" fill="currentColor"><path d="M0 0l5 6 5-6z"/></svg>
+    </button>
+    <div class="toolsnav-menu">
+      <a href="matte-remove-background.html" data-page="remove">Remove Background</a>
+      <a href="matte-resize-upscale.html" data-page="resize">Resize / Upscale</a>
+      <a href="matte-change-background.html" data-page="change">Change Background</a>
+      <a href="image-editor.html" data-page="editor">Image Editor</a>
+      <a href="jpg-to-png.html" data-page="jpg2png">JPG to PNG</a>
+      <a href="png-to-jpg.html" data-page="png2jpg">PNG to JPG</a>
+    </div>
+  </nav>
+
+  <div id="pjStage" class="stage">
+    <div id="pjDropMsg" class="drop-msg">
+      <div class="jp-flow">
+        <span class="jp-badge">PNG</span>
+        <span class="jp-arrow">→</span>
+        <span class="jp-badge is-target">JPG</span>
+      </div>
+      <div class="big">Drop PNG images here</div>
+      <div class="small">or <b>click to browse</b> — select as many as you like</div>
+    </div>
+  </div>
+
+  <div class="settings-bar show" id="pjSettings">
+    <div class="settings-group">
+      <label for="pjQuality">Quality</label>
+      <input type="range" id="pjQuality" class="pj-range" min="10" max="100" step="1" value="90">
+      <output id="pjQualityVal" class="pj-val">90%</output>
+    </div>
+    <div class="settings-group">
+      <label for="pjBg">Fill transparent areas with</label>
+      <input type="color" id="pjBg" class="color-input" value="#ffffff">
+      <button type="button" class="pj-chip" id="pjBgWhite">White</button>
+      <button type="button" class="pj-chip" id="pjBgBlack">Black</button>
+    </div>
+    <span class="pj-hint">JPG can't be transparent. Changing these re-converts your images.</span>
+  </div>
+
+  <div id="pjErr" class="err"></div>
+
+  <div id="pjToolbar" class="toolbar">
+    <div class="toolbar-status" id="pjToolbarStatus">Ready</div>
+    <div class="toolbar-actions">
+      <button type="button" class="btn btn-ghost" id="pjClearBtn">Clear all</button>
+      <button type="button" class="btn btn-primary" id="pjDownloadAllBtn" disabled>Download all (.zip)</button>
+    </div>
+  </div>
+
+  <div id="pjGrid" class="grid"></div>
+
+  <input type="file" id="pjFileInput" accept="image/png, .png" multiple>
+
+  <footer>
+    JPG is a lossy format: lower quality means a smaller file but slightly less detail. Each JPG keeps the original pixel size.
+  </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script src="matte-nav.js"></script>
+<script src="png-to-jpg.js"></script>
+</body>
+</html>

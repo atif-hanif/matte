@@ -1,0 +1,20 @@
+@media (min-width: 1200px) {
+	.has-megamenu {
+		position: static; /* lets the panel span the navbar width */
+	}
+
+	.has-megamenu .megamenu {
+		left: 0;
+		right: 0;
+		width: 100%;
+		margin-top: 0;
+		padding: 2rem 0;
+		border-radius: 0 0 0.75rem 0.75rem;
+		box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+	}
+
+	/* Optional: open on hover instead of click */
+	.has-megamenu:hover > .megamenu {
+		display: block;
+	}
+}
