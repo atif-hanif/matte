@@ -1,5 +1,5 @@
 (function () {
-'use strict';
+	'use strict';
 
 	const $ = (id) => document.getElementById(id);
 
@@ -41,7 +41,7 @@
 		return (name.replace(/\.[^/.]+$/, '') || 'image') + '.jpg';
 	}
 
-	function uniqueName(name, taken) { // two different images can share a file name; keep zip entries unique
+	function uniqueName(name, taken) {
 		if (!taken.has(name)) { taken.add(name); return name; }
 		const dot = name.lastIndexOf('.');
 		const stem = dot > -1 ? name.slice(0, dot) : name, ext = dot > -1 ? name.slice(dot) : '';
@@ -86,6 +86,28 @@
 		return Math.min(100, Math.max(10, isNaN(q) ? 90 : q)) / 100;
 	}
 
+	function showVeil(card) {
+		if (card.querySelector('[data-veil]')) return;
+		const v = document.createElement('div');
+		v.className = 'veil show';
+		v.setAttribute('data-veil', '');
+		v.innerHTML = '<div class="mini-spinner"></div>';
+		card.querySelector('.thumb').appendChild(v);
+	}
+
+	function hideVeil(card) {
+		const v = card.querySelector('[data-veil]');
+		if (v) v.remove();
+	}
+
+	function addTag(card, text) {
+		if (card.querySelector('[data-tag]')) return;
+		const t = document.createElement('span');
+		t.className = 'jp-tag';
+		t.setAttribute('data-tag', '');
+		t.textContent = text;
+		card.querySelector('.thumb').appendChild(t);
+	}
 
 	function makeCard(item) {
 		const card = document.createElement('div');
@@ -93,8 +115,6 @@
 		card.innerHTML =
 			'<div class="thumb">' +
 				'<img data-img alt="">' +
-				'<span class="jp-tag is-hidden" data-tag>JPG</span>' +
-				'<div class="veil" data-veil><div class="mini-spinner"></div></div>' +
 			'</div>' +
 			'<div class="card-foot">' +
 				'<div class="card-name" data-name></div>' +
@@ -105,7 +125,7 @@
 				'<div class="jp-size" data-size></div>' +
 			'</div>';
 		card.querySelector('[data-img]').src = item.originalURL;
-		card.querySelector('[data-name]').textContent = item.file.name; // textContent: file names are never parsed as HTML
+		card.querySelector('[data-name]').textContent = item.file.name;
 		card.querySelector('[data-size]').textContent = formatBytes(item.file.size) + ' PNG';
 		card.querySelector('[data-dl]').addEventListener('click', () => {
 			if (item.jpgBlob) triggerDownload(item.jpgBlob, jpgName(item.file.name));
@@ -138,12 +158,12 @@
 		canvas.width = w;
 		canvas.height = h;
 		const ctx = canvas.getContext('2d');
-		ctx.fillStyle = bgEl.value || '#ffffff'; // JPG has no transparency: see-through areas get this color
+		ctx.fillStyle = bgEl.value || '#ffffff';
 		ctx.fillRect(0, 0, w, h);
 		ctx.drawImage(img, 0, 0);
 		const quality = currentQuality();
 		const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
-		canvas.width = canvas.height = 0; // release the pixel memory right away
+		canvas.width = canvas.height = 0;
 		if (!blob) throw new Error('The browser could not create a JPG this large.');
 		return { blob: blob, w: w, h: h };
 	}
@@ -152,17 +172,16 @@
 		const statusEl = item.cardEl.querySelector('[data-status]');
 		statusEl.textContent = 'Done';
 		statusEl.className = 'card-status done';
-		item.cardEl.querySelector('[data-tag]').classList.remove('is-hidden');
+		addTag(item.cardEl, 'JPG');
 		item.cardEl.querySelector('[data-dl]').disabled = false;
 
-		// show the JPG itself, so you can see what the transparent areas turned into
 		if (item.resultURL) URL.revokeObjectURL(item.resultURL);
 		item.resultURL = URL.createObjectURL(out.blob);
 		item.cardEl.querySelector('[data-img]').src = item.resultURL;
 
 		const change = Math.round((out.blob.size / item.file.size - 1) * 100);
 		const sizeEl = item.cardEl.querySelector('[data-size]');
-		sizeEl.textContent = out.w + '×' + out.h + ' · ' + formatBytes(item.file.size) + ' → ';
+		sizeEl.textContent = out.w + '×' + out.h + ' --- ' + formatBytes(item.file.size) + ' → ';
 		const to = document.createElement('span');
 		to.className = 'pj-saving' + (change > 0 ? ' is-bigger' : '');
 		to.textContent = formatBytes(out.blob.size) + ' (' + (change > 0 ? '+' : '−') + Math.abs(change) + '%)';
@@ -177,12 +196,11 @@
 				if (item.status !== 'pending') continue;
 				item.status = 'working';
 				const statusEl = item.cardEl.querySelector('[data-status]');
-				const veilEl = item.cardEl.querySelector('[data-veil]');
-				statusEl.textContent = 'Converting…';
+					statusEl.textContent = 'Converting…';
 				statusEl.className = 'card-status processing';
-				veilEl.classList.add('show');
+				showVeil(item.cardEl);
 				updateToolbarStatus();
-				await new Promise((r) => setTimeout(r, 0)); // let the spinner paint before the heavy work
+				await new Promise((r) => setTimeout(r, 0));
 				try {
 					const out = await convertToJpg(item);
 					item.jpgBlob = out.blob;
@@ -196,10 +214,10 @@
 					item.cardEl.title = e && e.message ? e.message : String(e);
 					item.cardEl.querySelector('[data-size]').textContent = e && e.message ? e.message : 'Conversion failed';
 				}
-				veilEl.classList.remove('show');
+				hideVeil(item.cardEl);
 				updateToolbarStatus();
 			}
-			if (!settingsDirty) break; // settings changed while we were busy: go round again with the new ones
+			if (!settingsDirty) break;
 			settingsDirty = false;
 			items.forEach((i) => { if (i.status === 'done') i.status = 'pending'; });
 		}
@@ -213,11 +231,13 @@
 		items.forEach((i) => { if (i.status === 'done') i.status = 'pending'; });
 		processQueue();
 	}
+
 	function settingsChanged() {
 		qualityVal.textContent = qualityEl.value + '%';
 		clearTimeout(rerunTimer);
 		rerunTimer = setTimeout(reconvertAll, 250);
 	}
+
 	qualityEl.addEventListener('input', settingsChanged);
 	bgEl.addEventListener('input', settingsChanged);
 	$('pjBgWhite').addEventListener('click', () => { bgEl.value = '#ffffff'; settingsChanged(); });
@@ -275,7 +295,7 @@
 			const zip = new JSZip();
 			const taken = new Set();
 			done.forEach((i) => zip.file(uniqueName(jpgName(i.file.name), taken), i.jpgBlob));
-			const content = await zip.generateAsync({ type: 'blob' }); // JPGs are already compressed, so they are just stored
+			const content = await zip.generateAsync({ type: 'blob' });
 			triggerDownload(content, 'png-to-jpg.zip');
 		} catch (e) {
 			console.error(e);
