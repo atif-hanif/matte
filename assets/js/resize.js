@@ -125,22 +125,22 @@ scaleInput.addEventListener('input', () => {
 // }
 
 async function ensureUpscaler(){
-  if (upscalerInstance) return;
-  if (!upscalerReadyPromise){
-    upscalerReadyPromise = (async () => {
-      await loadScript('assets/vendors/tf/tf.min.js');
-      await loadScript('assets/vendors/upscaler/upscaler.min.js');
-      await loadScript('assets/vendors/upscaler/index.min.js'); // exposes window.DefaultUpscalerJSModel
+	if (upscalerInstance) return;
+	if (!upscalerReadyPromise){
+		upscalerReadyPromise = (async () => {
+		await loadScript('assets/vendors/tf/tf.min.js');
+		await loadScript('assets/vendors/upscaler/upscaler.min.js');
+		await loadScript('assets/vendors/upscaler/index.min.js'); // exposes window.DefaultUpscalerJSModel
 
-      upscalerInstance = new window.Upscaler({
-        model: {
-          ...window.DefaultUpscalerJSModel,
-          path: 'assets/vendors/upscaler/models/model.json'
-        }
-      });
-    })();
-  }
-  await upscalerReadyPromise;
+		upscalerInstance = new window.Upscaler({
+			model: {
+			...window.DefaultUpscalerJSModel,
+			path: 'assets/vendors/upscaler/models/model.json'
+			}
+		});
+		})();
+	}
+	await upscalerReadyPromise;
 }
 
 function makeCard(item) {

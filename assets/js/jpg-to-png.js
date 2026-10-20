@@ -115,7 +115,7 @@
 				'<div class="jp-size" data-size></div>' +
 			'</div>';
 		card.querySelector('[data-img]').src = item.originalURL;
-		card.querySelector('[data-name]').textContent = item.file.name;   // textContent: file names are never parsed as HTML
+		card.querySelector('[data-name]').textContent = item.file.name;
 		card.querySelector('[data-size]').textContent = formatBytes(item.file.size) + ' JPG';
 		card.querySelector('[data-dl]').addEventListener('click', () => {
 			if (item.pngBlob) triggerDownload(item.pngBlob, pngName(item.file.name));
@@ -149,7 +149,7 @@
 		canvas.height = h;
 		canvas.getContext('2d').drawImage(img, 0, 0);
 		const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
-		canvas.width = canvas.height = 0;   // release the pixel memory right away
+		canvas.width = canvas.height = 0;
 		if (!blob) throw new Error('The browser could not create a PNG this large.');
 		return { blob: blob, w: w, h: h };
 	}
@@ -165,7 +165,7 @@
 			statusEl.className = 'card-status processing';
 			showVeil(item.cardEl);
 			updateToolbarStatus();
-			await new Promise((r) => setTimeout(r, 0));   // let the spinner paint before the heavy work
+			await new Promise((r) => setTimeout(r, 0));
 			try {
 				const out = await convertToPng(item);
 				item.pngBlob = out.blob;

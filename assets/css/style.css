@@ -315,7 +315,6 @@ main {
     color: var(--primary);
 }
 
-
 /* Background Removal */
 
 .stage {
@@ -1307,6 +1306,49 @@ input[type=file] {
 
 .wp-note.is-warn {
 	color:var(--primary);
+}
+
+/* Image Compress */
+
+.cm-checker {
+	background-color: #FFFFFF;
+	background-image: linear-gradient(45deg,#E6E2D8 25%,transparent 25%),
+      linear-gradient(-45deg,#E6E2D8 25%,transparent 25%),
+      linear-gradient(45deg,transparent 75%,#E6E2D8 75%),
+      linear-gradient(-45deg,transparent 75%,#E6E2D8 75%);
+	background-size: 16px 16px;
+	background-position: 0 0,0 8px,8px -8px,-8px 0px;
+}
+
+.cm-checker img {
+	object-fit: contain;
+}
+
+#cmSettings select.btn-ghost {
+	padding: 7px 30px 7px 12px;
+	font-size: 12.5px;
+	color: var(--text);
+}
+
+.cm-note {
+	flex-basis: 100%;
+	font-size: 11px;
+	line-height: 1.4;
+	color: var(--muted);
+}
+
+.cm-note.is-warn {
+	color: var(--amber-dim);
+}
+
+.cm-same {
+	font-weight: 600;
+	color: var(--muted);
+}
+
+.cm-saved {
+	font-weight: 600;
+	color: var(--green);
 }
 
 /* Footer */

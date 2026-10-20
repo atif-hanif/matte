@@ -22,7 +22,6 @@ function loadImageEl(src) {
 	});
 }
 
-/* ---------- DOM ---------- */
 const stage = document.getElementById('cbStage');
 const dropMsg = document.getElementById('cbDropMsg');
 const dropBig = dropMsg.querySelector('.big');
@@ -54,15 +53,14 @@ const bgFileInput = document.getElementById('cbBgFileInput');
 const bgThumb = document.getElementById('cbBgThumb');
 const bgLabel = document.getElementById('cbBgLabel');
 
-/* ---------- state ---------- */
 let items = [];
 let idCounter = 0;
 let removing = false;
 let applying = false;
-let mode = 'color'; // 'color' | 'gradient' | 'image'
+let mode = 'color';
 let bgImageEl = null;
 let gradient = {
-	type: 'linear', // 'linear' | 'radial' | 'conic'
+	type: 'linear',
 	from: '#FF6224',
 	to: '#3B4051',
 	angle: 135
@@ -92,7 +90,6 @@ function refreshDropMsg() {
 	}
 }
 
-/* ---------- background mode controls ---------- */
 const groups = {
 	color: colorControls,
 	gradient: gradientControls,
@@ -109,7 +106,6 @@ modeBtns.forEach(btn => {
 	});
 });
 
-/* ---------- gradient controls (type, angle, colors) ---------- */
 function gradientCSS(g) {
 	if(g.type === 'radial') return `radial-gradient(circle farthest-corner at center, ${g.from}, ${g.to})`;
 	if(g.type === 'conic') return `conic-gradient(from ${g.angle}deg at center, ${g.from}, ${g.to})`;
@@ -118,7 +114,6 @@ function gradientCSS(g) {
 
 function syncGradientUI() {
 	gradPreview.style.background = gradientCSS(gradient);
-	// a radial gradient has no direction, so the angle doesn't apply
 	gradAngleWrap.classList.toggle('disabled', gradient.type === 'radial');
 }
 
@@ -143,7 +138,7 @@ gradAngleNum.addEventListener('input', () => {
 });
 
 gradAngleNum.addEventListener('change', () => {
-	gradAngleNum.value = gradient.angle; // snap back if the typed value was out of range
+	gradAngleNum.value = gradient.angle;
 });
 
 gradFrom.addEventListener('input', () => {
@@ -171,7 +166,6 @@ bgFileInput.addEventListener('change', async(e) => {
 	}
 });
 
-/* ---------- selection ---------- */
 function setSelected(item, val) {
 	item.selected = val;
 	item.checkEl.checked = val;
@@ -186,7 +180,6 @@ selectAllBtn.addEventListener('click', () => {
 	updateToolbarStatus();
 });
 
-/* ---------- cards ---------- */
 function makeCard(item) {
 	const card = document.createElement('div');
 	card.className = 'card';
@@ -243,7 +236,6 @@ function updateToolbarStatus() {
 	}
 }
 
-/* ---------- adding files + removing backgrounds first ---------- */
 function addFiles(fileList) {
 	const files = Array.from(fileList).filter(f => f.type.startsWith('image/'));
 	if(files.length === 0) {
@@ -288,7 +280,6 @@ async function removeBackgrounds() {
 			});
 			item.cutoutURL = URL.createObjectURL(blob);
 			item.cutoutImg = await loadImageEl(item.cutoutURL);
-			// show the transparent cutout right away
 			thumbEl.classList.add('checker');
 			imgEl.src = item.cutoutURL;
 			item.checkEl.disabled = false;
@@ -308,8 +299,6 @@ async function removeBackgrounds() {
 	updateToolbarStatus();
 }
 
-/* ---------- compositing ---------- */
-// CSS-style gradient line for an angle (0deg = up, 90deg = right, 180deg = down)
 function gradientCoords(w, h, angleDeg) {
 	const a = (angleDeg - 90) * Math.PI / 180;
 	const len = Math.abs(w * Math.cos(a)) + Math.abs(h * Math.sin(a));
@@ -318,14 +307,12 @@ function gradientCoords(w, h, angleDeg) {
 	return [w / 2 - dx, h / 2 - dy, w / 2 + dx, h / 2 + dy];
 }
 
-// Builds the canvas gradient for the chosen type
 function buildGradient(ctx, w, h, g) {
 	let grad;
 	if(g.type === 'radial') {
-		const r = Math.hypot(w, h) / 2; // reaches the farthest corner
+		const r = Math.hypot(w, h) / 2;
 		grad = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, r);
 	} else if(g.type === 'conic' && typeof ctx.createConicGradient === 'function') {
-		// canvas angle 0 = 3 o'clock; CSS angle 0 = 12 o'clock, so shift by -90deg
 		grad = ctx.createConicGradient((g.angle - 90) * Math.PI / 180, w / 2, h / 2);
 	} else {
 		const [x0, y0, x1, y1] = gradientCoords(w, h, g.angle);
@@ -373,7 +360,6 @@ applyBtn.addEventListener('click', async() => {
 		return;
 	}
 	clearError();
-	// snapshot settings so everything in this run matches
 	const opts = {
 		mode,
 		color: colorInput.value,
@@ -410,7 +396,6 @@ applyBtn.addEventListener('click', async() => {
 	updateToolbarStatus();
 });
 
-/* ---------- file input / drag & drop ---------- */
 stage.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', (e) => {
 	if(e.target.files.length) addFiles(e.target.files);
@@ -447,7 +432,7 @@ clearBtn.addEventListener('click', () => {
 	updateToolbarStatus();
 });
 
-/* ---------- zip download ---------- */
+
 downloadAllBtn.addEventListener('click', async() => {
 	const done = items.filter(i => i.resultBlob);
 	if(done.length === 0) return;
