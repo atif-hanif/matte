@@ -50,6 +50,37 @@ a {
 	text-decoration: none;
 }
 
+.btn {
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity .15s ease, transform .15s ease;
+}
+
+.offcanvas-btn {
+	padding: 10px;
+}
+
+.breadcrumb a {
+	color: var(--primary);
+}
+
+.breadcrumb .active {
+	color: var(--secondary);
+}
+
+.icons {
+	border-radius: 12px;
+	width: 50px;
+	height: 50px;
+	padding: 10px;
+	border: 1px solid var(--secondary);
+	display: block;
+    margin: 0 auto 16px;
+}
+
 /* Header */
 
 .header-logo {
@@ -88,8 +119,8 @@ header .fa-moon, header .fa-sun-bright {
 
 header .checkbox-label .ball {
 	background-color: var(--white);
-	width: 22px;
-	height: 22px;
+	width: 21px;
+	height: 21px;
 	position: absolute;
 	left: 7px;
 	top: 4px;
@@ -329,9 +360,7 @@ main {
 .card-style .card-body {
     position: relative;
     z-index: 1;
-} */
-
-
+}
 
 .card-style .fa-arrow-right {
     display: inline-block;
@@ -384,9 +413,9 @@ main {
 	background: var(--primary-soft);
 }
 
-.stage.compact {
+/* .stage.compact {
 	min-height: 110px;
-}
+} */
 
 .drop-msg {
 	text-align: center;
@@ -397,7 +426,7 @@ main {
 .drop-msg .big {
 	font-size: 22px;
 	color: var(--secondary);
-	margin-bottom: 8px;
+	margin-bottom: 16px;
 	font-weight: 500;
 }
 
@@ -410,9 +439,9 @@ main {
 	font-weight: 500;
 }
 
-.stage.compact .drop-msg {
+/* .stage.compact .drop-msg {
 	padding: 20px;
-}
+} */
 
 .stage.compact .drop-msg .big {
 	font-size: 16px;
@@ -638,17 +667,6 @@ input[type=file] {
 
 input[type=file] {
     display: none;
-}
-
-
-.btn {
-    font-family: inherit;
-    font-size: 13.5px;
-    font-weight: 500;
-    padding: 10px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: opacity .15s ease, transform .15s ease;
 }
 
 .toolbar {
@@ -1403,11 +1421,19 @@ input[type=file] {
 /* Footer */
 
 footer {
-	margin-top: 40px;
-	color: var(--muted);
-	font-size: 12.5px;
-	text-align: center;
-	line-height: 1.6;
+	margin: 48px 0px;
+}
+
+.footer-logo {
+	width: 250px;
+}
+
+footer .nav-link {
+	color: var(--black);
+}
+
+.social-media .nav-link {
+	padding: 0px 8px;
 }
 
 /* Dark Mode */
@@ -1439,4 +1465,8 @@ footer {
 .dark .card-style {
     color: var(--white);
 	background: var(--background-2);
+}
+
+.dark footer .nav-link {
+	color: var(--white);
 }

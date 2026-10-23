@@ -18,3 +18,33 @@
 		display: block;
 	}
 }
+
+@media (max-width: 767px) {
+	.grid-container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.card-style {
+		height: 100%;
+	}
+}
+
+@media (min-width: 767px) and (max-width: 991px) {
+	.grid-container {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.card-style {
+		height: 100%;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	.grid-container {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.card-style {
+		height: 100%;
+	}
+}

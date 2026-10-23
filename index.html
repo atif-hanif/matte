@@ -20,11 +20,11 @@
 				<a class="navbar-brand" href="index.html">
 					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
 				</a>
-				<button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
-					<i class="fa-solid fa-bars"></i>
-				</button>
 				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
 					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
 						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
 					</div>
 					<div class="offcanvas-body justify-content-start">
@@ -44,20 +44,41 @@
 									Video Tools
 								</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" role="button">
+									Text Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" role="button">
+									Generate Tools
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="input-group w-25 d-none d-xl-flex">
-					<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
-					<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
-				</div>
-				<div>
-					<input type="checkbox" class="checkbox" id="checkbox">
-					<label for="checkbox" class="checkbox-label">
-						<i class="fa-solid fa-moon"></i>
-						<i class="fa-solid fa-sun-bright"></i>
-						<span class="ball"></span>
-					</label>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select w-25">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -73,7 +94,7 @@
 	<main>
 		<div class="container">
 			<div class="row mb-3">
-				<div class="col-12 d-flex justify-content-between align-items-center">
+				<div class="col-12 d-block d-md-flex justify-content-between align-items-center">
 					<div>
 						<h4>Image Tools</h4>
 						<p>Resize, edit, compress and convert images</p>
@@ -187,6 +208,89 @@
 			</div>
 		</div>
 	</main>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Generate Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Create Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Edit Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Convert Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer mt-4">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
 
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
 	<script src="assets/js/script.js"></script>

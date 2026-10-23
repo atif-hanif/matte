@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matte — Background Remover</title>
+    <link rel="icon" href="assets/images/favicon.webp">
     <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
     <link href="assets/css/fraunces.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
 </head>   
 
 <body>
@@ -18,11 +20,11 @@
 				<a class="navbar-brand" href="index.html">
 					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
 				</a>
-				<button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
-					<i class="fa-solid fa-bars"></i>
-				</button>
 				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
 					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
 						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
 					</div>
 					<div class="offcanvas-body justify-content-start">
@@ -42,20 +44,41 @@
 									Video Tools
 								</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" role="button">
+									Text Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="#" role="button">
+									Generate Tools
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="input-group w-25 d-none d-xl-flex">
-					<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
-					<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
-				</div>
-				<div>
-					<input type="checkbox" class="checkbox" id="checkbox">
-					<label for="checkbox" class="checkbox-label">
-						<i class="fa-solid fa-moon"></i>
-						<i class="fa-solid fa-sun-bright"></i>
-						<span class="ball"></span>
-					</label>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select w-25">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -63,10 +86,28 @@
 
 	<main>
 		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="image-tools.html">Image Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Data</li>
+				</ol>
+			</nav>
+
 			<h2>Background Remover</h1>
-			<p>Remove the background from your photos in one step. Drop in as many JPG, PNG or WebP images as you like, then download each result as a PNG, WebP or JPEG, or grab them all at once as a ZIP. Everything runs in your browser, so your images never leave your device.</p>
-			<div id="bgStage" class="stage">
+			<p>Remove backgrounds instantly</p>
+
+			<div id="bgStage" class="stage mt-4">
 				<div id="bgDropMsg" class="drop-msg">
+					<div class="icons">
+						<i class="fa-solid fa-upload"></i>
+					</div>
 					<div class="big">Drop photos here</div>
 					<div class="small">or <b>click to browse</b> — select as many as you like, JPG/PNG/WEBP</div>
 				</div>
@@ -82,16 +123,154 @@
 						<option value="webp">WEBP</option>
 						<option value="jpeg">JPEG</option>
 					</select>
-					<button class="btn btn-secondary" id="bgClearBtn">Clear all</button>
-					<button class="btn btn-orange" id="bgDownloadAllBtn" disabled>Download all (.zip)</button>
+					<button class="btn btn-secondary" id="bgClearBtn"><i class="fa-solid fa-eraser me-2"></i>Clear all</button>
+					<button class="btn btn-primary" id="bgDownloadAllBtn" disabled><i class="fa-solid fa-download me-2"></i>Download all (.zip)</button>
 				</div>
 			</div>
 
 			<div id="bgGrid" class="grid"></div>
 
 			<input type="file" id="bgFileInput" accept="image/png, image/jpeg, image/webp" multiple>
+
+			<h2 class="mt-5">About</h1>
+			<p>Remove the background from your photos in one step. Drop in as many JPG, PNG or WebP images as you like, then download each result as a PNG, WebP or JPEG, or grab them all at once as a ZIP. Everything runs in your browser, so your images never leave your device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="change-background.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-image icon"></i>
+								<h6 class="mb-0">Change Background</h6>
+								<p class="mb-0">Swap in a new backdrop</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="resize.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-up-right-and-down-left-from-center icon"></i>
+								<h6 class="mb-0">Resize &amp; Upscale</h6>
+								<p class="mb-0">Change size without quality loss</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="image-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-wand-magic-sparkles icon"></i>
+								<h6 class="mb-0">Image Editor</h6>
+								<p class="mb-0">Add & remove text and image</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="jpg-to-png.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-file-image icon"></i>
+								<h6 class="mb-0">JPG to PNG</h6>
+								<p class="mb-0">Convert JPG to lossless PNG</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
 		</div>
 	</main>
+
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Generate Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Create Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Edit Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Convert Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer mt-4">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
 
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
 	<script src="assets/js/script.js"></script>
