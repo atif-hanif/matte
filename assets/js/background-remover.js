@@ -147,6 +147,7 @@ function addFiles(fileList) {
 	updateToolbarStatus();
 	processQueue();
 }
+
 async function processQueue() {
 	if(processing) return;
 	processing = true;
@@ -187,22 +188,27 @@ async function processQueue() {
 	processing = false;
 	updateToolbarStatus();
 }
+
 stage.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', (e) => {
 	if(e.target.files.length) addFiles(e.target.files);
 	fileInput.value = '';
 });
+
 ['dragenter', 'dragover'].forEach(evt => stage.addEventListener(evt, e => {
 	e.preventDefault();
 	stage.classList.add('drag');
 }));
+
 ['dragleave', 'drop'].forEach(evt => stage.addEventListener(evt, e => {
 	e.preventDefault();
 	stage.classList.remove('drag');
 }));
+
 stage.addEventListener('drop', e => {
 	if(e.dataTransfer.files.length) addFiles(e.dataTransfer.files);
 });
+
 clearBtn.addEventListener('click', () => {
 	items.forEach(i => {
 		URL.revokeObjectURL(i.originalURL);
@@ -215,6 +221,7 @@ clearBtn.addEventListener('click', () => {
 	clearError();
 	refreshDropMsg();
 });
+
 downloadAllBtn.addEventListener('click', async() => {
 	const done = items.filter(i => i.status === 'done');
 	if(done.length === 0) return;
