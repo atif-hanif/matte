@@ -74,28 +74,21 @@ a {
 }
 
 .icons {
-	border-radius: 12px;
+	border-radius: 5px;
 	width: 50px;
 	height: 50px;
-	padding: 10px;
+	padding: 13px 10px;
 	border: 1px solid var(--secondary);
 	display: block;
     margin: 0 auto 16px;
 }
 
+.icons i {
+	font-size: 24px;
+}
+
 .breadcrumb-item+.breadcrumb-item::before {
     color: var(--black);
-}
-
-.check-list li::marker {
-	content: "\f058";
-	font-family: 'Font Awesome 7 Pro';
-	color: var(--primary);
-	font-size: 1rem;
-}
-
-.check-list li {
-	padding-left: 8px;
 }
 
 /* Header */
@@ -416,7 +409,7 @@ main {
 	border: 1.5px dashed var(--secondary);
 	border-radius: 16px;
 	background: var(--surface);
-	min-height: 220px;
+	/* min-height: 220px; */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -437,7 +430,7 @@ main {
 .drop-msg {
 	text-align: center;
 	color: var(--black);
-	padding: 40px;
+	padding: 60px 40px;
 }
 
 .drop-msg .big {
@@ -782,7 +775,6 @@ input[type=file] {
     gap: 8px;
 }
 
-
 /* Image Editor */
 
 .toolsnav {
@@ -864,7 +856,6 @@ input[type=file] {
 	font-size: 12px;
 }
  
-/* ---------- 3. editor layout ---------- */
 .ed-toolbar {
 	display: flex;
 	flex-wrap: wrap;
@@ -944,7 +935,6 @@ input[type=file] {
 	cursor: progress;
 }
  
-/* ---------- 4. side panel ---------- */
 .ed-panel {
 	background: var(--surface);
 	border: 1px solid var(--line);
@@ -1497,40 +1487,3 @@ footer .nav-link {
 }
 
 /* Dark Mode */
-
-.dark {
-	background-color: var(--black);
-}
-
-.dark header .checkbox-label {
-	background-color: var(--white);
-}
-
-.dark header .checkbox-label .ball {
-    background-color: var(--black);
-}
-
-.dark .navbar-nav .nav-link {
-    color: var(--white);
-}
-
-.dark .navbar-nav .nav-link.active {
-	color: var(--primary);
-}
-
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark p, .dark ul li {
-    color: var(--white);
-}
-
-.dark .card-style {
-    color: var(--white);
-	background: var(--background-2);
-}
-
-.dark footer .nav-link {
-	color: var(--white);
-}
-
-.dark .breadcrumb-item+.breadcrumb-item::before {
-    color: var(--white);
-}
