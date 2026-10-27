@@ -51,12 +51,20 @@ a {
 }
 
 .btn {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     padding: 10px 18px;
     border-radius: 10px;
     cursor: pointer;
     transition: opacity .15s ease, transform .15s ease;
+}
+
+#button-addon2 {
+	padding: 6px 12px;
+}
+
+label {
+	font-size: 16px;
 }
 
 .offcanvas-btn {
@@ -78,17 +86,21 @@ a {
 	width: 50px;
 	height: 50px;
 	padding: 13px 10px;
-	border: 1px solid var(--secondary);
+	/* border: 1px solid var(--secondary); */
 	display: block;
     margin: 0 auto 16px;
 }
 
 .icons i {
-	font-size: 24px;
+	font-size: 36px;
 }
 
 .breadcrumb-item+.breadcrumb-item::before {
     color: var(--black);
+}
+
+.form-select {
+	width: auto;
 }
 
 /* Header */
@@ -1270,19 +1282,19 @@ input[type=file] {
 
 .pj-val {
 	min-width: 40px;
-	font-size: 12.5px;
+	font-size: 16px;
 	font-weight: 600;
 	color: var(--text);
 }
 
 .pj-hint {
-	font-size: 12px;
+	font-size: 16px;
 	color: var(--black);
 }
 
 .pj-chip {
 	font-family: inherit;
-	font-size: 12px;
+	font-size: 16px;
 	padding: 5px 10px;
 	border-radius: 7px;
 	border: 1px solid var(--line);
@@ -1314,7 +1326,7 @@ input[type=file] {
 	border-radius: 10px;
 	border: 1px solid var(--primary);
 	color: var(--text);
-	font-size: 13.5px;
+	font-size: 16px;
 	line-height: 1.5;
 }
 

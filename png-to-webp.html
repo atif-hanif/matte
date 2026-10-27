@@ -5,44 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matte — PNG to WebP</title>
+    <link rel="icon" href="assets/images/favicon.webp">
     <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
     <link href="assets/css/fraunces.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
 </head>   
 
 <body>
 	<header>
-		<nav class="navbar navbar-expand-xl">
-			<div class="container align-items-center justify-content-between">
-				<button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
-					<i class="fa-solid fa-bars"></i>
-				</button>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
 				<a class="navbar-brand" href="index.html">
 					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
 				</a>
-				<div class="offcanvas offcanvas-start offcanvas-xl" id="demo">
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
 					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
 						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
 					</div>
-					<div class="offcanvas-body justify-content-center">
+					<div class="offcanvas-body justify-content-start">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link" href="image-tools.html" role="button">
+								<a class="nav-link active" href="image-tools.html" role="button">
 									Image Tools
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#" role="button">
+								<a class="nav-link" href="document-tools.html" role="button">
 									Document Tools
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#" role="button">
+								<a class="nav-link" href="video-tools.html" role="button">
 									Video Tools
 								</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate.tools.html" role="button">
+									Generate Tools
+								</a>
+							</li>
 						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
 					</div>
 				</div>
 			</div>
@@ -53,12 +89,30 @@
 		<div class="container">
 			<div id="pwWarn" class="jw-warn"></div>
 
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="image-tools.html">Image Tools</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="converter-tools.html">Convertor Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">PNG to WebP</li>
+				</ol>
+			</nav>
+
+			<h2>PNG to WebP</h1>
+			<p>Keep transparency at lighter weight</p>
+
 			<div id="pwStage" class="stage">
 				<div id="pwDropMsg" class="drop-msg">
-					<div class="jp-flow">
-						<span class="jp-badge">PNG</span>
-						<span class="jp-arrow"><i class="fa-solid fa-arrow-right"></i></span>
-						<span class="jp-badge is-target">WEBP</span>
+					<div class="icons">
+						<i class="fa-utility fa-semibold fa-cloud-arrow-up"></i>
 					</div>
 					<div class="big">Drop PNG images here</div>
 					<div class="small">or <b>click to browse</b> — select as many as you like</div>
@@ -88,8 +142,204 @@
 			<div id="pwGrid" class="grid"></div>
 
 			<input type="file" id="pwFileInput" accept="image/png, .png" multiple>
+
+			<h2 class="mt-5">About</h1>
+			<p>Convert your JPG photos to WebP and make them lighter for the web. Drop in as many images as you like, choose the quality that suits you, and download each result individually or all together as a ZIP. WebP files are usually much smaller than JPGs with very little visible difference, so pages load faster. Everything runs in your browser, so your images never leave your device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="png-to-webp.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-file-image icon"></i>
+								<h6 class="mb-0">PNG to WebP</h6>
+								<p class="mb-0">Keep transparency at lighter weight</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="webp-to-jpg.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-file-image icon"></i>
+								<h6 class="mb-0">WebP to JPG</h6>
+								<p class="mb-0">Make JPGs smaller for faster pages</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="webp-to-png.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-file-image icon"></i>
+								<h6 class="mb-0">WebP to PNG</h6>
+								<p class="mb-0">Convert and keep transparency</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="background-remover.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-eraser icon"></i>
+								<h6 class="mb-0">Background Remover</h6>
+								<p class="mb-0">Remove backgrounds instantly</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-palette icon"></i>
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-sliders icon"></i>
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-arrows-rotate icon"></i>
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<i class="fa-solid fa-wand-magic-sparkles icon"></i>
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
 		</div>
 	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="create-tools.html">Create Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="edit-tools.html">Edit Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/script.js"></script>
 
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
 	<script type="module" src="assets/js/png-to-webp.js"> </script>

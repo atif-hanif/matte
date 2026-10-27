@@ -5,10 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matte — Change Remover</title>
+    <link rel="icon" href="assets/images/favicon.webp">
     <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
     <link href="assets/css/fraunces.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
 </head>   
 
 <body>
@@ -28,7 +31,7 @@
 					<div class="offcanvas-body justify-content-start">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link" href="image-tools.html" role="button">
+								<a class="nav-link active" href="image-tools.html" role="button">
 									Image Tools
 								</a>
 							</li>
@@ -56,7 +59,7 @@
 					</div>
 				</div>
 				<div class="d-flex align-items-center gap-2">
-					<select class="form-select w-25">
+					<select class="form-select">
 						<option value="en" selected>EN</option>
 						<option value="ru">RU</option>
 						<option value="ch">CH</option>
@@ -107,7 +110,7 @@
 			<div id="cbStage" class="stage">
 				<div id="cbDropMsg" class="drop-msg">
 					<div class="icons">
-						<i class="fa-solid fa-upload"></i>
+						<i class="fa-utility fa-semibold fa-cloud-arrow-up"></i>
 					</div>
 					<div class="big">Drop photos here</div>
 					<div class="small">or <b>click to browse</b> — select as many as you like, JPG/PNG/WEBP</div>
@@ -261,7 +264,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="convert.tools.html">
+					<a href="converter-tools.html">
 						<div class="card card-style">
 							<div class="card-body">
 								<i class="fa-solid fa-arrows-rotate icon"></i>
@@ -273,7 +276,7 @@
 					</a>
 				</div>
 				<div>
-					<a href="generate-tools.html">
+					<a href="generator-tools.html">
 						<div class="card card-style">
 							<div class="card-body">
 								<i class="fa-solid fa-wand-magic-sparkles icon"></i>
@@ -290,49 +293,49 @@
 
 	<a id="back-to-top"></a>
 
-	<footer>
-		<div class="container">
+	<footer class="border-top border-1">
+		<div class="container py-5">
 			<div class="row">
 				<div class="col-md-6 col-lg-3">
 					<a class="navbar-brand" href="index.html">
 						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
 					</a>
 				</div>
-				<div class="col-md-6 col-lg-3">
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
 					<h6>Tools by Categories</h5>
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link" href="#">Image Tools</a>
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Document Tools</a>
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Video Tools</a>
+							<a class="nav-link" href="video-tools">Video Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Text Tools</a>
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Generate Tools</a>
+							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
 						</li>
 					</ul>
 				</div>
-				<div class="col-md-6 col-lg-3">
-					<h6>Tools by Type</h5>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link" href="#">Create Tools</a>
+							<a class="nav-link" href="create-tools.html">Create Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Edit Tools</a>
+							<a class="nav-link" href="edit-tools.html">Edit Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Convert Tools</a>
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
 						</li>
 					</ul>
 				</div>
-				<div class="col-md-6 col-lg-3">
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
 					<h6>Useful Links</h5>
 					<ul class="nav flex-column">
 						<li class="nav-item">
