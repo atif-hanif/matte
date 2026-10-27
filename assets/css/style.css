@@ -113,7 +113,7 @@ label {
 	color: var(--black);
 }
 
-.navbar-nav .nav-link.active {
+.navbar-nav .nav-link.active, .nav .nav-link.active {
 	color: var(--primary);
 }
 
@@ -401,14 +401,14 @@ main {
 }
 
 .card-style .icon {
-	width: 2rem;
-	height: 2rem;
+	width: 2.5rem;
+	height: 2.5rem;
 	flex: 0 0 2rem;
 	display: grid;
 	place-items: center;
 	border-radius: 0.5rem;
-	background: var(--secondary);
-	color: var(--white);
+	/* background: var(--secondary);
+	color: var(--white); */
 }
 
 .card-style:hover span {
@@ -1435,6 +1435,68 @@ input[type=file] {
 .cm-saved {
 	font-weight: 600;
 	color: var(--green);
+}
+
+/* PDF Splitter */
+
+.file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.modes {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.modes button {
+    flex: 1;
+    min-width: 120px;
+    font: inherit;
+    font-size: 14.5px;
+    padding: 9px 12px;
+    border-radius: 7px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--secondary);
+    cursor: pointer;
+}
+
+.desc {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+}
+
+.settings {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14px;
+}
+
+.err {
+    display: none;
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: rgba(196, 67, 43, .08);
+    border: 1px solid rgba(196, 67, 43, .3);
+    color: var(--red);
+    border-radius: 10px;
+    font-size: 13.5px;
+}
+
+.actions {
+    margin-top: 16px;
 }
 
 /* Back to Top */

@@ -144,27 +144,15 @@
 			<input type="file" id="pwFileInput" accept="image/png, .png" multiple>
 
 			<h2 class="mt-5">About</h1>
-			<p>Convert your JPG photos to WebP and make them lighter for the web. Drop in as many images as you like, choose the quality that suits you, and download each result individually or all together as a ZIP. WebP files are usually much smaller than JPGs with very little visible difference, so pages load faster. Everything runs in your browser, so your images never leave your device.</p>
+			<p>Convert your PNG images to WebP and make them much lighter for the web. Drop in as many files as you like, choose the quality that suits you, and download each result individually or all together as a ZIP. Transparent areas are kept, so logos, icons and cut-outs look just as clean, while the files are usually far smaller than PNGs and pages load faster. Everything runs in your browser, so your images never leave your device.</p>
 
 			<h2 class="mt-5">Related Tools</h2>
 			<div class="grid-container">
 				<div>
-					<a href="png-to-webp.html">
-						<div class="card card-style">
-							<div class="card-body">
-								<i class="fa-solid fa-file-image icon"></i>
-								<h6 class="mb-0">PNG to WebP</h6>
-								<p class="mb-0">Keep transparency at lighter weight</p>
-								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
-							</div>
-						</div>
-					</a>
-				</div>
-				<div>
 					<a href="webp-to-jpg.html">
 						<div class="card card-style">
 							<div class="card-body">
-								<i class="fa-solid fa-file-image icon"></i>
+								<img src="assets/images/icons/jpg.png" class="icon">
 								<h6 class="mb-0">WebP to JPG</h6>
 								<p class="mb-0">Make JPGs smaller for faster pages</p>
 								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
@@ -176,7 +164,7 @@
 					<a href="webp-to-png.html">
 						<div class="card card-style">
 							<div class="card-body">
-								<i class="fa-solid fa-file-image icon"></i>
+								<img src="assets/images/icons/png.png" class="icon">
 								<h6 class="mb-0">WebP to PNG</h6>
 								<p class="mb-0">Convert and keep transparency</p>
 								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
@@ -188,9 +176,21 @@
 					<a href="background-remover.html">
 						<div class="card card-style">
 							<div class="card-body">
-								<i class="fa-solid fa-eraser icon"></i>
+								<img src="assets/images/icons/background-remover.png" class="icon">
 								<h6 class="mb-0">Background Remover</h6>
 								<p class="mb-0">Remove backgrounds instantly</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="change-background.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/image.png" class="icon">
+								<h6 class="mb-0">Change Background</h6>
+								<p class="mb-0">Swap in a new backdrop</p>
 								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
 							</div>
 						</div>
@@ -204,7 +204,7 @@
 					<a href="create-tools.html">
 						<div class="card card-style">
 							<div class="card-body">
-								<i class="fa-solid fa-palette icon"></i>
+								<img src="assets/images/icons/edit.png" class="icon">
 								<h6 class="mb-0">Create Tools</h6>
 								<p class="mb-0">Create images and documents</p>
 								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
@@ -216,7 +216,7 @@
 					<a href="edit-tools.html">
 						<div class="card card-style">
 							<div class="card-body">
-								<i class="fa-solid fa-sliders icon"></i>
+								<img src="assets/images/icons/edit.png" class="icon">
 								<h6 class="mb-0">Edit Tools</h6>
 								<p class="mb-0">Resize, crop, and edit your images</p>
 								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
@@ -228,7 +228,7 @@
 					<a href="converter-tools.html">
 						<div class="card card-style">
 							<div class="card-body">
-								<i class="fa-solid fa-arrows-rotate icon"></i>
+								<img src="assets/images/icons/convert.png" class="icon">
 								<h6 class="mb-0">Convert Tools</h6>
 								<p class="mb-0">Convert images and documents</p>
 								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
@@ -240,7 +240,7 @@
 					<a href="generator-tools.html">
 						<div class="card card-style">
 							<div class="card-body">
-								<i class="fa-solid fa-wand-magic-sparkles icon"></i>
+								<img src="assets/images/icons/generate.png" class="icon">
 								<h6 class="mb-0">Generate Tools</h6>
 								<p class="mb-0">Create images and code</p>
 								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
@@ -266,7 +266,7 @@
 					<h6>Tools by Categories</h5>
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link" href="image-tools.html">Image Tools</a>
+							<a class="nav-link active" href="image-tools.html">Image Tools</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="document-tools.html">Document Tools</a>
@@ -286,13 +286,13 @@
 					<h6>Tools by Categories</h5>
 					<ul class="nav flex-column">
 						<li class="nav-item">
-							<a class="nav-link" href="create-tools.html">Create Tools</a>
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="edit-tools.html">Edit Tools</a>
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+							<a class="nav-link active" href="converter-tools.html">Converter Tools</a>
 						</li>
 					</ul>
 				</div>
@@ -340,8 +340,6 @@
 	<script src="assets/vendors/jquery/jquery.js"></script>
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
 	<script src="assets/js/script.js"></script>
-
-	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
 	<script type="module" src="assets/js/png-to-webp.js"> </script>
 </body>
 
