@@ -1468,6 +1468,12 @@ input[type=file] {
     cursor: pointer;
 }
 
+.modes button.on {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
 .desc {
     background: var(--surface);
     border: 1px solid var(--line);
@@ -1482,6 +1488,29 @@ input[type=file] {
     border-radius: 12px;
     padding: 14px 16px;
     font-size: 14px;
+}
+
+.settings label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--secondary);
+}
+
+.settings input[type=text], .settings input[type=number] {
+    width: 100%;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    color: var(--black);
+    border-radius: 7px;
+    padding: 9px 11px;
+    font-family: inherit;
+    font-size: 15px;
+    outline: none;
+}
+
+.hint {
+    font-size: 14px;
+    margin: 8px 0 0;
 }
 
 .err {

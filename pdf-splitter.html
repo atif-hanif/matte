@@ -105,7 +105,7 @@
 			</nav>
 
 			<h2>PDF Splitter</h1>
-			<p>Make JPGs smaller for faster pages</p>
+			<p>Split a PDF into separate pages or files</p>
 
 			<div id="dropzone" class="stage" tabindex="0">
 				<div class="drop-msg">
@@ -134,8 +134,8 @@
 				</div>
 
 				<div class="desc">
-					<h2 id="dtitle"></h2>
-					<p id="dtext"></p>
+					<h5 id="dtitle"></h5>
+					<p id="dtext" class="mb-0"></p>
 				</div>
 
 				<div class="settings">
@@ -149,12 +149,14 @@
 						<input id="every" type="number" min="1" value="1">
 					</div>
 					<div id="p-single" hidden>
-						<p class="hint" style="margin:0">No settings needed. Every page becomes its own PDF.</p>
+						<p class="hint">No settings needed. Every page becomes its own PDF.</p>
 					</div>
 				</div>
 
-				<div class="err" id="err"></div>
-				<div class="actions">
+				<div class="err" id="err">
+
+				</div>
+				<div class="actions text-end">
 					<button class="btn btn-primary" id="go">Split PDF</button>
 				</div>
 
