@@ -2,8 +2,8 @@
 	'use strict';
 
 	const CONFIG = {
-		ortScript: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort.wasm.min.js',
-		ortBase: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/',
+		ortScript: '../../libs/ort/ort.wasm.min.js',
+		ortBase: '../../libs/ort/',
 
 		modelUrl: 'assets/vendors/inpaint/lama_fp32.onnx',
 		modelSize: 512,

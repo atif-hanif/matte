@@ -48,3 +48,29 @@
 		height: 100%;
 	}
 }
+
+@media (max-width:1040px) {
+	.pe-layout {
+		grid-template-columns: 130px minmax(0,1fr);
+	}
+
+	.pe-panel {
+		grid-column: 1 / -1;
+	}
+}
+
+@media (max-width:640px) {
+	.pe-layout {
+		grid-template-columns: 1fr;
+	}
+
+	.pe-pages {
+		flex-direction: row;
+		max-height: none;
+		overflow-x: auto;
+	}
+
+	.pe-thumb {
+		min-width: 120px;
+	}
+}
