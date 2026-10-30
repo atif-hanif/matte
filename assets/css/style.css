@@ -1940,11 +1940,140 @@ input[type=file] {
 	width: 100%;
 	height: auto;
 	aspect-ratio: 5 / 2;
-	background: #FFFFFF;
+	background: var(--white);
 	border: 1px dashed var(--line);
 	border-radius: 8px;
 	touch-action: none;
 	cursor: crosshair;
+}
+
+.pe-wide {
+	grid-column: 1 / -1;
+	width: 100%;
+}
+
+.pe-fontfield {
+	position: relative;
+}
+
+.pe-fontbtn {
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-top: 6px;
+	font: inherit;
+	font-size: 14px;
+	padding: 9px 11px;
+	border-radius: 7px;
+	border: 1px solid var(--line,#DDD6C6);
+	background: var(--surface-2,#EEEAE1);
+	color: var(--black,#000);
+}
+
+.pe-fontbtn:hover,.pe-fontbtn[aria-expanded="true"] {
+	border-color: var(--primary,#ff6224);
+}
+
+.pe-fontmenu {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 100%;
+	margin-top: 6px;
+	z-index: 30;
+	background: var(--white,#fff);
+	border: 1px solid var(--line,#DDD6C6);
+	border-radius: 10px;
+	box-shadow: 0 12px 32px rgba(0,0,0,.14);
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 240px;
+}
+
+.pe-fontmenu.is-hidden {
+	display: none;
+}
+
+.pe-fontcats {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+}
+
+.pe-fontcat {
+	font: inherit;
+	font-size: 12.5px;
+	padding: 4px 10px;
+	border-radius: 999px;
+	border: 1px solid var(--line,#DDD6C6);
+	background: var(--white,#fff);
+	color: var(--secondary,#3b4051);
+	cursor: pointer;
+}
+
+.pe-fontcat:hover {
+	border-color: var(--primary,#ff6224);
+}
+
+.pe-fontcat.is-active {
+	background: var(--primary,#ff6224);
+	border-color: var(--primary,#ff6224);
+	color: #fff;
+}
+
+.pe-fontlist {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	max-height: 300px;
+	overflow-y: auto;
+	border-top: 1px solid var(--line,#DDD6C6);
+}
+
+.pe-fontitem {
+	padding: 8px 10px;
+	font-size: 17px;
+	line-height: 1.3;
+	cursor: pointer;
+	border-radius: 6px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--black,#000);
+}
+
+.pe-fontitem:hover {
+	background: var(--primary-soft,rgba(255,98,36,.10));
+}
+
+.pe-fontitem.is-selected {
+	background: var(--surface-2,#EEEAE1);
+	color: var(--primary,#ff6224);
+}
+
+.pe-fontempty {
+	padding: 12px 10px;
+	font-size: 14px;
+	color: var(--secondary,#3b4051);
+}
+
+.pe-linknote {
+	word-break: break-all;
+}
+
+.pe-linknote.is-error {
+	color: var(--red,#b02a37);
+}
+
+#peBold:disabled,#peItalic:disabled {
+	opacity: .4;
+	cursor: not-allowed;
 }
 
 /* Back to Top */
