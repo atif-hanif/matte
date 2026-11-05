@@ -136,14 +136,23 @@
                     <input type="checkbox" id="rsAiToggle" checked>
                     Enhance with AI when enlarging
                 </label>
-                <button class="btn btn-orange" id="rsProcessBtn" style="margin-left:auto;">Resize</button>
+                <button class="btn btn-primary ms-auto" id="rsProcessBtn">
+					<i class="fa-regular fa-arrows-minimize me-2"></i>
+					Resize
+				</button>
             </div>
 
             <div id="rsToolbar" class="toolbar">
                 <div class="toolbar-status" id="rsToolbarStatus">Ready</div>
                 <div class="toolbar-actions">
-                    <button class="btn btn-secondary" id="rsClearBtn">Clear all</button>
-                    <button class="btn btn-orange" id="rsDownloadAllBtn" disabled>Download all (.zip)</button>
+                    <button class="btn btn-secondary" id="rsClearBtn">
+						<i class="fa-regular fa-xmark me-2"></i>
+						Clear all
+					</button>
+                    <button class="btn btn-primary" id="rsDownloadAllBtn" disabled>
+						<i class="fa-regular fa-download me-2"></i>
+						Download all (.zip)
+					</button>
                 </div>
             </div>
 

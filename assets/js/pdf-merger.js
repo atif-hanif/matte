@@ -116,7 +116,8 @@
 		}, 0);
 		$('summary').textContent = files.length + ' file' + (files.length === 1 ? '' : 's') + ' · ' + tp + ' page' + (tp === 1 ? '' : 's');
 		$('go').disabled = files.length < 2;
-		$('go').textContent = files.length < 2 ? 'Add at least 2 PDFs' : 'Merge PDFs';
+		//$('go').textContent = files.length < 2 ? 'Add at least 2 PDFs' : 'Merge PDFs';
+		$('go').innerHTML = files.length < 2 ? '<i class="fa-solid fa-plus me-2"></i>Add at least 2 PDFs' : '<i class="fa-sharp fa-regular fa-merge me-2"></i>Merge PDFs'
 		var box = $('list');
 		box.innerHTML = '';
 		files.forEach(function(f, i) {
@@ -234,6 +235,7 @@
 		}).then(function() {
 			btn.disabled = files.length < 2;
 			btn.textContent = files.length < 2 ? 'Add at least 2 PDFs' : 'Merge PDFs'
+			//btn.innerHTML = files.length < 2 ? '<i class="fa-solid fa-plus me-2"></i>Add at least 2 PDFs' : '<i class="fa-sharp-duotone fa-regular fa-merge me-2"></i>Merge PDFs'
 		});
 	};
 

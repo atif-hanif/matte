@@ -485,7 +485,7 @@ input[type=file] {
 	display: none;
 }
 
-.bg-toolbar {
+.toolbar {
 	display: none;
 	justify-content: space-between;
 	align-items: center;
@@ -494,7 +494,7 @@ input[type=file] {
 	flex-wrap: wrap;
 }
 
-.bg-toolbar.show {
+.toolbar.show {
 	display: flex;
 }
 
@@ -1699,7 +1699,8 @@ input[type=file] {
 
 .pe-status {
 	font-size: 14px;
-	color: var(--secondary);
+	color: var(--primary);
+	font-weight: 700;
 }
 
 .pe-status.is-error {
@@ -2175,28 +2176,28 @@ input[type=file] {
 
 /* MP4 to MPEG */
 
-.mpeg-settings {
+.video-settings {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 14px 16px;
 }
 
-.mpeg-settings .opt {
+.video-settings .opt {
     margin-bottom: 14px;
 }
 
-.mpeg-settings label {
+.video-settings label {
     display: block;
     margin-bottom: 6px;
     color: var(--secondary);
 }
 
-.mpeg-settings .opt .modes {
+.video-settings .opt .modes {
     margin-bottom: 0;
 }
 
-.mpeg-toolbar {
+.video-toolbar {
 	display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2205,13 +2206,13 @@ input[type=file] {
     margin-top: 22px;
 }
 
-.mpeg-list {
+.video-list {
     display: grid;
     gap: 10px;
     margin-top: 18px;
 }
 
-.mpeg-list .item {
+.video-list .item {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -2222,7 +2223,7 @@ input[type=file] {
     transition: .35s ease;
 }
 
-.mpeg-list .num {
+.video-list .num {
     width: 34px;
     height: 34px;
     border-radius: 8px;
@@ -2234,18 +2235,18 @@ input[type=file] {
     flex-shrink: 0;
 }
 
-.mpeg-list .meta {
+.video-list .meta {
     flex: 1;
     min-width: 0;
 }
 
-.mpeg-list .ctl {
+.video-list .ctl {
     display: flex;
     gap: 6px;
     flex-shrink: 0;
 }
 
-.mpeg-list .meta strong {
+.video-list .meta strong {
     display: block;
     color: var(--secondary);
     font-size: 15px;
@@ -2254,8 +2255,82 @@ input[type=file] {
     white-space: nowrap;
 }
 
-.mpeg-list .meta small {
+.video-list .meta small {
     font-size: 13px;
+}
+
+.stagebox {
+	margin-top: 16px;
+	background: var(--surface);
+	border-radius: 12px;
+	padding: 14px 16px;
+}
+
+.srow {
+	display: flex;
+	justify-content: space-between;
+	gap: 10px;
+	font-size: 14px;
+	color: var(--secondary);
+}
+
+.srow span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.pbar.big {
+	height: 10px;
+	margin-top: 8px;
+}
+
+.pbar.ind {
+	position: relative;
+}
+
+.pbar.ind i {
+	position: absolute;
+	left: 0;
+	width: 35%!important;
+	animation: ind 1.1s ease-in-out infinite;
+}
+
+.pbar {
+	height: 6px;
+	border-radius: 99px;
+	background: var(--surface-2);
+	overflow: hidden;
+	margin-top: 6px;
+}
+
+.pbar i {
+	display: block;
+	height: 100%;
+	width: 0;
+	background: var(--primary);
+	transition: width .2s;
+}
+
+.dlb {
+    border: none;
+    background: var(--primary);
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+    padding: 8px 12px;
+    color: var(--white);
+    border-radius: 8px;
+}
+
+@keyframes ind {
+	0% {
+		transform: translateX(-100%);
+	}
+
+	100% {
+		transform: translateX(300%);
+	}
 }
 
 /* Back to Top */

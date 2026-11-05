@@ -228,10 +228,14 @@ function updateToolbarStatus() {
 	}
 	selectAllBtn.disabled = cut === 0;
 	const ready = items.filter(i => i.cutoutImg);
-	selectAllBtn.textContent = (ready.length && ready.every(i => i.selected)) ? 'Select none' : 'Select all';
+	//selectAllBtn.textContent = (ready.length && ready.every(i => i.selected)) ? 'Select none' : 'Select all';
+	selectAllBtn.innerHTML = (ready.length && ready.every(i => i.selected)) ? '<i class="fas fa-xmark me-2"></i>Select none' : '<i class="fas fa-check me-2"></i>Select all';
 	downloadAllBtn.disabled = done === 0;
 	if(!applying) {
-		applyBtn.textContent = selected ? `Apply to selected (${selected})` : 'Apply to selected';
+		//applyBtn.textContent = selected ? `Apply to selected (${selected})` : 'Apply to selected';
+		applyBtn.innerHTML = selected
+        ? `<i class="fas fa-check me-2"></i>Apply to selected (${selected})`
+        : `<i class="fas fa-check me-2"></i>Apply to selected`;
 		applyBtn.disabled = selected === 0;
 	}
 }

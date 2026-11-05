@@ -132,7 +132,8 @@
 		}).length;
 		$('summary').textContent = items.length + ' file' + (items.length === 1 ? '' : 's');
 		$('go').disabled = busy || !q;
-		$('go').textContent = busy ? 'Converting…' : 'Convert';
+		// $('go').textContent = busy ? 'Converting…' : 'Convert';
+		$('go').innerHTML = busy ? '<i class="fa-solid fa-rotate me-2"></i>Converting…' : '<i class="fa-solid fa-rotate me-2"></i>Convert';
 		$('cancel').hidden = !busy;
 		var big = items.some(function(i) {
 			return i.file.size > 1073741824
@@ -182,15 +183,17 @@
 			c.className = 'ctl';
 			if(it.state === 'done') {
 				var a = document.createElement('a');
-				a.className = 'dlb';
-				a.textContent = 'Download';
+				a.className = 'btn btn-primary-outlined';
+				//a.textContent = 'Download';
+				a.innerHTML = '<i class="fa-solid fa-download"></i>';
 				a.href = it.url;
 				a.download = it.outName;
 				c.appendChild(a)
 			}
 			var x = document.createElement('button');
-			x.className = 'btn btn-primary-outlined';
-			x.textContent = '✕';
+			x.className = 'btn btn-secondary-outlined';
+			//x.textContent = '✕';
+			x.innerHTML = '<i class="fa-solid fa-xmark"></i>';
 			x.title = 'Remove';
 			x.setAttribute('aria-label', 'Remove');
 			x.disabled = busy && it === current;
