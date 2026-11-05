@@ -340,7 +340,8 @@ main {
     border-radius: 12px;
     color: var(--black);
     background: transparent;
-    transition: 0.35s ease
+    transition: 0.35s ease;
+	height: 100%;
 }
 
 .card-style::before,
@@ -2074,6 +2075,187 @@ input[type=file] {
 #peBold:disabled,#peItalic:disabled {
 	opacity: .4;
 	cursor: not-allowed;
+}
+
+/* PDF Compress */
+
+.file strong {
+    color: var(--secondary);
+    word-break: break-all;
+    font-size: 18px;
+}
+
+.file small {
+    display: block;
+    font-size: 14px;
+}
+
+.desc h2 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    color: var(--secondary);
+}
+
+.desc p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.prog {
+    margin-top: 16px;
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+.bar2 {
+    height: 8px;
+    border-radius: 99px;
+    background: var(--surface-2);
+    overflow: hidden;
+    margin-top: 14px;
+}
+
+.bar2 i {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--primary);
+    transition: width .2s;
+}
+
+.res {
+    margin-top: 22px;
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 16px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.res strong {
+    color: var(--secondary);
+}
+
+.stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+.stats div {
+    font-size: 13.5px;
+}
+
+.stats b {
+    display: block;
+    font-size: 22px;
+    color: var(--secondary);
+    font-weight: 600;
+}
+
+.stats b.good {
+    color: var(--green);
+}
+
+.warn {
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--secondary);
+}
+
+.msg {
+    color: var(--green);
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+/* MP4 to MPEG */
+
+.mpeg-settings {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+}
+
+.mpeg-settings .opt {
+    margin-bottom: 14px;
+}
+
+.mpeg-settings label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--secondary);
+}
+
+.mpeg-settings .opt .modes {
+    margin-bottom: 0;
+}
+
+.mpeg-toolbar {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+}
+
+.mpeg-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.mpeg-list .item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: .35s ease;
+}
+
+.mpeg-list .num {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--surface-2);
+    color: var(--secondary);
+    display: grid;
+    place-items: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.mpeg-list .meta {
+    flex: 1;
+    min-width: 0;
+}
+
+.mpeg-list .ctl {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.mpeg-list .meta strong {
+    display: block;
+    color: var(--secondary);
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mpeg-list .meta small {
+    font-size: 13px;
 }
 
 /* Back to Top */
