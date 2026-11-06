@@ -2174,30 +2174,93 @@ input[type=file] {
     margin-top: 12px;
 }
 
+/* PDF to Word */
+
+.pw-thumb {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #FFFFFF;
+}
+
+.pw-thumb img {
+	object-fit: contain;
+}
+
+.pw-ph {
+	font-family: 'Fraunces', serif;
+	font-size: 26px;
+	font-weight: 600;
+	color: var(--line);
+	letter-spacing: 0.04em;
+}
+
+.pw-check {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	color: var(--text);
+	cursor: pointer;
+}
+
+.pw-check input {
+	width: 16px;
+	height: 16px;
+	margin: 0;
+	accent-color: var(--amber);
+	cursor: pointer;
+}
+
+#pwSettings .mode-switch {
+	display: flex;
+	background: var(--surface-2);
+	border-radius: 8px;
+	padding: 3px;
+	gap: 2px;
+}
+
+#pwSettings .mode-btn {
+	font-family: inherit;
+	border: none;
+	background: none;
+	color: var(--muted);
+	font-size: 12.5px;
+	font-weight: 500;
+	padding: 7px 14px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+#pwSettings .mode-btn.active {
+	background: var(--bg);
+	color: var(--text);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
 /* MP4 to MPEG */
 
-.video-settings {
+.video .settings {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 14px 16px;
 }
 
-.video-settings .opt {
+.video .settings .opt {
     margin-bottom: 14px;
 }
 
-.video-settings label {
+.video .settings label {
     display: block;
     margin-bottom: 6px;
     color: var(--secondary);
 }
 
-.video-settings .opt .modes {
+.video .settings .opt .modes {
     margin-bottom: 0;
 }
 
-.video-toolbar {
+.video .toolbar {
 	display: flex;
     justify-content: space-between;
     align-items: center;
@@ -2206,13 +2269,13 @@ input[type=file] {
     margin-top: 22px;
 }
 
-.video-list {
+.video .list {
     display: grid;
     gap: 10px;
     margin-top: 18px;
 }
 
-.video-list .item {
+.video .list .item {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -2223,7 +2286,7 @@ input[type=file] {
     transition: .35s ease;
 }
 
-.video-list .num {
+.video .list .num {
     width: 34px;
     height: 34px;
     border-radius: 8px;
@@ -2235,7 +2298,7 @@ input[type=file] {
     flex-shrink: 0;
 }
 
-.video-list .meta {
+.video .list .meta {
     flex: 1;
     min-width: 0;
 }
@@ -2246,7 +2309,7 @@ input[type=file] {
     flex-shrink: 0;
 }
 
-.video-list .meta strong {
+.video .list .meta strong {
     display: block;
     color: var(--secondary);
     font-size: 15px;
@@ -2255,18 +2318,18 @@ input[type=file] {
     white-space: nowrap;
 }
 
-.video-list .meta small {
+.video .list .meta small {
     font-size: 13px;
 }
 
-.stagebox {
+.video .stagebox {
 	margin-top: 16px;
 	background: var(--surface);
 	border-radius: 12px;
 	padding: 14px 16px;
 }
 
-.srow {
+.video .srow {
 	display: flex;
 	justify-content: space-between;
 	gap: 10px;
@@ -2274,29 +2337,29 @@ input[type=file] {
 	color: var(--secondary);
 }
 
-.srow span {
+.video .srow span {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 
-.pbar.big {
+.video .pbar.big {
 	height: 10px;
 	margin-top: 8px;
 }
 
-.pbar.ind {
+.video .pbar.ind {
 	position: relative;
 }
 
-.pbar.ind i {
+.video .pbar.ind i {
 	position: absolute;
 	left: 0;
 	width: 35%!important;
 	animation: ind 1.1s ease-in-out infinite;
 }
 
-.pbar {
+.video .pbar {
 	height: 6px;
 	border-radius: 99px;
 	background: var(--surface-2);
@@ -2304,7 +2367,7 @@ input[type=file] {
 	margin-top: 6px;
 }
 
-.pbar i {
+.video .pbar i {
 	display: block;
 	height: 100%;
 	width: 0;
@@ -2312,7 +2375,7 @@ input[type=file] {
 	transition: width .2s;
 }
 
-.dlb {
+.video .dlb {
     border: none;
     background: var(--primary);
     cursor: pointer;
