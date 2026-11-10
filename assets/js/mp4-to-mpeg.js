@@ -180,7 +180,7 @@
 				it.label = sm
 			}
 			var c = document.createElement('div');
-			c.className = 'ctl';
+			c.className = 'ctl d-flex gap-2';
 			if(it.state === 'done') {
 				var a = document.createElement('a');
 				a.className = 'btn btn-primary-outlined';

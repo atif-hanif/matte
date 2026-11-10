@@ -74,3 +74,21 @@
 		min-width: 120px;
 	}
 }
+
+@media (max-width:820px) {
+	.pe-app {
+		flex-direction: column;
+		height: auto;
+	}
+
+	.pe-thumbs {
+		width: auto;
+		flex-direction: row;
+		overflow-x: auto;
+		overflow-y: hidden;
+	}
+
+	.pe-stage {
+		height: 420px;
+	}
+}
