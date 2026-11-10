@@ -3,7 +3,7 @@
 	const $ = (id) => document.getElementById(id);
 	const PX = 9525; // EMU per pixel (96 dpi)
 	const SVGNS = 'http://www.w3.org/2000/svg';
-	/* ---------------- 1. helpers ---------------- */
+
 	const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 	const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 	const uid = () => 'e' + Math.random().toString(36).slice(2, 9);
@@ -59,7 +59,7 @@
 			as === 'buffer' ? r.readAsArrayBuffer(file) : r.readAsDataURL(file);
 		});
 	}
-	/* fonts: any Google Font typed into the font box is loaded on demand */
+
 	const fontIndex = {};
 	(window.GOOGLE_FONTS || []).forEach((f) => {
 		fontIndex[f[0].toLowerCase()] = f;
@@ -82,9 +82,7 @@
 		let m;
 		while((m = re.exec(html))) loadFont((m[1] || m[2]).trim().replace(/^["']|["']$/g, ''));
 	}
-	/* ---------------- 2. model and history ----------------
-	   deck = { w, h, slides: [{ bg, els: [el] }], media: { id: dataUrl } }   (sizes in pixels)
-	   el   = { id, kind: 'sp'|'pic'|'tbl', x, y, w, h, rot, flipH, flipV, geom, fill, line, lineW, html, anchor, fs, ph, pad, media, locked }  */
+
 	let deck = newDeck();
 	let cur = 0,
 		selId = null,
@@ -108,6 +106,7 @@
 			media: {}
 		};
 	}
+
 	const slide = () => deck.slides[cur];
 	const findEl = (id) => slide().els.find((e) => e.id === id);
 	const selEl = () => (selId ? findEl(selId) : null);
@@ -163,7 +162,7 @@
 		restore(s);
 		setDirty();
 	}
-	/* ---------------- 3. drawing slides ---------------- */
+
 	function geomPath(g, w, h) {
 		const f = (n) => Math.round(n * 100) / 100;
 		switch(g) {
@@ -286,6 +285,7 @@
 		node.style.background = sl.bg || '#FFFFFF';
 		sl.els.forEach((el) => node.appendChild(buildEl(el, opts)));
 	}
+
 	const slideNode = $('peSlide'),
 		wrapNode = $('peSlideWrap'),
 		stageNode = $('peStage');
@@ -297,6 +297,7 @@
 		h.dataset.h = k;
 		selBox.appendChild(h);
 	});
+
 	selBox.insertAdjacentHTML('beforeend', '<div class="pe-stem"></div><div class="pe-rot" title="Rotate"></div>');
 
 	function fitZoom() {
@@ -319,6 +320,7 @@
 		slideNode.appendChild(selBox);
 		updateSel();
 	}
+
 	const domOf = (id) => slideNode.querySelector('.pe-el[data-id="' + id + '"]');
 
 	function renderAll() {
@@ -327,7 +329,7 @@
 		updateToolbar();
 		$('peCount').textContent = 'Slide ' + (cur + 1) + ' of ' + deck.slides.length;
 	}
-	/* ---------------- 4. selecting, moving, resizing, editing ---------------- */
+
 	function syncTableHeight(el) {
 		const n = domOf(el.id);
 		const t = n && n.querySelector('table');
@@ -386,11 +388,13 @@
 			c.style.width = (sum ? old[k] * nw / sum : nw / m.length) + 'px';
 		});
 	}
+
 	let op = null;
 	slideNode.addEventListener('mousedown', (e) => {
 		const n = e.target.closest('.pe-el');
 		if(!(editing && n && n.dataset.id === selId)) e.preventDefault();
 	});
+
 	slideNode.addEventListener('dragstart', (e) => e.preventDefault());
 	slideNode.addEventListener('pointerdown', (e) => {
 		if(e.pointerType === 'mouse' && e.button !== 0) return;
@@ -446,6 +450,7 @@
 			cy: e.clientY
 		};
 	});
+
 	document.addEventListener('pointermove', (e) => {
 		if(!op) return;
 		const el = findEl(op.id);
@@ -521,12 +526,14 @@
 		}
 		if(o.type === 'move' && o.was && e && e.type === 'pointerup') startEdit(o.cx, o.cy); // a click on the selected box starts typing
 	}
+
 	document.addEventListener('pointerup', endPointer);
 	document.addEventListener('pointercancel', () => {
 		if(op && op.moved) commit();
 		op = null;
 		document.body.classList.remove('pe-dragging');
 	});
+
 	slideNode.addEventListener('dblclick', (e) => {
 		const n = e.target.closest('.pe-el');
 		if(n && !editing) {
@@ -619,6 +626,7 @@
 		updateToolbar();
 		queueThumb();
 	}
+
 	let commitTimer = 0;
 	slideNode.addEventListener('input', () => {
 		if(!editing) return;
@@ -632,13 +640,14 @@
 			queueThumb();
 		}, 700);
 	});
-	slideNode.addEventListener('paste', (e) => { // paste as plain text: pages bring in unwanted styles
+
+	slideNode.addEventListener('paste', (e) => {
 		if(!editing) return;
 		e.preventDefault();
 		const t = (e.clipboardData || window.clipboardData).getData('text/plain');
 		document.execCommand('insertText', false, t);
 	});
-	/* element commands */
+
 	function removeSel() {
 		const el = selEl();
 		if(!el) return;
@@ -699,7 +708,7 @@
 			queueThumb();
 		}, 400);
 	}
-	/* ---------------- 5. text formatting and the toolbar ---------------- */
+
 	let savedRange = null,
 		lastSize = 18;
 	document.addEventListener('selectionchange', () => {
@@ -719,7 +728,7 @@
 		s.addRange(savedRange);
 	}
 
-	function fixSizes(node) { // the browser's "size 7" marker becomes the real point size
+	function fixSizes(node) { 
 		node.querySelectorAll('font[size="7"]').forEach((f) => {
 			const sp = document.createElement('span');
 			sp.style.fontSize = lastSize + 'pt';
@@ -748,7 +757,7 @@
 				commit();
 				queueThumb();
 			}, 500);
-		} else { // nothing is being edited: the change applies to all the text of the box
+		} else { 
 			const s = window.getSelection();
 			editTargets(node).forEach((t) => {
 				t.contentEditable = 'true';
@@ -842,6 +851,7 @@
 	document.querySelectorAll('#peFormat [data-cmd], #peFormat [data-act], #peInsert [data-act], #peTableBar [data-tbl]').forEach((b) => {
 		b.addEventListener('mousedown', (e) => e.preventDefault()); // keep the text selection
 	});
+
 	$('peFormat').addEventListener('click', (e) => {
 		const b = e.target.closest('button');
 		if(!b) return;
@@ -849,17 +859,21 @@
 		else if(b.dataset.act === 'undo') undo();
 		else if(b.dataset.act === 'redo') redo();
 	});
+
 	$('peFont').addEventListener('change', () => {
 		const n = $('peFont').value.trim();
 		if(!n) return;
 		loadFont(n);
 		runFormat(() => exec('fontName', n));
 	});
+
 	$('peSize').addEventListener('change', () => {
 		lastSize = +$('peSize').value;
 		runFormat(() => exec('fontSize', '7'));
 	});
+
 	$('peColor').addEventListener('input', () => runFormat(() => exec('foreColor', $('peColor').value)));
+
 	$('peAnchor').addEventListener('change', () => {
 		const el = selEl();
 		if(!el || el.kind !== 'sp') return;
@@ -883,27 +897,32 @@
 		commitSoon();
 		updateToolbar();
 	}
+
 	$('peFill').addEventListener('input', () => shapeProp((el) => {
 		el.fill = $('peFill').value;
 	}));
+
 	$('peNoFill').addEventListener('click', () => shapeProp((el) => {
 		el.fill = null;
 	}));
+	
 	$('peLine').addEventListener('input', () => shapeProp((el) => {
 		el.line = $('peLine').value;
 		if(!el.lineW) el.lineW = +$('peLineW').value || 2;
 	}));
+
 	$('peLineW').addEventListener('change', () => shapeProp((el) => {
 		el.lineW = +$('peLineW').value;
 		if(el.lineW && !el.line) el.line = $('peLine').value;
 	}));
+
 	$('peBg').addEventListener('input', () => {
 		slide().bg = $('peBg').value;
 		slideNode.style.background = slide().bg;
 		commitSoon();
 		queueThumb();
 	});
-	/* ---- table commands ---- */
+
 	function tableCtx() {
 		const el = selEl();
 		if(!el || el.kind !== 'tbl') return null;
@@ -933,6 +952,7 @@
 			cg.appendChild(c);
 		}
 	}
+
 	$('peTableBar').addEventListener('click', (e) => {
 		const b = e.target.closest('button');
 		if(!b) return;
@@ -980,6 +1000,7 @@
 		commit();
 		queueThumb();
 	});
+
 	$('peCellFill').addEventListener('input', () => {
 		const c = tableCtx();
 		if(!c) return;
@@ -991,7 +1012,7 @@
 		commitSoon();
 		queueThumb();
 	});
-	/* ---------------- 6. inserting ---------------- */
+
 	function mkSp(x, y, w, h, o) {
 		return Object.assign({
 			id: uid(),
@@ -1012,12 +1033,14 @@
 			pad: [9.6, 4.8, 9.6, 4.8]
 		}, o || {});
 	}
+
 	const phTitle = (x, y, w, h, fs, al) => mkSp(x, y, w, h, {
 		html: '<p style="text-align:' + al + '"><br></p>',
 		anchor: 'ctr',
 		fs,
 		ph: 'Click to add title'
 	});
+
 	const phBody = (x, y, w, h, fs) => mkSp(x, y, w, h, {
 		html: '<ul><li><br></li></ul>',
 		fs,
@@ -1111,6 +1134,7 @@
 			html: '<p style="text-align:center"><br></p>'
 		}));
 	}
+
 	async function addPicture(file) {
 		try {
 			const url = await readFile(file);
@@ -1134,7 +1158,7 @@
 			showError(e.message);
 		}
 	}
-	/* ---------------- 7. slide list ---------------- */
+
 	const thumbsNode = $('peThumbs');
 
 	function thumbSize() {
@@ -1176,6 +1200,7 @@
 			block: 'nearest'
 		});
 	}
+
 	let thumbTimer = 0;
 
 	function queueThumb() {
@@ -1213,6 +1238,7 @@
 		renderAll();
 		commit();
 	}
+
 	let tdrag = null;
 	thumbsNode.addEventListener('pointerdown', (e) => {
 		const t = e.target.closest('.pe-thumb');
@@ -1225,6 +1251,7 @@
 			over: null
 		};
 	});
+
 	document.addEventListener('pointermove', (e) => {
 		if(!tdrag) return;
 		if(!tdrag.on) {
@@ -1245,6 +1272,7 @@
 		tdrag.over = target;
 		if(target < ts.length) ts[target].classList.add('is-over');
 	});
+
 	document.addEventListener('pointerup', () => {
 		if(!tdrag) return;
 		const d = tdrag;
@@ -1286,7 +1314,7 @@
 		renderAll();
 		commit();
 	}
-	/* ---------------- 8. slide show ---------------- */
+	
 	const presNode = $('pePresent'),
 		presSlide = $('pePresentSlide');
 	let presIdx = 0,
@@ -1339,9 +1367,11 @@
 		const mid = window.innerWidth / 2;
 		stepShow(e.clientX < mid * 0.5 ? -1 : 1);
 	});
+
 	document.addEventListener('fullscreenchange', () => {
 		if(!document.fullscreenElement) stopShow();
 	});
+
 	window.addEventListener('resize', () => {
 		if(!presNode.classList.contains('is-hidden')) drawPresent();
 		else {
@@ -1349,7 +1379,7 @@
 			renderThumbs();
 		}
 	});
-	/* ---------------- 9. opening a .pptx ---------------- */
+
 	const kids = (n, name) => (n ? Array.from(n.children).filter((c) => !name || c.localName === name) : []);
 	const kid = (n, name) => kids(n, name)[0] || null;
 	const at = (n, a, d) => (n && n.hasAttribute(a) ? n.getAttribute(a) : d);
@@ -1358,6 +1388,7 @@
 		for(let i = 1; i < arguments.length && n; i++) n = kid(n, arguments[i]);
 		return n;
 	}
+
 	const rid = (n) => n.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships', 'id');
 	const REL_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
 
@@ -1371,7 +1402,7 @@
 		});
 		return out.join('/');
 	}
-	/* colours */
+
 	const PRESET = {
 		black: '000000',
 		white: 'FFFFFF',
@@ -1415,15 +1446,16 @@
 		};
 		return [f(h + 1 / 3), f(h), f(h - 1 / 3)].map((v) => Math.round(v * 255));
 	}
+
 	const hex2 = (v) => ('0' + clamp(Math.round(v), 0, 255).toString(16)).slice(-2);
 
-	function mix(hex, to, k) { // k = share of the other colour
+	function mix(hex, to, k) { 
 		const a = [1, 3, 5].map((i) => parseInt(hex.substr(i, 2), 16)),
 			b = [1, 3, 5].map((i) => parseInt(to.substr(i, 2), 16));
 		return '#' + a.map((v, i) => hex2(v + (b[i] - v) * k)).join('').toUpperCase();
 	}
 
-	function colorOf(fillNode, ctx, phClr) { // fillNode: the solidFill element (or anything holding a colour child)
+	function colorOf(fillNode, ctx, phClr) {
 		const c = kids(fillNode)[0];
 		if(!c) return null;
 		let hex = null;
@@ -1455,7 +1487,7 @@
 		return hex;
 	}
 
-	function fillOf(spPr, ctx, phClr) { // 'none' | '#hex' | undefined (not stated)
+	function fillOf(spPr, ctx, phClr) { 
 		if(!spPr) return undefined;
 		if(kid(spPr, 'noFill')) return 'none';
 		const s = kid(spPr, 'solidFill');
@@ -1467,7 +1499,7 @@
 		}
 		return undefined;
 	}
-	/* text properties: a "chain" is a list of functions (level) -> props, most specific first */
+
 	function readRPr(n, ctx) {
 		const o = {};
 		if(!n) return o;
@@ -1499,6 +1531,7 @@
 		else if(kid(pPr, 'buAutoNum')) o.bullet = 'num';
 		return Object.assign(readRPr(kid(pPr, 'defRPr'), ctx), o);
 	}
+
 	const fromNode = (node, ctx) => (lvl) => (node ? readLvl(kid(node, 'lvl' + (lvl + 1) + 'pPr'), ctx) : {});
 	const firstOf = (list, key) => {
 		for(let i = 0; i < list.length; i++)
@@ -1511,7 +1544,7 @@
 		const scale = base && base.scale ? base.scale : 1;
 		const ps = kids(tx, 'p');
 		let html = '',
-			open = null; // open list: 'ul' | 'ol'
+			open = null;
 		const closeList = () => {
 			if(open) {
 				html += '</' + open + '>';
@@ -1570,7 +1603,7 @@
 		closeList();
 		return html || '<p><br></p>';
 	}
-	/* shapes */
+
 	function xfrmOf(spPr, tag) {
 		const x = spPr && kid(spPr, tag || 'xfrm');
 		if(!x) return null;
@@ -1588,6 +1621,7 @@
 			node: x
 		};
 	}
+
 	const phOf = (sp) => path(sp, 'nvSpPr', 'nvPr', 'ph') || path(sp, 'nvPicPr', 'nvPr', 'ph');
 
 	function findPh(tree, ph) {
@@ -1608,6 +1642,7 @@
 		});
 		return best;
 	}
+
 	const GEOMS = {
 		rect: 1,
 		roundRect: 1,
@@ -1617,6 +1652,7 @@
 		rightArrow: 1,
 		line: 1
 	};
+
 	async function mediaData(ctx, zipPath, crop) {
 		const f = ctx.zip.file(zipPath);
 		if(!f) return null;
@@ -1648,6 +1684,7 @@
 		}
 		return url;
 	}
+
 	const mediaCache = {};
 
 	function addMedia(url) {
@@ -1656,7 +1693,7 @@
 		return id;
 	}
 
-	function place(M, g) { // from a group's inner coordinates to slide pixels
+	function place(M, g) { 
 		return {
 			x: (M.sx * g.x + M.tx) / PX,
 			y: (M.sy * g.y + M.ty) / PX,
@@ -1664,6 +1701,7 @@
 			h: M.sy * g.cy / PX
 		};
 	}
+
 	async function parseTree(tree, ctx, M, out, opts) {
 		for(const n of kids(tree)) {
 			const nm = n.localName;
@@ -1693,6 +1731,7 @@
 			}
 		}
 	}
+
 	async function parseSp(sp, ctx, M, out, opts) {
 		const ph = phOf(sp);
 		const phType = ph ? at(ph, 'type', 'body') : null;
@@ -1746,7 +1785,7 @@
 			line = '#000000';
 			lineW = lineW || 1;
 		}
-		/* text */
+
 		const tx = kid(sp, 'txBody');
 		const bodyPr = tx && kid(tx, 'bodyPr');
 		const lbp = lay && path(lay, 'txBody', 'bodyPr'),
@@ -1793,6 +1832,7 @@
 			locked: !!opts.locked
 		});
 	}
+
 	async function parsePic(pic, ctx, M, out, opts) {
 		const spPr = kid(pic, 'spPr');
 		const g = xfrmOf(spPr);
@@ -1836,6 +1876,7 @@
 			locked: !!opts.locked
 		});
 	}
+
 	async function parseFrame(gf, ctx, M, out, opts) {
 		const gd = path(gf, 'graphic', 'graphicData');
 		const tbl = gd && kid(gd, 'tbl');
@@ -1896,6 +1937,7 @@
 			locked: !!opts.locked
 		});
 	}
+
 	async function openPptx(file) {
 		if(typeof JSZip === 'undefined') throw new Error('The JSZip library is missing.');
 		const zip = await JSZip.loadAsync(await readFile(file, 'buffer'));
@@ -2052,7 +2094,7 @@
 		}));
 		return skipped;
 	}
-	/* ---------------- 10. saving a .pptx ---------------- */
+	
 	const NS = 'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"';
 	const XML = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
 	const GRP = '<p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>';
@@ -2076,6 +2118,7 @@
 			u
 		};
 	}
+
 	const algnOf = (cs) => ({
 		center: 'ctr',
 		right: 'r',
@@ -2101,6 +2144,7 @@
 			};
 			paras.push(curP);
 		};
+
 		const inline = (node) => {
 			if(node.nodeType === 3) {
 				const t = node.nodeValue.replace(/[\r\n]+/g, ' ').replace(/​/g, '');
@@ -2115,6 +2159,7 @@
 				else if(!/^(UL|OL)$/.test(node.tagName)) Array.from(node.childNodes).forEach(inline);
 			}
 		};
+
 		const list = (ul, depth) => {
 			Array.from(ul.children).forEach((li) => {
 				if(li.tagName !== 'LI') return;
@@ -2125,6 +2170,7 @@
 				});
 			});
 		};
+
 		const walk = (parent) => {
 			let loose = false;
 			Array.from(parent.childNodes).forEach((n) => {
@@ -2151,6 +2197,7 @@
 				}
 			});
 		};
+
 		walk(root);
 		if(!paras.length) start(root, null, 0);
 		return paras.map((p) => {
@@ -2162,6 +2209,7 @@
 			return '<a:p><a:pPr' + ind + ' algn="' + p.algn + '">' + bu + '</a:pPr>' + runs.map((r) => (r.br ? '<a:br><a:rPr lang="en-US" sz="' + r.st.sz + '"/></a:br>' : runXml(r))).join('') + '<a:endParaRPr lang="en-US" sz="' + last.sz + '" dirty="0"/></a:p>';
 		}).join('');
 	}
+
 	const fillXml = (c) => (c ? '<a:solidFill><a:srgbClr val="' + c.replace('#', '') + '"/></a:solidFill>' : '<a:noFill/>');
 
 	function xfrmXml(el, tag) {
@@ -2224,6 +2272,7 @@
 		const tb = el.geom === 'rect' && !el.fill && !(el.line && el.lineW > 0);
 		return '<p:sp><p:nvSpPr><p:cNvPr id="' + sid + '" name="' + (tb ? 'TextBox ' : 'Shape ') + sid + '"/><p:cNvSpPr' + (tb ? ' txBox="1"' : '') + '/><p:nvPr/></p:nvSpPr><p:spPr>' + xfrmXml(el) + '<a:prstGeom prst="' + esc(el.geom || 'rect') + '"><a:avLst/></a:prstGeom>' + fillXml(el.fill) + lineX + '</p:spPr><p:txBody><a:bodyPr wrap="square" lIns="' + pad[0] + '" tIns="' + pad[1] + '" rIns="' + pad[2] + '" bIns="' + pad[3] + '" rtlCol="0" anchor="' + (el.anchor || 't') + '"><a:noAutofit/></a:bodyPr><a:lstStyle/>' + parasXml(node.querySelector('.pe-body')) + '</p:txBody></p:sp>';
 	}
+
 	const THEME = XML + '<a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Matte"><a:themeElements><a:clrScheme name="Matte"><a:dk1><a:sysClr val="windowText" lastClr="000000"/></a:dk1><a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1><a:dk2><a:srgbClr val="3B4051"/></a:dk2><a:lt2><a:srgbClr val="F7F5F0"/></a:lt2><a:accent1><a:srgbClr val="FF6224"/></a:accent1><a:accent2><a:srgbClr val="3B4051"/></a:accent2><a:accent3><a:srgbClr val="2F8A4A"/></a:accent3><a:accent4><a:srgbClr val="C4432B"/></a:accent4><a:accent5><a:srgbClr val="6E6656"/></a:accent5><a:accent6><a:srgbClr val="DDD6C6"/></a:accent6><a:hlink><a:srgbClr val="0563C1"/></a:hlink><a:folHlink><a:srgbClr val="954F72"/></a:folHlink></a:clrScheme><a:fontScheme name="Matte"><a:majorFont><a:latin typeface="Calibri"/><a:ea typeface=""/><a:cs typeface=""/></a:majorFont><a:minorFont><a:latin typeface="Calibri"/><a:ea typeface=""/><a:cs typeface=""/></a:minorFont></a:fontScheme><a:fmtScheme name="Matte"><a:fillStyleLst>' + '<a:solidFill><a:schemeClr val="phClr"/></a:solidFill>'.repeat(3) + '</a:fillStyleLst><a:lnStyleLst>' + '<a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:prstDash val="solid"/></a:ln>'.repeat(3) + '</a:lnStyleLst><a:effectStyleLst>' + '<a:effectStyle><a:effectLst/></a:effectStyle>'.repeat(3) + '</a:effectStyleLst><a:bgFillStyleLst>' + '<a:solidFill><a:schemeClr val="phClr"/></a:solidFill>'.repeat(3) + '</a:bgFillStyleLst></a:fmtScheme></a:themeElements><a:objectDefaults/><a:extraClrSchemeLst/></a:theme>';
 	const MASTER = XML + '<p:sldMaster ' + NS + '><p:cSld><p:bg><p:bgRef idx="1001"><a:schemeClr val="bg1"/></p:bgRef></p:bg><p:spTree>' + GRP + '</p:spTree></p:cSld><p:clrMap bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/><p:sldLayoutIdLst><p:sldLayoutId id="2147483649" r:id="rId1"/></p:sldLayoutIdLst><p:txStyles><p:titleStyle><a:lvl1pPr algn="l"><a:defRPr sz="4400"><a:solidFill><a:schemeClr val="tx1"/></a:solidFill><a:latin typeface="+mj-lt"/></a:defRPr></a:lvl1pPr></p:titleStyle><p:bodyStyle><a:lvl1pPr marL="342900" indent="-342900" algn="l"><a:buFont typeface="Arial"/><a:buChar char="&#8226;"/><a:defRPr sz="2800"><a:solidFill><a:schemeClr val="tx1"/></a:solidFill><a:latin typeface="+mn-lt"/></a:defRPr></a:lvl1pPr></p:bodyStyle><p:otherStyle><a:lvl1pPr algn="l"><a:defRPr sz="1800"><a:solidFill><a:schemeClr val="tx1"/></a:solidFill><a:latin typeface="+mn-lt"/></a:defRPr></a:lvl1pPr></p:otherStyle></p:txStyles></p:sldMaster>';
 	const LAYOUT = XML + '<p:sldLayout ' + NS + ' type="blank" preserve="1"><p:cSld name="Blank"><p:spTree>' + GRP + '</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sldLayout>';
@@ -2253,6 +2302,7 @@
 			bytes: dataUrlToBytes(cv.toDataURL('image/png'))
 		};
 	}
+
 	async function buildPptx() {
 		if(editing) endEdit();
 		const zip = new JSZip();
@@ -2348,6 +2398,7 @@
 			host.remove();
 		}
 	}
+
 	async function savePptx() {
 		clearError();
 		try {
@@ -2378,10 +2429,11 @@
 		goTo,
 		renderAll
 	};
-	/* ---------------- 11. wiring ---------------- */
+	
 	$('peOpenBtn').addEventListener('click', () => {
 		if(!dirty || confirm('Open another file? Unsaved changes will be lost.')) $('peFileInput').click();
 	});
+
 	$('peFileInput').addEventListener('change', async() => {
 		const f = $('peFileInput').files[0];
 		$('peFileInput').value = '';
@@ -2401,6 +2453,7 @@
 			setStatus('Not opened', true);
 		}
 	});
+
 	$('peNewBtn').addEventListener('click', () => {
 		if(dirty && !confirm('Start a new presentation? Unsaved changes will be lost.')) return;
 		deck = newDeck();
@@ -2428,10 +2481,12 @@
 		$('peImgInput').value = '';
 		if(f) addPicture(f);
 	});
+
 	$('peAddShape').addEventListener('change', () => {
 		addShape($('peAddShape').value);
 		$('peAddShape').value = '';
 	});
+
 	$('peInsert').addEventListener('click', (e) => {
 		const b = e.target.closest('[data-act]');
 		if(!b) return;
@@ -2441,6 +2496,7 @@
 		else if(a === 'duplicate') duplicateSel();
 		else if(a === 'delete') removeSel();
 	});
+
 	$('peName').addEventListener('input', setDirty);
 	window.addEventListener('beforeunload', (e) => {
 		if(dirty) {
@@ -2448,6 +2504,7 @@
 			e.returnValue = '';
 		}
 	});
+
 	document.addEventListener('keydown', (e) => {
 		if(!presNode.classList.contains('is-hidden')) {
 			e.preventDefault();
@@ -2489,38 +2546,45 @@
 			}
 			return;
 		}
+
 		if(inField) return;
 		if(mod && /^z$/i.test(e.key)) {
 			e.preventDefault();
 			e.shiftKey ? redo() : undo();
 			return;
 		}
+
 		if(mod && /^y$/i.test(e.key)) {
 			e.preventDefault();
 			redo();
 			return;
 		}
+
 		if(mod && /^s$/i.test(e.key)) {
 			e.preventDefault();
 			savePptx();
 			return;
 		}
+
 		const el = selEl();
 		if(mod && /^d$/i.test(e.key) && el) {
 			e.preventDefault();
 			duplicateSel();
 			return;
 		}
+
 		if(mod && /^c$/i.test(e.key) && el && !el.locked) {
 			clipboard = JSON.parse(JSON.stringify(el));
 			return;
 		}
+
 		if(mod && /^x$/i.test(e.key) && el && !el.locked) {
 			clipboard = JSON.parse(JSON.stringify(el));
 			removeSel();
 			e.preventDefault();
 			return;
 		}
+
 		if(mod && /^v$/i.test(e.key) && clipboard) {
 			e.preventDefault();
 			const c = cloneEl(clipboard, 24);
@@ -2529,6 +2593,7 @@
 			addElement(c);
 			return;
 		}
+
 		if(el && !el.locked) {
 			if(e.key === 'Delete' || e.key === 'Backspace') {
 				e.preventDefault();
@@ -2562,6 +2627,7 @@
 				return;
 			}
 		}
+
 		if(e.key === 'Escape' && el) {
 			selId = null;
 			updateSel();
@@ -2576,7 +2642,7 @@
 			goTo(cur - 1);
 		}
 	});
-	/* start */
+	
 	(function init() {
 		const dl = $('peFontList');
 		const frag = document.createDocumentFragment();

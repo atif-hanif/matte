@@ -104,7 +104,7 @@
 	function add(list) {
 		showErr('');
 		var arr = [].slice.call(list).filter(function(f) {
-			return /^video\//.test(f.type) || /\.(mp4|m4v|mov|mkv|webm|avi)$/i.test(f.name)
+			return /^video\//.test(f.type) || /\.(mp4|m4v|mp4v|3gp|3g2|f4v)$/i.test(f.name)
 		});
 		if(!arr.length) {
 			showErr('Please choose video files.');

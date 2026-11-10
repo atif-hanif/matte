@@ -100,7 +100,7 @@
 	function add(list) {
 		showErr('');
 		var arr = [].slice.call(list).filter(function(f) {
-			return /^video\//.test(f.type) || /\.(mpg|mpeg|mpe|m2v|vob|dat|mp4|m4v|mov|mkv|webm|avi|ts)$/i.test(f.name)
+			return /^video\//.test(f.type) || /\.(mpg|mpeg|mpe|m1v|m2v|m4v|vob|ts|m2ts|mts|mod|tod)$/i.test(f.name)
 		});
 		if(!arr.length) {
 			showErr('Please choose video files.');
@@ -188,6 +188,7 @@
 					m.appendChild(pre)
 				}
 			}
+
 			if(it.state === 'working') {
 				var pb = document.createElement('div');
 				pb.className = 'pbar';
@@ -198,6 +199,7 @@
 				it.bar = pi;
 				it.label = sm
 			}
+
 			var c = document.createElement('div');
 			c.className = 'ctl';
 			if(it.state === 'done') {
@@ -209,6 +211,7 @@
 				a.download = it.outName;
 				c.appendChild(a)
 			}
+
 			var x = document.createElement('button');
 			x.className = 'btn btn-secondary-outlined';
 			//x.textContent = '✕';
