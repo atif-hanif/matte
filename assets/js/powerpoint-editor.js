@@ -3,7 +3,7 @@
 	const $ = (id) => document.getElementById(id);
 	const PX = 9525; // EMU per pixel (96 dpi)
 	const SVGNS = 'http://www.w3.org/2000/svg';
-
+	
 	const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 	const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 	const uid = () => 'e' + Math.random().toString(36).slice(2, 9);
@@ -59,7 +59,7 @@
 			as === 'buffer' ? r.readAsArrayBuffer(file) : r.readAsDataURL(file);
 		});
 	}
-
+	
 	const fontIndex = {};
 	(window.GOOGLE_FONTS || []).forEach((f) => {
 		fontIndex[f[0].toLowerCase()] = f;
@@ -82,7 +82,7 @@
 		let m;
 		while((m = re.exec(html))) loadFont((m[1] || m[2]).trim().replace(/^["']|["']$/g, ''));
 	}
-
+	
 	let deck = newDeck();
 	let cur = 0,
 		selId = null,
@@ -365,7 +365,7 @@
 		updateToolbar();
 	}
 
-	function updateNode(el) { // light refresh of one element after it moved or was resized
+	function updateNode(el) { 
 		const n = domOf(el.id);
 		if(!n) return;
 		placeEl(n, el);
@@ -779,6 +779,7 @@
 		}
 		updateToolbar();
 	}
+
 	const exec = (c, v) => document.execCommand(c, false, v === undefined ? null : v);
 
 	function probe() {
@@ -801,7 +802,7 @@
 		const cs = probe();
 		if(cs) {
 			const fam = cs.fontFamily.split(',')[0].replace(/["']/g, '').trim();
-			if(document.activeElement !== $('peFont')) $('peFont').value = fam;
+			fontPick.setCurrent(fam);
 			const pt = Math.round(parseFloat(cs.fontSize) * 0.75);
 			const sz = $('peSize');
 			if(!Array.from(sz.options).some((o) => +o.value === pt)) {
@@ -842,12 +843,14 @@
 		updateSel();
 		queueThumb();
 	}
+
 	let softTimer = 0;
 
 	function commitSoon() {
 		clearTimeout(softTimer);
 		softTimer = setTimeout(commit, 500);
 	}
+
 	document.querySelectorAll('#peFormat [data-cmd], #peFormat [data-act], #peInsert [data-act], #peTableBar [data-tbl]').forEach((b) => {
 		b.addEventListener('mousedown', (e) => e.preventDefault()); // keep the text selection
 	});
@@ -860,11 +863,18 @@
 		else if(b.dataset.act === 'redo') redo();
 	});
 
-	$('peFont').addEventListener('change', () => {
-		const n = $('peFont').value.trim();
-		if(!n) return;
-		loadFont(n);
-		runFormat(() => exec('fontName', n));
+	const fontPick = FontPicker.create({
+		btn: $('peFontBtn'),
+		cur: $('peFontCur'),
+		pop: $('peFontPop'),
+		search: $('peFontSearch'),
+		cats: $('peFontCats'),
+		list: $('peFontList'),
+		count: $('peFontCount'),
+		onPick: (n) => {
+			loadFont(n);
+			runFormat(() => exec('fontName', n));
+		}
 	});
 
 	$('peSize').addEventListener('change', () => {
@@ -905,7 +915,7 @@
 	$('peNoFill').addEventListener('click', () => shapeProp((el) => {
 		el.fill = null;
 	}));
-	
+
 	$('peLine').addEventListener('input', () => shapeProp((el) => {
 		el.line = $('peLine').value;
 		if(!el.lineW) el.lineW = +$('peLineW').value || 2;
@@ -936,6 +946,7 @@
 			el, node, t, cell
 		};
 	}
+
 	const TBL_CELL = '<td><p><br></p></td>';
 
 	function equalCols(el, t) {
@@ -1230,7 +1241,7 @@
 		$('peCount').textContent = 'Slide ' + (cur + 1) + ' of ' + deck.slides.length;
 	}
 
-	function moveSlide(from, to) { // `to` is the index the slide ends up at
+	function moveSlide(from, to) { 
 		if(from === to) return;
 		const s = deck.slides.splice(from, 1)[0];
 		deck.slides.splice(to, 0, s);
@@ -1314,7 +1325,7 @@
 		renderAll();
 		commit();
 	}
-	
+
 	const presNode = $('pePresent'),
 		presSlide = $('pePresentSlide');
 	let presIdx = 0,
@@ -1388,7 +1399,6 @@
 		for(let i = 1; i < arguments.length && n; i++) n = kid(n, arguments[i]);
 		return n;
 	}
-
 	const rid = (n) => n.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships', 'id');
 	const REL_NS = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
 
@@ -1446,10 +1456,10 @@
 		};
 		return [f(h + 1 / 3), f(h), f(h - 1 / 3)].map((v) => Math.round(v * 255));
 	}
-
+	
 	const hex2 = (v) => ('0' + clamp(Math.round(v), 0, 255).toString(16)).slice(-2);
 
-	function mix(hex, to, k) { 
+	function mix(hex, to, k) {
 		const a = [1, 3, 5].map((i) => parseInt(hex.substr(i, 2), 16)),
 			b = [1, 3, 5].map((i) => parseInt(to.substr(i, 2), 16));
 		return '#' + a.map((v, i) => hex2(v + (b[i] - v) * k)).join('').toUpperCase();
@@ -1544,7 +1554,7 @@
 		const scale = base && base.scale ? base.scale : 1;
 		const ps = kids(tx, 'p');
 		let html = '',
-			open = null;
+			open = null; 
 		const closeList = () => {
 			if(open) {
 				html += '</' + open + '>';
@@ -1603,7 +1613,7 @@
 		closeList();
 		return html || '<p><br></p>';
 	}
-
+	
 	function xfrmOf(spPr, tag) {
 		const x = spPr && kid(spPr, tag || 'xfrm');
 		if(!x) return null;
@@ -1652,7 +1662,6 @@
 		rightArrow: 1,
 		line: 1
 	};
-
 	async function mediaData(ctx, zipPath, crop) {
 		const f = ctx.zip.file(zipPath);
 		if(!f) return null;
@@ -1693,7 +1702,7 @@
 		return id;
 	}
 
-	function place(M, g) { 
+	function place(M, g) {
 		return {
 			x: (M.sx * g.x + M.tx) / PX,
 			y: (M.sy * g.y + M.ty) / PX,
@@ -1785,7 +1794,7 @@
 			line = '#000000';
 			lineW = lineW || 1;
 		}
-
+		
 		const tx = kid(sp, 'txBody');
 		const bodyPr = tx && kid(tx, 'bodyPr');
 		const lbp = lay && path(lay, 'txBody', 'bodyPr'),
@@ -2094,7 +2103,7 @@
 		}));
 		return skipped;
 	}
-	
+
 	const NS = 'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main"';
 	const XML = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
 	const GRP = '<p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>';
@@ -2118,7 +2127,6 @@
 			u
 		};
 	}
-
 	const algnOf = (cs) => ({
 		center: 'ctr',
 		right: 'r',
@@ -2144,7 +2152,6 @@
 			};
 			paras.push(curP);
 		};
-
 		const inline = (node) => {
 			if(node.nodeType === 3) {
 				const t = node.nodeValue.replace(/[\r\n]+/g, ' ').replace(/​/g, '');
@@ -2159,7 +2166,6 @@
 				else if(!/^(UL|OL)$/.test(node.tagName)) Array.from(node.childNodes).forEach(inline);
 			}
 		};
-
 		const list = (ul, depth) => {
 			Array.from(ul.children).forEach((li) => {
 				if(li.tagName !== 'LI') return;
@@ -2170,7 +2176,6 @@
 				});
 			});
 		};
-
 		const walk = (parent) => {
 			let loose = false;
 			Array.from(parent.childNodes).forEach((n) => {
@@ -2197,7 +2202,6 @@
 				}
 			});
 		};
-
 		walk(root);
 		if(!paras.length) start(root, null, 0);
 		return paras.map((p) => {
@@ -2277,7 +2281,8 @@
 	const MASTER = XML + '<p:sldMaster ' + NS + '><p:cSld><p:bg><p:bgRef idx="1001"><a:schemeClr val="bg1"/></p:bgRef></p:bg><p:spTree>' + GRP + '</p:spTree></p:cSld><p:clrMap bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/><p:sldLayoutIdLst><p:sldLayoutId id="2147483649" r:id="rId1"/></p:sldLayoutIdLst><p:txStyles><p:titleStyle><a:lvl1pPr algn="l"><a:defRPr sz="4400"><a:solidFill><a:schemeClr val="tx1"/></a:solidFill><a:latin typeface="+mj-lt"/></a:defRPr></a:lvl1pPr></p:titleStyle><p:bodyStyle><a:lvl1pPr marL="342900" indent="-342900" algn="l"><a:buFont typeface="Arial"/><a:buChar char="&#8226;"/><a:defRPr sz="2800"><a:solidFill><a:schemeClr val="tx1"/></a:solidFill><a:latin typeface="+mn-lt"/></a:defRPr></a:lvl1pPr></p:bodyStyle><p:otherStyle><a:lvl1pPr algn="l"><a:defRPr sz="1800"><a:solidFill><a:schemeClr val="tx1"/></a:solidFill><a:latin typeface="+mn-lt"/></a:defRPr></a:lvl1pPr></p:otherStyle></p:txStyles></p:sldMaster>';
 	const LAYOUT = XML + '<p:sldLayout ' + NS + ' type="blank" preserve="1"><p:cSld name="Blank"><p:spTree>' + GRP + '</p:spTree></p:cSld><p:clrMapOvr><a:masterClrMapping/></p:clrMapOvr></p:sldLayout>';
 	const relsXml = (list) => XML + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + list.map((r) => '<Relationship Id="' + r[0] + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/' + r[1] + '" Target="' + r[2] + '"/>').join('') + '</Relationships>';
-	async function mediaBytes(url) { // PNG, JPEG and GIF go in as they are, anything else (WebP, SVG) becomes PNG
+	
+	async function mediaBytes(url) { 
 		const m = /^data:(image\/[a-z+.-]+);base64,/i.exec(url);
 		const mime = m ? m[1].toLowerCase() : '';
 		if(mime === 'image/png') return {
@@ -2421,6 +2426,7 @@
 			setStatus('Not saved', true);
 		}
 	}
+
 	window.__peDebug = {get deck() {
 			return deck;
 		},
@@ -2468,6 +2474,7 @@
 		dirty = false;
 		setStatus('New presentation');
 	});
+
 	$('peSaveBtn').addEventListener('click', savePptx);
 	$('pePresentBtn').addEventListener('click', startShow);
 	$('peAddSlide').addEventListener('click', () => addSlideAfter($('peLayout').value));
@@ -2504,7 +2511,7 @@
 			e.returnValue = '';
 		}
 	});
-
+	
 	document.addEventListener('keydown', (e) => {
 		if(!presNode.classList.contains('is-hidden')) {
 			e.preventDefault();
@@ -2546,45 +2553,38 @@
 			}
 			return;
 		}
-
 		if(inField) return;
 		if(mod && /^z$/i.test(e.key)) {
 			e.preventDefault();
 			e.shiftKey ? redo() : undo();
 			return;
 		}
-
 		if(mod && /^y$/i.test(e.key)) {
 			e.preventDefault();
 			redo();
 			return;
 		}
-
 		if(mod && /^s$/i.test(e.key)) {
 			e.preventDefault();
 			savePptx();
 			return;
 		}
-
 		const el = selEl();
 		if(mod && /^d$/i.test(e.key) && el) {
 			e.preventDefault();
 			duplicateSel();
 			return;
 		}
-
 		if(mod && /^c$/i.test(e.key) && el && !el.locked) {
 			clipboard = JSON.parse(JSON.stringify(el));
 			return;
 		}
-
 		if(mod && /^x$/i.test(e.key) && el && !el.locked) {
 			clipboard = JSON.parse(JSON.stringify(el));
 			removeSel();
 			e.preventDefault();
 			return;
 		}
-
 		if(mod && /^v$/i.test(e.key) && clipboard) {
 			e.preventDefault();
 			const c = cloneEl(clipboard, 24);
@@ -2593,7 +2593,6 @@
 			addElement(c);
 			return;
 		}
-
 		if(el && !el.locked) {
 			if(e.key === 'Delete' || e.key === 'Backspace') {
 				e.preventDefault();
@@ -2627,7 +2626,6 @@
 				return;
 			}
 		}
-
 		if(e.key === 'Escape' && el) {
 			selId = null;
 			updateSel();
@@ -2642,21 +2640,8 @@
 			goTo(cur - 1);
 		}
 	});
-	
+
 	(function init() {
-		const dl = $('peFontList');
-		const frag = document.createDocumentFragment();
-		(window.GOOGLE_FONTS || []).forEach((f) => {
-			const o = document.createElement('option');
-			o.value = f[0];
-			frag.appendChild(o);
-		});
-		['Calibri', 'Arial', 'Georgia', 'Times New Roman', 'Verdana', 'Courier New'].forEach((n) => {
-			const o = document.createElement('option');
-			o.value = n;
-			frag.appendChild(o);
-		});
-		dl.appendChild(frag);
 		try {
 			document.execCommand('defaultParagraphSeparator', false, 'p');
 		} catch(e) { /* older browsers */ }

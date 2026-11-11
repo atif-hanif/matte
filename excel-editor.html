@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Excel Editior</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="document-tools.html" role="button">
+									Document Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate.tools.html" role="button">
+									Generate Tools
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="document-tools.html">Document Tools</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="editior-tools.html">Editor Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Excel Editior</li>
+				</ol>
+			</nav>
+
+			<h2>Excel Editior</h1>
+			<p>Edit Excel spreadsheets online, no software needed</p>
+
+			<div class="we-bar">
+				<button type="button" class="btn btn-secondary-outlined" id="xeOpenBtn">
+					<i class="fa-regular fa-file-word me-2"></i>
+					Open
+				</button>
+				<button type="button" class="btn btn-primary-outlined" id="xeNewBtn">
+					<i class="fa-regular fa-file me-2"></i>
+					New
+				</button>
+
+				<input type="text" class="we-name" id="xeName" value="spreadsheet" aria-label="File name" maxlength="80">
+
+				<div class="we-bar-right">
+					<span class="we-status" id="xeStatus">New spreadsheet</span>
+					<button type="button" class="btn btn-secondary" id="xeFindBtn" title="Find and replace (Ctrl+F)">
+						<i class="fa-solid fa-magnifying-glass me-2"></i>
+						Find
+					</button>
+					<button type="button" class="btn btn-primary" id="xeSaveBtn">
+						<i class="fa-solid fa-floppy-disk me-2"></i>
+						Save
+					</button>
+				</div>
+			</div>
+
+			<div class="we-bar we-format" id="xeFormat">
+				<button type="button" class="we-btn" data-act="undo" title="Undo (Ctrl+Z)">
+					<i class="fa-solid fa-arrow-rotate-left"></i>
+				</button>
+				<button type="button" class="we-btn" data-act="redo" title="Redo (Ctrl+Y)">
+					<i class="fa-solid fa-arrow-rotate-right"></i>
+				</button>
+				
+				<span class="ed-sep"></span>
+
+				<button type="button" class="we-fontbtn" id="xeFontBtn" aria-haspopup="listbox" aria-expanded="false" title="Font">
+					<span class="we-fontbtn-name" id="xeFontCur">Calibri</span>
+				</button>
+
+				<div class="we-fontpop is-hidden" id="xeFontPop">
+					<input type="search" id="xeFontSearch" class="ed-select" placeholder="Search fonts…" autocomplete="off" spellcheck="false">
+					<div class="ed-chips" id="xeFontCats">
+						<button type="button" class="ed-chip is-active" data-cat="all">All</button>
+						<button type="button" class="ed-chip" data-cat="system">Common</button>
+						<button type="button" class="ed-chip" data-cat="s">Sans</button>
+						<button type="button" class="ed-chip" data-cat="f">Serif</button>
+						<button type="button" class="ed-chip" data-cat="d">Display</button>
+						<button type="button" class="ed-chip" data-cat="h">Handwriting</button>
+						<button type="button" class="ed-chip" data-cat="m">Mono</button>
+					</div>
+					<div class="ed-fontlist" id="xeFontList" role="listbox"></div>
+					<!-- <div class="ed-fontcount" id="xeFontCount"></div> -->
+				</div>
+
+				<select class="form-select" id="xeSize" aria-label="Font size">
+					<option>8</option>
+					<option>9</option>
+					<option>10</option>
+					<option selected>11</option>
+					<option>12</option>
+					<option>14</option>
+					<option>16</option>
+					<option>18</option>
+					<option>20</option>
+					<option>24</option>
+					<option>28</option>
+					<option>36</option>
+					<option>48</option>
+				</select>
+
+				<button type="button" class="we-btn we-b" data-fmt="b" title="Bold (Ctrl+B)">
+					<i class="fa-solid fa-bold"></i>
+				</button>
+				<button type="button" class="we-btn we-i" data-fmt="i" title="Italic (Ctrl+I)">
+					<i class="fa-solid fa-italic"></i>
+				</button>
+				<button type="button" class="we-btn we-u" data-fmt="u" title="Underline (Ctrl+U)">
+					<i class="fa-solid fa-underline"></i>
+				</button>
+				<button type="button" class="we-btn" data-fmt="st" title="Strikethrough">
+					<i class="fa-solid fa-strikethrough"></i>
+				</button>
+				<label class="we-color" title="Text colour">
+					<span class="we-color-a">
+						<i class="fa-solid fa-font"></i>
+					</span>
+					<input type="color" id="xeColor" value="#000000">
+				</label>
+
+				<label class="we-color xe-fillc" title="Fill colour">
+					<span class="xe-swatch">Fill</span>
+					<input type="color" id="xeFill" value="#FFF2CC">
+				</label>
+
+				<button type="button" class="we-btn" id="xeNoFill" title="No fill">No fill</button>
+
+				<select class="form-select" id="xeBorders" aria-label="Borders" title="Borders">
+					<option value="">Borders…</option>
+					<option value="all">All borders</option>
+					<option value="outer">Outer border</option>
+					<option value="bottom">Bottom</option>
+					<option value="top">Top</option>
+					<option value="left">Left</option>
+					<option value="right">Right</option>
+					<option value="none">No borders</option>
+				</select>
+				
+				<span class="ed-sep"></span>
+
+				<button type="button" class="we-btn" data-fmt="al:left" title="Align left">
+					<i class="fa-solid fa-align-left"></i>
+				</button>
+				<button type="button" class="we-btn" data-fmt="al:center" title="Centre">
+					<i class="fa-solid fa-align-center"></i>
+				</button>
+				<button type="button" class="we-btn" data-fmt="al:right" title="Align right">
+					<i class="fa-solid fa-align-right"></i>
+				</button>
+				<button type="button" class="we-btn" data-fmt="va:top" title="Top">
+					<i class="fa-light fa-arrow-up-to-line"></i>
+				</button>
+				<button type="button" class="we-btn" data-fmt="va:middle" title="Middle">
+					<i class="fa-solid fa-arrows-up-down"></i>
+				</button>
+				<button type="button" class="we-btn" data-fmt="va:bottom" title="Bottom">
+					<i class="fa-light fa-arrow-down-to-line"></i>
+				</button>
+
+				<button type="button" class="we-btn" data-fmt="wrap" title="Wrap text">Wrap</button>
+				<button type="button" class="we-btn" id="xeMerge" title="Merge or unmerge cells">Merge</button>
+				
+				<span class="ed-sep"></span>
+				
+				<select class="btn btn-ghost btn-sm" id="xeNumFmt" aria-label="Number format" title="Number format">
+					<option value="General">General</option>
+					<option value="0">Number 0</option>
+					<option value="0.00">Number 0.00</option>
+					<option value="#,##0">Thousands 1,235</option>
+					<option value="#,##0.00">Thousands 1,234.57</option>
+					<option value="$#,##0.00">Currency $</option>
+					<option value="0%">Percent 0%</option>
+					<option value="0.00%">Percent 0.00%</option>
+					<option value="m/d/yyyy">Date m/d/yyyy</option>
+					<option value="yyyy-mm-dd">Date yyyy-mm-dd</option>
+					<option value="mmmm d, yyyy">Date long</option>
+					<option value="h:mm AM/PM">Time</option>
+					<option value="0.00E+00">Scientific</option>
+					<option value="@">Text</option>
+					<option value="__custom">Custom…</option>
+				</select>
+				<button type="button" class="we-btn" id="xeDecMore" title="More decimals">.00→</button>
+				<button type="button" class="we-btn" id="xeDecLess" title="Fewer decimals">←.0</button>
+				<button type="button" class="we-btn" id="xeClearFmt" title="Clear formatting">Clear fmt</button>
+			</div>
+			<div class="we-bar we-format" id="xeStruct">
+				<button type="button" class="we-btn" data-op="rowAbove">＋ Row above</button>
+				<button type="button" class="we-btn" data-op="rowBelow">＋ Row below</button>
+				<button type="button" class="we-btn" data-op="colLeft">＋ Column left</button>
+				<button type="button" class="we-btn" data-op="colRight">＋ Column right</button>
+				<button type="button" class="we-btn" data-op="rowDel">Delete row</button>
+				<button type="button" class="we-btn" data-op="colDel">Delete column</button> <span class="ed-sep"></span>
+				<button type="button" class="we-btn" data-op="freeze" id="xeFreeze" title="Freeze rows above and columns left of the selected cell">Freeze panes</button> <span class="ed-sep"></span>
+				<button type="button" class="we-btn" data-op="sortAsc" title="Sort A to Z by the column of the selected cell">Sort A→Z</button>
+				<button type="button" class="we-btn" data-op="sortDesc" title="Sort Z to A">Sort Z→A</button>
+				<label class="xe-check" title="The first row holds headings and stays on top">
+					<input type="checkbox" id="xeHeader" checked> Header row</label>
+				<button type="button" class="we-btn" data-op="filter" id="xeFilter" title="Turn filter arrows on or off">Filter</button> <span class="ed-sep"></span>
+				<button type="button" class="we-btn" data-op="clear" title="Clear the contents of the selected cells">Clear contents</button>
+			</div>
+			<div class="we-bar we-sub is-hidden" id="xeFindBar">
+				<input type="text" class="xe-find" id="xeFindText" placeholder="Find" aria-label="Find">
+				<input type="text" class="xe-find" id="xeReplText" placeholder="Replace with" aria-label="Replace with">
+				<button type="button" class="we-btn" data-find="prev">↑ Prev</button>
+				<button type="button" class="we-btn" data-find="next">↓ Next</button>
+				<button type="button" class="we-btn" data-find="replace">Replace</button>
+				<button type="button" class="we-btn" data-find="all">Replace all</button>
+				<label class="xe-check">
+					<input type="checkbox" id="xeFindCase"> Match case</label>
+				<label class="xe-check">
+					<input type="checkbox" id="xeFindWhole"> Whole cell</label>
+				<label class="xe-check">
+					<input type="checkbox" id="xeFindFormulas"> Look in formulas</label> <span class="we-field" id="xeFindInfo"></span>
+				<button type="button" class="we-btn" data-find="close" aria-label="Close">✕</button>
+			</div>
+			<div id="xeErr" class="err"></div>
+			<div class="xe-formulabar">
+				<input type="text" class="xe-namebox" id="xeNameBox" value="A1" aria-label="Cell reference" spellcheck="false" autocomplete="off"> <span class="xe-fx">fx</span>
+				<input type="text" class="xe-fxinput" id="xeFxInput" aria-label="Formula or value" spellcheck="false" autocomplete="off"> </div>
+			<div class="xe-grid" id="xeGrid" tabindex="0" aria-label="Spreadsheet grid">
+				<div class="xe-view" id="xeView"></div>
+				<div class="xe-vbar" id="xeVBar">
+					<div class="xe-vsizer" id="xeVSizer"></div>
+				</div>
+				<div class="xe-hbar" id="xeHBar">
+					<div class="xe-hsizer" id="xeHSizer"></div>
+				</div>
+			</div>
+			<div class="xe-bottom">
+				<div class="xe-tabs" id="xeTabs"></div>
+				<div class="xe-stats" id="xeStats"></div>
+			</div>
+			<input type="file" id="xeFileInput" accept=".xlsx, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv">
+			<div class="xe-menu is-hidden" id="xeMenu"></div>
+
+			<h2 class="mt-5">About</h1>
+			<p>Turn PDF files into editable Word documents. Everything happens in your browser, so your files are never uploaded.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="pdf-splitter.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/splitter.png" class="icon">
+								<h6 class="mb-0">PDF Splitter</h6>
+								<p class="mb-0">Split a PDF into pages or files</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/document-editor.png" class="icon">
+								<h6 class="mb-0">PDF Editor</h6>
+								<p class="mb-0">Add / remove text and images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-compress.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/compression.png" class="icon">
+								<h6 class="mb-0">PDF Compress</h6>
+								<p class="mb-0">Reduce PDF file size</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="converter-tools.html">Converter Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/vendors/jszip/jszip.min.js"></script>
+	<script src="assets/js/google-fonts-list.js"></script>
+	<script src="assets/js/font-picker.js"></script>
+	<script src="assets/vendors/xlsx-engine/xlsx-engine.js"></script>
+	<script src="assets/js/excel-editor.js"></script>	
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

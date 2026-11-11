@@ -91,4 +91,12 @@
 	.pe-stage {
 		height: 420px;
 	}
+
+	.xe-grid {
+		height: 460px;
+	}
+
+	.xe-find {
+		width: 120px;
+	}
 }

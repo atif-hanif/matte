@@ -718,7 +718,7 @@
 	function drawCellsPane(el, p) {
 		const s = sh;
 		let html = '';
-		
+		// grid lines
 		for(let r = p.r0; r <= p.r1; r++) {
 			const h = s.rowPos[r + 1] - s.rowPos[r];
 			if(h <= 0) continue;
@@ -729,7 +729,7 @@
 			if(w <= 0) continue;
 			html += '<div class="xe-gl" style="top:0;left:' + px(s.colPos[c + 1] - p.ox - 1) + 'px;height:' + px(p.h) + 'px;width:1px"></div>';
 		}
-		
+		// merges
 		const covered = new Set(),
 			masters = [];
 		s.merges.forEach((m) => {
@@ -782,7 +782,7 @@
 				x, y, w, h
 			}, w);
 		});
-		
+		// filter arrows
 		if(s.filter) {
 			const f = s.filter;
 			for(let c = f.c1; c <= f.c2; c++) {
@@ -792,9 +792,9 @@
 				html += '<div class="xe-fb' + (f.cols[c] ? ' is-on' : '') + '" style="left:' + px(x) + 'px;top:' + px(y) + 'px">▾</div>';
 			}
 		}
-		
+		// find hit
 		if(findHit && findHit.s === s && findHit.r >= p.r0 && findHit.r <= p.r1 && findHit.c >= p.c0 && findHit.c <= p.c1) html += selRectHtml('xe-find-hit', findHit.r, findHit.c, findHit.r, findHit.c, p.ox, p.oy);
-		
+		// selection
 		const g = s.sel;
 		const mm = mergeAt(s, g.ar, g.ac);
 		const multi = g.r1 !== g.r2 || g.c1 !== g.c2;
@@ -908,20 +908,17 @@
 		if(editing) placeEditor();
 		updateBars();
 	}
-
 	let syncingBars = false;
 	vbar.addEventListener('scroll', () => {
 		if(syncingBars) return;
 		sh.scrollY = vbar.scrollTop;
 		scheduleDraw();
 	});
-
 	hbar.addEventListener('scroll', () => {
 		if(syncingBars) return;
 		sh.scrollX = hbar.scrollLeft;
 		scheduleDraw();
 	});
-
 	view.addEventListener('wheel', (e) => {
 		e.preventDefault();
 		const k = e.deltaMode === 1 ? 20 : 1;
@@ -936,11 +933,10 @@
 	}, {
 		passive: false
 	});
-
 	window.addEventListener('resize', scheduleDraw);
 	let findHit = null;
-	
-	let editing = null;
+	/* ---------------- 6. selecting and editing ---------------- */
+	let editing = null; // { r, c, mode: 'enter' | 'edit' | 'bar' }
 	const fxInput = $('xeFxInput'),
 		nameBox = $('xeNameBox');
 
@@ -951,7 +947,7 @@
 		g.c1 = Math.min(g.ac, g.fc);
 		g.c2 = Math.max(g.ac, g.fc);
 		let changed = true;
-		while(changed) { 
+		while(changed) { // a selection always covers whole merged blocks
 			changed = false;
 			s.merges.forEach((m) => {
 				if(m.r2 < g.r1 || m.r1 > g.r2 || m.c2 < g.c1 || m.c1 > g.c2) return;
@@ -1067,7 +1063,6 @@
 			y
 		};
 	}
-
 	let drag = null,
 		lastPtr = null,
 		scrollRaf = 0;
@@ -1099,7 +1094,6 @@
 		const before = t.slice(0, p).replace(/\s+$/, '');
 		return before === '=' || /[=(+\-*\/^&,;<>:]$/.test(before);
 	}
-
 	const editBoxText = () => (editing && editing.mode === 'bar' ? fxInput.value : editBox.value);
 	const editCaret = () => (editing && editing.mode === 'bar' ? fxInput.selectionStart : editBox.selectionStart);
 
@@ -1117,7 +1111,6 @@
 		else if(editing && editing.mode !== 'bar') editBox.value = fxInput.value;
 		placeEditor();
 	}
-
 	view.addEventListener('pointerdown', (e) => {
 		if(e.pointerType === 'mouse' && e.button !== 0) return;
 		hideMenu();
@@ -1320,7 +1313,6 @@
 			scheduleDraw();
 		}
 	}
-
 	view.addEventListener('pointermove', (e) => {
 		if(!drag) {
 			if(e.pointerType !== 'mouse') return;
@@ -1378,7 +1370,6 @@
 			return;
 		}
 	}
-
 	let lastTap = 0,
 		lastTapKey = -1;
 	view.addEventListener('pointerup', endDrag);
@@ -1392,7 +1383,6 @@
 			startEdit('edit');
 		}
 	});
-
 	view.addEventListener('contextmenu', (e) => {
 		e.preventDefault();
 		const h = hitTest(e);
@@ -1411,7 +1401,7 @@
 			['Freeze panes here', 'freeze']
 		]);
 	});
-	
+	/* ---- the cell editor ---- */
 	function startEdit(mode, initial) {
 		if(editing) return;
 		const g = sh.sel;
@@ -1455,12 +1445,10 @@
 		editBox.style.textAlign = st.al || '';
 		editBox.style.color = st.color || '';
 	}
-
 	editBox.addEventListener('input', () => {
 		fxInput.value = editBox.value;
 		placeEditor();
 	});
-
 	editBox.addEventListener('keydown', (e) => {
 		if(!editing) return;
 		if(e.key === 'Enter' && !e.altKey) {
@@ -1489,7 +1477,7 @@
 		e.stopPropagation();
 	});
 
-	function cycleAbsolute(el) { 
+	function cycleAbsolute(el) { // F4 turns the reference at the caret into $A$1, A$1, $A1, A1
 		const t = el.value,
 			p = el.selectionStart;
 		const re = /\$?[A-Za-z]{1,3}\$?\d+/g;
@@ -1504,7 +1492,7 @@
 					[false, true],
 					[false, false]
 				][(st === 3 ? 0 : st === 1 ? 1 : st === 0 ? 2 : 3)];
-				
+				// cycle: A1 -> $A$1 -> A$1 -> $A1 -> A1
 				const order = [
 					[false, false],
 					[true, true],
@@ -1551,7 +1539,6 @@
 		});
 		drawAll();
 	}
-
 	fxInput.addEventListener('focus', () => {
 		if(!editing) {
 			const g = sh.sel;
@@ -1565,14 +1552,12 @@
 			drawGrid();
 		}
 	});
-
 	fxInput.addEventListener('input', () => {
 		if(editing && editing.mode !== 'bar') {
 			editBox.value = fxInput.value;
 			placeEditor();
 		}
 	});
-
 	fxInput.addEventListener('keydown', (e) => {
 		if(e.key === 'Enter') {
 			e.preventDefault();
@@ -1590,7 +1575,6 @@
 		}
 		e.stopPropagation();
 	});
-
 	fxInput.addEventListener('blur', () => {
 		if(editing && editing.mode === 'bar') {
 			setTimeout(() => {
@@ -1598,7 +1582,6 @@
 			}, 0);
 		}
 	});
-
 	nameBox.addEventListener('keydown', (e) => {
 		if(e.key === 'Enter') {
 			e.preventDefault();
@@ -1627,10 +1610,9 @@
 		}
 		e.stopPropagation();
 	});
-
 	nameBox.addEventListener('focus', () => nameBox.select());
-	
-	function jumpTo(r, c, dr, dc) { 
+	/* ---- moving the cursor ---- */
+	function jumpTo(r, c, dr, dc) { // Ctrl+arrow
 		const s = sh;
 		const has = (rr, cc) => {
 			const x = s.cells.get(key(rr, cc));
@@ -1732,7 +1714,7 @@
 		else setSel(r, c);
 		ensureVisible(r, c);
 	}
-
+	
 	gridEl.addEventListener('keydown', (e) => {
 		if(editing) return;
 		const ctrl = e.ctrlKey || e.metaKey;
@@ -1744,41 +1726,49 @@
 				setSel(0, 0, MAXR - 1, MAXC - 1);
 				return;
 			}
+
 			if(lk === 'z') {
 				e.preventDefault();
 				e.shiftKey ? redo() : undo();
 				return;
 			}
+
 			if(lk === 'y') {
 				e.preventDefault();
 				redo();
 				return;
 			}
+
 			if(lk === 'b') {
 				e.preventDefault();
 				toggleStyle('b');
 				return;
 			}
+
 			if(lk === 'i') {
 				e.preventDefault();
 				toggleStyle('i');
 				return;
 			}
+
 			if(lk === 'u') {
 				e.preventDefault();
 				toggleStyle('u');
 				return;
 			}
+
 			if(lk === 'd') {
 				e.preventDefault();
 				fillFromEdge('down');
 				return;
 			}
+
 			if(lk === 'r') {
 				e.preventDefault();
 				fillFromEdge('right');
 				return;
 			}
+
 			if(k === 'Home') {
 				e.preventDefault();
 				e.shiftKey ? setSel(sh.sel.ar, sh.sel.ac, 0, 0) : setSel(0, 0);
@@ -1787,6 +1777,7 @@
 				scheduleDraw();
 				return;
 			}
+
 			if(k === 'End') {
 				e.preventDefault();
 				const r = Math.max(0, sh.maxR),
@@ -1795,6 +1786,7 @@
 				ensureVisible(r, c);
 				return;
 			}
+
 			if(/^Arrow/.test(k)) {
 				e.preventDefault();
 				moveActive(k === 'ArrowDown' ? 1 : (k === 'ArrowUp' ? -1 : 0), k === 'ArrowRight' ? 1 : (k === 'ArrowLeft' ? -1 : 0), e.shiftKey, true);
@@ -1803,37 +1795,44 @@
 			if(lk === 'c' || lk === 'x' || lk === 'v') return; // clipboard events handle these
 			return;
 		}
+
 		if(/^Arrow/.test(k)) {
 			e.preventDefault();
 			moveActive(k === 'ArrowDown' ? 1 : (k === 'ArrowUp' ? -1 : 0), k === 'ArrowRight' ? 1 : (k === 'ArrowLeft' ? -1 : 0), e.shiftKey, false);
 			return;
 		}
+
 		if(k === 'Tab') {
 			e.preventDefault();
 			moveActive(0, e.shiftKey ? -1 : 1, false, false, true);
 			return;
 		}
+
 		if(k === 'Enter') {
 			e.preventDefault();
 			if(e.shiftKey) moveActive(-1, 0, false, false, true);
 			else moveActive(1, 0, false, false, true);
 			return;
 		}
+
 		if(k === 'F2') {
 			e.preventDefault();
 			startEdit('edit');
 			return;
 		}
+
 		if(k === 'Delete' || k === 'Backspace') {
 			e.preventDefault();
 			clearContents();
 			return;
 		}
+
 		if(k === 'Escape') {
 			findHit = null;
 			scheduleDraw();
 			return;
 		}
+
 		if(k === 'Home') {
 			e.preventDefault();
 			e.shiftKey ? setSel(sh.sel.ar, sh.sel.ac, sh.sel.fr, 0) : setSel(sh.sel.ar, 0);
@@ -1841,12 +1840,14 @@
 			ensureVisible(sh.sel.ar, 0);
 			return;
 		}
+
 		if(k === 'PageDown' || k === 'PageUp') {
 			e.preventDefault();
 			const rows = Math.max(1, Math.floor(L.bodyH / sh.defRowH) - 1) * (k === 'PageDown' ? 1 : -1);
 			moveActive(rows, 0, e.shiftKey, false);
 			return;
 		}
+
 		if(k.length === 1 && !e.altKey) {
 			e.preventDefault();
 			startEdit('enter', k);
@@ -1859,7 +1860,7 @@
 		drawGrid();
 	}
 
-	function usedRect(g) { 
+	function usedRect(g) {
 		return {
 			r1: g.r1,
 			c1: g.c1,
@@ -2168,7 +2169,7 @@
 		}
 	});
 	
-	function seriesStep(vals) {
+	function seriesStep(vals) { 
 		if(vals.length < 2 || vals.some((x) => !x || x.f || typeof x.v !== 'number')) return null;
 		const step = vals[1].v - vals[0].v;
 		for(let i = 2; i < vals.length; i++)
@@ -2328,7 +2329,7 @@
 		if(own) end();
 		if(force) drawAll();
 	}
-
+	
 	function quoteSheet(n) {
 		return /^[A-Za-z_][A-Za-z0-9_.]*$/.test(n) ? n : "'" + n.replace(/'/g, "''") + "'";
 	}
@@ -2476,7 +2477,7 @@
 		if(n < 0) setSel(g.ar, g.ac, g.fr, g.fc);
 	}
 	
-	function dataRegion(r, c) {
+	function dataRegion(r, c) { 
 		const s = sh;
 		const has = (rr, cc) => {
 			const x = s.cells.get(key(rr, cc));
@@ -2823,10 +2824,8 @@
 		if(all) {
 			$('xeFindInfo').textContent = n + ' replaced';
 			drawAll();
-	
 		} else findStep(1);
 	}
-
 	findBar.addEventListener('mousedown', (e) => {
 		if(e.target.closest('button')) e.preventDefault();
 	});
@@ -3017,7 +3016,7 @@
 			} else on = !!st[f];
 			b.classList.toggle('is-active', on);
 		});
-		if(document.activeElement !== $('xeFont')) $('xeFont').value = st.font || wb.defFont;
+		fontPick.setCurrent(st.font || wb.defFont);
 		const sz = String(st.sz || wb.defSz),
 			sel = $('xeSize');
 		if(!Array.prototype.some.call(sel.options, (o) => o.value === sz || o.text === sz)) sel.add(new Option(sz, sz));
@@ -3029,7 +3028,7 @@
 		$('xeFreeze').textContent = (sh.freeze.r || sh.freeze.c) ? 'Unfreeze panes' : 'Freeze panes';
 		$('xeFilter').classList.toggle('is-active', !!sh.filter);
 		$('xeMerge').classList.toggle('is-active', !!mergeAt(sh, g.ar, g.ac));
-		// statistics of the selection
+		
 		let n = 0,
 			cnt = 0,
 			sum = 0,
@@ -3286,8 +3285,8 @@
 		gridEl.focus({
 			preventScroll: true
 		});
-	}
 
+	}
 	fmtBar.addEventListener('click', (e) => {
 		const b = e.target.closest('button');
 		if(!b) return;
@@ -3315,19 +3314,22 @@
 		}
 	});
 
-	$('xeFont').addEventListener('change', () => {
-		const n = $('xeFont').value.trim();
-		if(!n) return;
-		loadFont(n);
-		applyStyle({
-			font: n === wb.defFont ? null : n
-		});
-		done();
-	});
-
-	$('xeFont').addEventListener('keydown', (e) => {
-		e.stopPropagation();
-		if(e.key === 'Enter') $('xeFont').dispatchEvent(new Event('change'));
+	var fontPick = FontPicker.create({
+		btn: $('xeFontBtn'),
+		cur: $('xeFontCur'),
+		pop: $('xeFontPop'),
+		search: $('xeFontSearch'),
+		cats: $('xeFontCats'),
+		list: $('xeFontList'),
+		count: $('xeFontCount'),
+		onPick: (n) => {
+			loadFont(n);
+			applyStyle({
+				font: n === wb.defFont ? null : n
+			});
+			done();
+		},
+		onClose: () => done()
 	});
 
 	$('xeSize').addEventListener('change', () => {
@@ -3515,13 +3517,12 @@
 		58: 'yyyy-mm-dd'
 	};
 
-	function readStyles(xml, theme) { 
+	function readStyles(xml, theme) { // returns { xfs: [styleId], defFont, defSz }
 		const out = {
 			xfs: [],
 			defFont: 'Calibri',
 			defSz: 11
 		};
-
 		if(!xml) return out;
 		const d = parseXml(xml),
 			root = d.documentElement;
@@ -3529,7 +3530,6 @@
 		kids(kid(root, 'numFmts'), 'numFmt').forEach((n) => {
 			numFmts[n.getAttribute('numFmtId')] = n.getAttribute('formatCode');
 		});
-
 		const fonts = kids(kid(root, 'fonts'), 'font').map((f) => {
 			const o = {};
 			const nm = kid(f, 'name'),
@@ -3548,18 +3548,15 @@
 			o.color = colorOf(kid(f, 'color'), theme);
 			return o;
 		});
-
 		if(fonts[0]) {
 			out.defFont = fonts[0].name || 'Calibri';
 			out.defSz = fonts[0].sz || 11;
 		}
-
 		const fills = kids(kid(root, 'fills'), 'fill').map((f) => {
 			const pf = kid(f, 'patternFill');
 			if(!pf || pf.getAttribute('patternType') !== 'solid') return null;
 			return colorOf(kid(pf, 'fgColor'), theme);
 		});
-
 		const borders = kids(kid(root, 'borders'), 'border').map((b) => {
 			const o = {};
 			[
@@ -3573,7 +3570,6 @@
 			});
 			return Object.keys(o).length ? o : null;
 		});
-
 		kids(kid(root, 'cellXfs'), 'xf').forEach((xf) => {
 			const st = {};
 			const nid = xf.getAttribute('numFmtId') || '0';
@@ -3981,7 +3977,6 @@
 	const NEW_RE = new RegExp('(^|[^A-Za-z0-9_.])(' + NEW_FUNCS.join('|') + ')\\(', 'gi');
 
 	function formulaOut(f) {
-		
 		return f.split(/("(?:[^"]|"")*")/).map((p, i) => (i % 2 ? p : p.replace(NEW_RE, (m, a, n) => a + '_xlfn.' + n.toUpperCase() + '('))).join('');
 	}
 
@@ -4088,7 +4083,6 @@
 			}
 			out.push(xml + '</cols>');
 		}
-
 		out.push('<sheetData>');
 		const keys = Array.from(s.cells.keys()).sort((a, b) => a - b);
 		const rowsWithProps = new Set(Object.keys(s.rowH).map(Number));
@@ -4255,11 +4249,8 @@
 		copySel,
 		pasteText
 	};
-
+	
 	(function init() {
-		const dl = $('xeFontList');
-		const common = ['Calibri', 'Arial', 'Times New Roman', 'Courier New', 'Verdana', 'Georgia', 'Tahoma', 'Trebuchet MS', 'Cambria', 'Segoe UI', 'Comic Sans MS', 'Consolas'];
-		dl.innerHTML = common.concat((window.GOOGLE_FONTS || []).map((f) => f[0])).map((n) => '<option value="' + esc(n) + '"></option>').join('');
 		newWorkbook();
 		resetHistory();
 		setSel(0, 0);

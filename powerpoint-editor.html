@@ -105,18 +105,30 @@
 			</nav>
 
 			<h2>Powerpoint Editior</h1>
-			<p>Convert Word documents into shareable PDFs</p>
+			<p>Edit PowerPoint slides online, no software needed</p>
 
 			<div class="we-bar">
-				<button type="button" class="btn btn-ghost btn-sm" id="peOpenBtn">Open .pptx</button>
-				<button type="button" class="btn btn-ghost btn-sm" id="peNewBtn">New</button>
+				<button type="button" class="btn btn-secondary-outlined" id="peOpenBtn">
+					<i class="fa-regular fa-file-word me-2"></i>
+					Open
+				</button>
+				<button type="button" class="btn btn-primary-outlined" id="peNewBtn">
+					<i class="fa-regular fa-file me-2"></i>
+					New
+				</button>
 
 				<input type="text" class="we-name" id="peName" value="presentation" aria-label="File name" maxlength="80">
 
 				<div class="we-bar-right">
 					<span class="we-status" id="peStatus">New presentation</span>
-					<button type="button" class="btn btn-ghost btn-sm" id="pePresentBtn">Present</button>
-					<button type="button" class="btn btn-primary btn-sm" id="peSaveBtn">Save .pptx</button>
+					<button type="button" class="btn btn-secondary btn-sm" id="pePresentBtn">
+						<i class="fa-solid fa-presentation-screen me-2"></i>
+						Present
+					</button>
+					<button type="button" class="btn btn-primary btn-sm" id="peSaveBtn">
+						<i class="fa-solid fa-floppy-disk me-2"></i>
+						Save
+					</button>
 				</div>
 			</div>
 			
@@ -130,9 +142,31 @@
 
 				<span class="ed-sep"></span>
 
-				<input type="text" class="pe-font" id="peFont" list="peFontList" value="Calibri" aria-label="Font" title="Font (any Google Font)" autocomplete="off" spellcheck="false">
+				<button type="button" class="we-fontbtn" id="peFontBtn" aria-haspopup="listbox" aria-expanded="false" title="Font">
+					<span class="we-fontbtn-name" id="peFontCur">Calibri</span>
+					<svg class="chev" width="10" height="6" viewBox="0 0 10 6" fill="currentColor"><path d="M0 0l5 6 5-6z"/></svg>
+				</button>
+
+				<div class="we-fontpop is-hidden" id="peFontPop">
+					<input type="search" id="peFontSearch" class="ed-select" placeholder="Search fonts…" autocomplete="off" spellcheck="false">
+
+					<div class="ed-chips" id="peFontCats">
+						<button type="button" class="ed-chip is-active" data-cat="all">All</button>
+						<button type="button" class="ed-chip" data-cat="system">Common</button>
+						<button type="button" class="ed-chip" data-cat="s">Sans</button>
+						<button type="button" class="ed-chip" data-cat="f">Serif</button>
+						<button type="button" class="ed-chip" data-cat="d">Display</button>
+						<button type="button" class="ed-chip" data-cat="h">Handwriting</button>
+						<button type="button" class="ed-chip" data-cat="m">Mono</button>
+					</div>
+					
+					<div class="ed-fontlist" id="peFontList" role="listbox"></div>
+					<!-- <div class="ed-fontcount" id="peFontCount"></div> -->
+				</div>
+
 				<datalist id="peFontList"></datalist>
-				<select class="btn btn-ghost btn-sm" id="peSize" aria-label="Font size">
+				
+				<select class="form-select" id="peSize" aria-label="Font size">
 					<option>8</option>
 					<option>10</option>
 					<option>12</option>
@@ -152,9 +186,15 @@
 					<option>96</option>
 				</select>
 
-				<button type="button" class="we-btn we-b" data-cmd="bold" title="Bold (Ctrl+B)">B</button>
-				<button type="button" class="we-btn we-i" data-cmd="italic" title="Italic (Ctrl+I)">I</button>
-				<button type="button" class="we-btn we-u" data-cmd="underline" title="Underline (Ctrl+U)">U</button>
+				<button type="button" class="we-btn we-b" data-cmd="bold" title="Bold (Ctrl+B)">
+					<i class="fa-solid fa-bold"></i>
+				</button>
+				<button type="button" class="we-btn we-i" data-cmd="italic" title="Italic (Ctrl+I)">
+					<i class="fa-solid fa-italic"></i>
+				</button>
+				<button type="button" class="we-btn we-u" data-cmd="underline" title="Underline (Ctrl+U)">
+					<i class="fa-solid fa-underline"></i>
+				</button>
 
 				<label class="we-color" title="Text colour">
 					<span class="we-color-a">A</span>
@@ -162,11 +202,22 @@
 				</label>
 
 				<span class="ed-sep"></span>
-				<button type="button" class="we-btn" data-cmd="justifyLeft" title="Align left">⟸</button>
-				<button type="button" class="we-btn" data-cmd="justifyCenter" title="Centre">≡</button>
-				<button type="button" class="we-btn" data-cmd="justifyRight" title="Align right">⟹</button>
-				<button type="button" class="we-btn" data-cmd="insertUnorderedList" title="Bulleted list">•≡</button>
-				<button type="button" class="we-btn" data-cmd="insertOrderedList" title="Numbered list">1≡</button>
+
+				<button type="button" class="we-btn" data-cmd="justifyLeft" title="Align left">
+					<i class="fa-solid fa-align-left"></i>
+				</button>
+				<button type="button" class="we-btn" data-cmd="justifyCenter" title="Centre">
+					<i class="fa-solid fa-align-center"></i>
+				</button>
+				<button type="button" class="we-btn" data-cmd="justifyRight" title="Align right">
+					<i class="fa-solid fa-align-right"></i>
+				</button>
+				<button type="button" class="we-btn" data-cmd="insertUnorderedList" title="Bulleted list">
+					<i class="fa-solid fa-list-ul"></i>
+				</button>
+				<button type="button" class="we-btn" data-cmd="insertOrderedList" title="Numbered list">
+					<i class="fa-solid fa-list-ol"></i>
+				</button>
 
 				<select class="form-select" id="peAnchor" aria-label="Vertical text position" title="Vertical text position">
 					<option value="t">Text top</option>
@@ -232,7 +283,6 @@
 					<label class="pe-bgc" title="Slide background">Background</label>
 					<input type="color" id="peBg" value="#FFFFFF" class="form-control">
 				</div>
-				
 				
 				<span class="ed-sep"></span>
 
@@ -461,6 +511,7 @@
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
 	<script src="assets/vendors/jszip/jszip.min.js"></script>
 	<script src="assets/js/google-fonts-list.js"></script>
+	<script src="assets/js/font-picker.js"></script>
 	<script src="assets/js/powerpoint-editor.js"></script>
 	<script src="assets/js/script.js"></script>
 </body>
