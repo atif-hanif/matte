@@ -271,7 +271,7 @@
 
 	function ensureLoaded() {
 		if(ff) return Promise.resolve(ff);
-		// the converter's browser build registers one of these names, depending on its version
+		
 		var NS = [window.FFmpegWASM, window.FFmpegWrapper].filter(function(x) {
 			return x && typeof x.FFmpeg === 'function'
 		})[0];
@@ -433,6 +433,7 @@
 			n: todo.length,
 			i: 0
 		};
+		
 		render();
 		ensureLoaded().then(function(f) {
 			var chain = Promise.resolve();
@@ -464,6 +465,7 @@
 			render()
 		});
 	};
+
 	$('cancel').onclick = function() {
 		cancelled = true;
 		hideStage();

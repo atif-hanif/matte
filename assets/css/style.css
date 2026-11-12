@@ -3939,6 +3939,84 @@ body.xe-dragging,body.xe-dragging * {
 	accent-color: var(--primary);
 }
 
+/* CSV to Excel */
+
+.cx-thumb {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #FFFFFF;
+}
+
+.cx-ph {
+	font-family: 'Fraunces',serif;
+	font-size: 26px;
+	font-weight: 600;
+	color: var(--line);
+	letter-spacing: 0.04em;
+}
+
+.cx-preview {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	padding: 8px 10px;
+	font: 11px/1.45 ui-monospace,Menlo,Consolas,monospace;
+	color: var(--muted);
+	white-space: pre;
+	text-align: left;
+	align-self: flex-start;
+}
+
+#cxSettings .mode-switch {
+	display: flex;
+	background: var(--surface-2);
+	border-radius: 8px;
+	padding: 3px;
+	gap: 2px;
+}
+
+#cxSettings .mode-btn {
+	font-family: inherit;
+	border: none;
+	background: none;
+	color: var(--muted);
+	font-size: 12.5px;
+	font-weight: 500;
+	padding: 7px 14px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+#cxSettings .mode-btn.active {
+	background: var(--bg);
+	color: var(--text);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+#cxSettings select.btn-ghost {
+	padding: 7px 30px 7px 12px;
+	font-size: 12.5px;
+	color: var(--text);
+}
+
+.cx-check {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	color: var(--muted);
+	cursor: pointer;
+}
+
+.cx-check input {
+	accent-color: var(--amber);
+}
+
+.cx-check {
+	white-space: nowrap;
+}
+
 /* Video */
 
 .video .settings {
