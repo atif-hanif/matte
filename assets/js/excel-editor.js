@@ -3025,7 +3025,8 @@
 			nsel = $('xeNumFmt');
 		nsel.value = Array.prototype.some.call(nsel.options, (o) => o.value === nf) ? nf : 'General';
 		$('xeFreeze').classList.toggle('is-active', !!(sh.freeze.r || sh.freeze.c));
-		$('xeFreeze').textContent = (sh.freeze.r || sh.freeze.c) ? 'Unfreeze panes' : 'Freeze panes';
+		// $('xeFreeze').textContent = (sh.freeze.r || sh.freeze.c) ? 'Unfreeze panes' : 'Freeze panes';
+		$('xeFreeze').innerHTML = (sh.freeze.r || sh.freeze.c) ? '<i class="fa-utility fa-semibold fa-unlock me-2"></i>Unfreeze panes' : '<i class="fa-utility fa-semibold fa-lock me-2"></i>Freeze panes';
 		$('xeFilter').classList.toggle('is-active', !!sh.filter);
 		$('xeMerge').classList.toggle('is-active', !!mergeAt(sh, g.ar, g.ac));
 		
