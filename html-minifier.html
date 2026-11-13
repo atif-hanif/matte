@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — HTML Minifier</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate.tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="developer-tools.html">Developer Tools</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="minifier-tools.html">Minifier Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">HTML Minifier</li>
+				</ol>
+			</nav>
+
+			<h2>HTML Minifier</h1>
+			<p>Convert MPEG videos to web-friendly WebM</p>
+
+			<div class="settings-bar show" id="hbSettings">
+				<div class="settings-group">
+					<label>Action</label>
+					<div class="mode-switch" id="hbMode">
+						<button type="button" class="mode-btn" data-mode="beautify">Beautify</button>
+						<button type="button" class="mode-btn active" data-mode="minify">Minify</button>
+					</div>
+				</div>
+
+				<div class="settings-group" data-for="beautify">
+					<label for="hbIndent">Indent</label>
+					<select id="hbIndent" class="form-select">
+						<option value="2">2 spaces</option>
+						<option value="4" selected>4 spaces</option>
+						<option value="8">8 spaces</option>
+						<option value="tab">Tab</option>
+					</select>
+				</div>
+
+				<div class="settings-group" data-for="beautify">
+					<label for="hbWrap">Wrap lines at</label>
+					<select id="hbWrap" class="form-select">
+						<option value="0">Never</option>
+						<option value="80">80 characters</option>
+						<option value="100">100 characters</option>
+						<option value="120" selected>120 characters</option>
+					</select>
+				</div>
+
+				<div class="settings-group" data-for="beautify">
+					<label for="hbAttrs">Attributes</label>
+					<select id="hbAttrs" class="form-select">
+						<option value="auto">Wrap when too long</option>
+						<option value="force">One per line</option>
+						<option value="preserve">Keep as written</option>
+					</select>
+				</div>
+
+				<div class="settings-group" data-for="beautify">
+					<label class="hb-check">
+						<input type="checkbox" id="hbInner" checked> Format &lt;style&gt; and &lt;script&gt;
+					</label>
+				</div>
+
+				<div class="settings-group" data-for="beautify">
+					<label class="hb-check">
+						<input type="checkbox" id="hbBlank"> Keep blank lines
+					</label>
+				</div>
+
+				<div class="settings-group is-hidden" data-for="minify">
+					<label class="hb-check">
+						<input type="checkbox" id="hbComments" checked> Remove comments
+					</label>
+				</div>
+			</div>
+
+			<div id="hbErr" class="err"></div>
+
+			<div class="toolbar show">
+				<div class="toolbar-status" id="hbStatus">Paste HTML below or open a file</div>
+
+				<div class="toolbar-actions">
+					<button type="button" class="btn btn-primary-outlined" id="hbSampleBtn">
+						<i class="fa-sharp fa-solid fa-code-simple"></i>
+						Sample
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="hbOpenBtn">
+						<i class="fa-regular fa-file me-2"></i>
+						Open file
+					</button>
+					<button type="button" class="btn btn-primary-outlined" id="hbClearBtn">
+						<i class="fa-solid fa-eraser me-2"></i>
+						Clear
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="hbCopyBtn" disabled>
+						<i class="fa-regular fa-copy me-2"></i>
+						Copy result</button>
+					<button type="button" class="btn btn-primary" id="hbDownloadBtn" disabled>
+						<i class="fa-solid fa-download me-2"></i>
+						Download
+					</button>
+				</div>
+			</div>
+
+			<div class="hb-panes" id="hbPanes">
+				<div class="hb-pane">
+					<div class="hb-title">Your HTML</div>
+					<textarea id="hbIn" class="hb-text" spellcheck="false" placeholder="Paste or drop your HTML here…"></textarea>
+				</div>
+				<div class="hb-pane">
+					<div class="hb-title">Result <span id="hbSize" class="hb-size"></span></div>
+					<textarea id="hbOut" class="hb-text" spellcheck="false" readonly placeholder="The result appears here"></textarea>
+				</div>
+			</div>
+
+			<input type="file" id="hbFileInput" accept=".html,.htm,.xhtml,.txt,text/html">
+
+			<h2 class="mt-5">About</h1>
+			<p>Convert MPEG videos (.mpg, .mpeg, .vob, .m2v) to MP4 that plays on phones, TVs, browsers and editing software. Choose the quality and size, and fix interlaced lines if needed. Everything runs in your browser, so your videos never leave your device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="mp4-to-mpeg.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mpeg.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to MPEG</h6>
+								<p class="mb-0">Convert MP4 videos to MPEG</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mp4-to-mov.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mov.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to MOV</h6>
+								<p class="mb-0">Convert MP4 videos to MOV</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mp4-to-webm.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/webm.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to WebM</h6>
+								<p class="mb-0">Convert MP4 videos to WebM</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mp4-to-mkv.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mkv.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to MKV</h6>
+								<p class="mb-0">Convert MP4 videos to MKV</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/vendors/beautifier-minifier/beautifier-minifier.min.js"></script>
+	<script src="assets/js/html-minifier.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

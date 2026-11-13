@@ -136,7 +136,7 @@
 			m.appendChild(s);
 			m.appendChild(sm);
 			var c = document.createElement('div');
-			c.className = 'ctl';
+			c.className = 'ctl d-flex gap-2';
 
 			function ib(t, label, fn, dis) {
 				var b = document.createElement('button');
