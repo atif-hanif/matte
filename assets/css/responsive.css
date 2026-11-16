@@ -99,4 +99,12 @@
 	.xe-find {
 		width: 120px;
 	}
+
+	.hb-panes {
+		grid-template-columns: 1fr;
+	}
+
+	.hb-text {
+		height: 320px;
+	}
 }

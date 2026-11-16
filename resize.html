@@ -110,7 +110,7 @@
 			</nav>
 
 			<h2>Resize & Upscale</h1>
-			<p>Change size without quality loss</p>
+			<p>Make your photos smaller or larger, from 10% to 800%, with optional AI enhancement for sharp, detailed upscales. Free, no sign-up, and your images never leave your device.</p>
 
 			<div id="rsStage" class="stage">
                 <div id="rsDropMsg" class="drop-msg">
@@ -128,7 +128,7 @@
                 <div class="settings-group">
                     <label for="rsScale">Scale to</label>
                     <input type="number" id="rsScale" class="scale-input" value="150" min="10" max="800" step="1">
-                    <span style="color:var(--muted)">%</span>
+                    <span>%</span>
                 </div>
                 <div class="settings-group" id="rsPresets">
                     <button type="button" class="preset-btn" data-scale="50">50%</button>
@@ -165,7 +165,18 @@
             <input type="file" id="rsFileInput" accept="image/png, image/jpeg, image/webp" multiple>
 
 			<h2 class="mt-5">About</h1>
-			<p>Make your photos smaller or larger in a few clicks. Drop in as many JPG, PNG or WebP images as you like, choose a scale from 50% to 400%, and resize them all at once. When you enlarge a photo, turn on AI enhancement to keep edges sharp and details clean instead of soft and blurry. Download each result individually or all together as a ZIP. Everything runs in your browser, so your images never leave your device.</p>
+			<p>Resize & Upscale tool lets you shrink or enlarge your photos in a few clicks. Set any scale from 10% to 800%, or use a quick preset, and resize a whole batch at once. When you enlarge an image, AI enhancement adds realistic detail so edges stay crisp and textures stay clean instead of turning soft and blurry. It’s ideal for small or low-resolution photos, product images, prints and social media posts. Each photo keeps its original format, and everything runs locally in your browser, so nothing is uploaded to a server and your images stay private.</p>
+
+			<h2 class="mt-5">How to Use</h2>
+			<ol>
+				<li><b>Add your photos:</b> Drag and drop images into the box above, or click it to browse. You can add as many JPG, PNG or WebP files as you like.</li>
+				<li><b>Set the size:</b> Type a percentage into <b>Scale to</b> (10% to 800%), or click a preset: 50%, 100%, 150%, 200% or 400%. Below 100% makes the image smaller, and above 100% makes it larger.</li>
+				<li><b>Turn AI enhancement on or off:</b> Leave <b>Enhance with AI when enlarging </b> ticked for the sharpest upscales. It only works when enlarging, takes a little longer, and downloads a small AI model the first time you use it. Untick it for faster, standard resizing.</li>
+				<li><b>Resize:</b> Click <b>Resize</b> to process every photo..</li>
+				<li><b>Apply:</b> Click <b>Apply to selected</b> to put the new background on every selected photo.</li>
+				<li><b>Download:</b> Use the download icon on any image to save it on its own, or click <b>Download all (.zip)</b> to get every result in one file.</li>
+				<li><b>Start over:</b> Click <b>Clear all</b> to remove everything and process a new batch.</li>
+			</ol>
 
 			<h2 class="mt-5">Related Tools</h2>
 			<div class="grid-container">

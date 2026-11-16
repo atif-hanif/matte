@@ -42,7 +42,7 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="video-tools.html" role="button">
-									Video Tools
+									Video
 								</a>
 							</li>
 							<li class="nav-item">
@@ -112,18 +112,18 @@
 			<h2>HTML Minifier</h1>
 			<p>Convert MPEG videos to web-friendly WebM</p>
 
-			<div class="settings-bar show" id="hbSettings">
+			<div class="settings-bar show" id="bmSettings">
 				<div class="settings-group">
 					<label>Action</label>
-					<div class="mode-switch" id="hbMode">
+					<div class="mode-switch" id="bmMode">
 						<button type="button" class="mode-btn" data-mode="beautify">Beautify</button>
 						<button type="button" class="mode-btn active" data-mode="minify">Minify</button>
 					</div>
 				</div>
 
-				<div class="settings-group" data-for="beautify">
-					<label for="hbIndent">Indent</label>
-					<select id="hbIndent" class="form-select">
+				<div class="settings-group is-hidden" data-for="beautify">
+					<label for="bmIndent">Indent</label>
+					<select id="bmIndent" class="form-select">
 						<option value="2">2 spaces</option>
 						<option value="4" selected>4 spaces</option>
 						<option value="8">8 spaces</option>
@@ -131,9 +131,9 @@
 					</select>
 				</div>
 
-				<div class="settings-group" data-for="beautify">
-					<label for="hbWrap">Wrap lines at</label>
-					<select id="hbWrap" class="form-select">
+				<div class="settings-group is-hidden" data-for="beautify">
+					<label for="bmWrap">Wrap lines at</label>
+					<select id="bmWrap" class="form-select">
 						<option value="0">Never</option>
 						<option value="80">80 characters</option>
 						<option value="100">100 characters</option>
@@ -141,74 +141,82 @@
 					</select>
 				</div>
 
-				<div class="settings-group" data-for="beautify">
-					<label for="hbAttrs">Attributes</label>
-					<select id="hbAttrs" class="form-select">
+				<div class="settings-group is-hidden" data-for="beautify">
+					<label for="bmAttrs">Attributes</label>
+					<select id="bmAttrs" class="form-select">
 						<option value="auto">Wrap when too long</option>
 						<option value="force">One per line</option>
 						<option value="preserve">Keep as written</option>
 					</select>
 				</div>
 
-				<div class="settings-group" data-for="beautify">
-					<label class="hb-check">
-						<input type="checkbox" id="hbInner" checked> Format &lt;style&gt; and &lt;script&gt;
+				<div class="settings-group is-hidden" data-for="beautify">
+					<label class="bm-check">
+						<input type="checkbox" id="bmInner" checked>
+						Format &lt;style&gt; and &lt;script&gt;
 					</label>
 				</div>
 
-				<div class="settings-group" data-for="beautify">
-					<label class="hb-check">
-						<input type="checkbox" id="hbBlank"> Keep blank lines
+				<div class="settings-group is-hidden" data-for="beautify">
+					<label class="bm-check">
+						<input type="checkbox" id="bmBlank">
+						Keep blank lines
 					</label>
 				</div>
 
-				<div class="settings-group is-hidden" data-for="minify">
-					<label class="hb-check">
-						<input type="checkbox" id="hbComments" checked> Remove comments
+				<div class="settings-group" data-for="minify">
+					<label class="bm-check">
+						<input type="checkbox" id="bmComments" checked>
+						Remove comments
 					</label>
 				</div>
 			</div>
 
-			<div id="hbErr" class="err"></div>
+			<div id="bmErr" class="err"></div>
 
 			<div class="toolbar show">
-				<div class="toolbar-status" id="hbStatus">Paste HTML below or open a file</div>
+				<div class="toolbar-status" id="bmStatus">Paste HTML below or open a file</div>
 
 				<div class="toolbar-actions">
-					<button type="button" class="btn btn-primary-outlined" id="hbSampleBtn">
+					<button type="button" class="btn btn-primary-outlined" id="bmSampleBtn">
 						<i class="fa-sharp fa-solid fa-code-simple"></i>
 						Sample
 					</button>
-					<button type="button" class="btn btn-secondary-outlined" id="hbOpenBtn">
+
+					<button type="button" class="btn btn-secondary-outlined" id="bmOpenBtn">
 						<i class="fa-regular fa-file me-2"></i>
 						Open file
 					</button>
-					<button type="button" class="btn btn-primary-outlined" id="hbClearBtn">
+
+					<button type="button" class="btn btn-primary-outlined" id="bmClearBtn">
 						<i class="fa-solid fa-eraser me-2"></i>
 						Clear
 					</button>
-					<button type="button" class="btn btn-secondary-outlined" id="hbCopyBtn" disabled>
+
+					<button type="button" class="btn btn-secondary-outlined" id="bmCopyBtn" disabled>
 						<i class="fa-regular fa-copy me-2"></i>
-						Copy result</button>
-					<button type="button" class="btn btn-primary" id="hbDownloadBtn" disabled>
+						Copy result
+					</button>
+
+					<button type="button" class="btn btn-primary" id="bmDownloadBtn" disabled>
 						<i class="fa-solid fa-download me-2"></i>
 						Download
 					</button>
 				</div>
 			</div>
 
-			<div class="hb-panes" id="hbPanes">
-				<div class="hb-pane">
-					<div class="hb-title">Your HTML</div>
-					<textarea id="hbIn" class="hb-text" spellcheck="false" placeholder="Paste or drop your HTML here…"></textarea>
+			<div class="bm-panes" id="bmPanes">
+				<div class="bm-pane">
+					<div class="bm-title">Your HTML</div>
+					<textarea id="bmIn" class="bm-text" spellcheck="false" placeholder="Paste or drop your HTML here…"></textarea>
 				</div>
-				<div class="hb-pane">
-					<div class="hb-title">Result <span id="hbSize" class="hb-size"></span></div>
-					<textarea id="hbOut" class="hb-text" spellcheck="false" readonly placeholder="The result appears here"></textarea>
+				<div class="bm-pane">
+					<div class="bm-title">Result <span id="bmSize" class="bm-size"></span></div>
+					<textarea id="bmOut" class="bm-text" spellcheck="false" readonly placeholder="The result appears here"></textarea>
 				</div>
 			</div>
 
-			<input type="file" id="hbFileInput" accept=".html,.htm,.xhtml,.txt,text/html">
+			<input type="file" id="bmFileInput" accept=".html,.htm,.xhtml,.txt,text/html">
 
 			<h2 class="mt-5">About</h1>
 			<p>Convert MPEG videos (.mpg, .mpeg, .vob, .m2v) to MP4 that plays on phones, TVs, browsers and editing software. Choose the quality and size, and fix interlaced lines if needed. Everything runs in your browser, so your videos never leave your device.</p>
@@ -355,7 +363,7 @@
 							<a class="nav-link" href="document-tools.html">Document Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="video-tools">Video Tools</a>
+							<a class="nav-link" href="video-tools">Video Tools</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="text-tools.html">Text Tools</a>
@@ -364,7 +372,7 @@
 							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="developer-tools.html">Developer Tools</a>
+							<a class="nav-link active" href="developer-tools.html">Developer Tools</a>
 						</li>
 					</ul>
 				</div>
@@ -378,13 +386,13 @@
 							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="converter-tools.html">Converter Tools</a>
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+							<a class="nav-link active" href="minifier-tools.html">Minifier Tools</a>
 						</li>
 					</ul>
 				</div>
@@ -432,7 +440,7 @@
 	<script src="assets/vendors/jquery/jquery.js"></script>
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
 	<script src="assets/vendors/beautifier-minifier/beautifier-minifier.min.js"></script>
-	<script src="assets/js/html-minifier.js"></script>
+	<script src="assets/js/html-beautifier-minifier.js"></script>
 	<script src="assets/js/script.js"></script>
 </body>
 

@@ -2,20 +2,20 @@
 	'use strict';
 
 	const $ = (id) => document.getElementById(id);
-	const inEl = $('hbIn'),
-		outEl = $('hbOut'),
-		statusEl = $('hbStatus'),
-		sizeEl = $('hbSize'),
-		errBox = $('hbErr');
-	const copyBtn = $('hbCopyBtn'),
-		dlBtn = $('hbDownloadBtn'),
-		modeBox = $('hbMode');
-	const optIndent = $('hbIndent'),
-		optWrap = $('hbWrap'),
-		optAttrs = $('hbAttrs'),
-		optInner = $('hbInner'),
-		optBlank = $('hbBlank'),
-		optComments = $('hbComments');
+	const inEl = $('bmIn'),
+		outEl = $('bmOut'),
+		statusEl = $('bmStatus'),
+		sizeEl = $('bmSize'),
+		errBox = $('bmErr');
+	const copyBtn = $('bmCopyBtn'),
+		dlBtn = $('bmDownloadBtn'),
+		modeBox = $('bmMode');
+	const optIndent = $('bmIndent'),
+		optWrap = $('bmWrap'),
+		optAttrs = $('bmAttrs'),
+		optInner = $('bmInner'),
+		optBlank = $('bmBlank'),
+		optComments = $('bmComments');
 	let mode = 'beautify',
 		fileName = 'page.html',
 		timer = null;
@@ -121,13 +121,15 @@
 	}
 
 	inEl.addEventListener('input', schedule);
+
 	[optIndent, optWrap, optAttrs, optInner, optBlank, optComments].forEach((el) => el.addEventListener('change', run));
+
 	modeBox.addEventListener('click', (e) => {
 		const b = e.target.closest('.mode-btn');
 		if(!b) return;
 		mode = b.dataset.mode;
 		modeBox.querySelectorAll('.mode-btn').forEach((x) => x.classList.toggle('active', x === b));
-		document.querySelectorAll('#hbSettings [data-for]').forEach((g) => g.classList.toggle('is-hidden', g.dataset.for !== mode));
+		document.querySelectorAll('#bmSettings [data-for]').forEach((g) => g.classList.toggle('is-hidden', g.dataset.for !== mode));
 		run();
 	});
 
@@ -139,9 +141,11 @@
 			document.execCommand('copy');
 		}
 		const t = copyBtn.textContent;
-		copyBtn.textContent = 'Copied';
+		//copyBtn.textContent = 'Copied';
+		copyBtn.innerHTML = '<i class="fa-regular fa-copy me-2"></i> Copied';
 		setTimeout(() => {
 			copyBtn.textContent = t;
+			copyBtn.innerHTML = '<i class="fa-regular fa-copy me-2"></i> Copy Result';
 		}, 1200);
 	});
 
@@ -159,14 +163,14 @@
 		setTimeout(() => URL.revokeObjectURL(url), 2000);
 	});
 
-	$('hbClearBtn').addEventListener('click', () => {
+	$('bmClearBtn').addEventListener('click', () => {
 		inEl.value = '';
 		fileName = 'page.html';
 		run();
 		inEl.focus();
 	});
 
-	$('hbSampleBtn').addEventListener('click', () => {
+	$('bmSampleBtn').addEventListener('click', () => {
 		inEl.value = '<!DOCTYPE html><html><head><title>Sample</title><style>body{margin:0;font-family:sans-serif}.card{padding:16px;border:1px solid #ddd}</style></head><body><!-- page header --><div class="card"><h1>Hello</h1><p>Some <b>bold</b> and <i>italic</i> text.</p><ul><li>One</li><li>Two</li></ul><a href="https://example.com" target="_blank" rel="noopener" class="button button-primary">Visit</a></div><script>function hi(){var a=1;if(a){console.log("hi")}}hi();</script></body></html>';
 		fileName = 'sample.html';
 		run();
@@ -188,20 +192,21 @@
 		r.readAsText(f);
 	}
 
-	$('hbOpenBtn').addEventListener('click', () => $('hbFileInput').click());
-	$('hbFileInput').addEventListener('change', (e) => {
+	$('bmOpenBtn').addEventListener('click', () => $('bmFileInput').click());
+
+	$('bmFileInput').addEventListener('change', (e) => {
 		loadFile(e.target.files[0]);
 		e.target.value = '';
 	});
 
 	['dragenter', 'dragover'].forEach((ev) => inEl.addEventListener(ev, (e) => {
 		e.preventDefault();
-		$('hbPanes').classList.add('stage-drag');
+		$('bmPanes').classList.add('stage-drag');
 	}));
 
 	['dragleave', 'drop'].forEach((ev) => inEl.addEventListener(ev, (e) => {
 		e.preventDefault();
-		$('hbPanes').classList.remove('stage-drag');
+		$('bmPanes').classList.remove('stage-drag');
 	}));
 
 	inEl.addEventListener('drop', (e) => {
