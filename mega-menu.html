@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte</title>
+	<link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>  
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl">
+			<div class="container align-items-center justify-content-between">
+				<button class="btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+					<i class="fa-solid fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-logo.png" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-start offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-center">
+						<ul class="navbar-nav">
+
+							<!-- MEGA MENU ITEM -->
+							<li class="nav-item dropdown has-megamenu">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Image Tools
+								</a>
+
+								<div class="dropdown-menu megamenu">
+									<div class="container">
+										<div class="row g-4">
+
+											<!-- Column 1 -->
+											<div class="col-xl-3">
+												<h6 class="megamenu-title">Edit</h6>
+												<ul class="list-unstyled megamenu-list">
+													<li>
+														<a href="background-remover.html" class="megamenu-link">
+															<i class="fa-solid fa-eraser"></i>
+															<span>
+																<strong>Background Remover</strong>
+																<small>Remove backgrounds instantly</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="change-background.html" class="megamenu-link">
+															<i class="fa-solid fa-image"></i>
+															<span>
+																<strong>Change Background</strong>
+																<small>Swap in a new backdrop</small>
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+
+											<!-- Column 2 -->
+											<div class="col-xl-3">
+												<h6 class="megamenu-title">Enhance</h6>
+												<ul class="list-unstyled megamenu-list">
+													<li>
+														<a href="resize.html" class="megamenu-link">
+															<i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+															<span>
+																<strong>Resize &amp; Upscale</strong>
+																<small>Change size without quality loss</small>
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+
+											<!-- Column 3 (optional) -->
+											<div class="col-xl-3">
+												<h6 class="megamenu-title">Popular</h6>
+												<ul class="list-unstyled megamenu-list">
+													<li><a href="#" class="megamenu-link"><span><strong>Tool name</strong></span></a></li>
+												</ul>
+											</div>
+
+											<!-- Promo column (optional) -->
+											<div class="col-xl-3">
+												<div class="megamenu-promo">
+													<h6>Try it free</h6>
+													<p>Edit your first image in seconds.</p>
+													<a href="background-remover.html" class="btn btn-primary btn-sm">Get started</a>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</li>
+
+							<!-- Add more nav items here -->
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<div class="container mt-3 d-xl-none">
+		<div class="input-group">
+			<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+			<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+		</div>
+	</div>
+
+	<main>
+		<div class="container">
+			<div class="row mb-3">
+				<div class="col-12 d-block d-md-flex justify-content-between align-items-center">
+					<div>
+						<h4>Image Tools</h4>
+						<p>Resize, edit, compress and convert images</p>
+					</div>
+					<a class="btn btn-primary btn-sm" href="image-tools.html">
+						<span>
+							View all tools
+							<i class="fa-solid fa-arrow-right ps-2"></i>
+						</span>
+					</a>
+				</div>
+			</div>
+
+			<div class="grid-container">
+				<div>
+					<a href="background-remover.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/background-remover.png" class="icon">
+								<h6 class="mb-0">Background Remover</h6>
+								<p class="mb-0">Remove backgrounds instantly</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="change-background.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/image.png" class="icon">
+								<h6 class="mb-0">Change Background</h6>
+								<p class="mb-0">Swap in a new backdrop</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="resize.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/resize.png" class="icon">
+								<h6 class="mb-0">Resize &amp; Upscale</h6>
+								<p class="mb-0">Change size without quality loss</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="image-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/image-editing.png" class="icon">
+								<h6 class="mb-0">Image Editor</h6>
+								<p class="mb-0">Add & remove text and image</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="jpg-to-png.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/jpg.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/png.png" class="icon">
+								</div>
+								<h6 class="mb-0">JPG to PNG</h6>
+								<p class="mb-0">Convert JPG to lossless PNG</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="jpg-to-webp.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/jpg.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/webp.png" class="icon">
+								</div>
+								<h6 class="mb-0">JPG to WebP</h6>
+								<p class="mb-0">Make WebP images work</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="png-to-jpg.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/png.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/jpg.png" class="icon">
+								</div>
+								<h6 class="mb-0">PNG to JPG</h6>
+								<p class="mb-0">Shrink PNG files into compact JPGs</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="png-to-webp.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/png.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/webp.png" class="icon">
+								</div>
+								<h6 class="mb-0">PNG to WebP</h6>
+								<p class="mb-0">Keep transparency at lighter weight</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="row mt-5 mb-3">
+				<div class="col-12 d-block d-md-flex justify-content-between align-items-center">
+					<div>
+						<h4>Documents Tools</h4>
+						<p>Edit and convert documents</p>
+					</div>
+					<a class="btn btn-primary btn-sm" href="document-tools.html">
+						<span>
+							View all tools
+							<i class="fa-solid fa-arrow-right ps-2"></i>
+						</span>
+					</a>
+				</div>
+			</div>
+
+			<div class="grid-container">
+				<div>
+					<a href="pdf-splitter.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/splitter.png" class="icon">
+								<h6 class="mb-0">PDF Splitter</h6>
+								<p class="mb-0">Split a PDF into pages or files</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-merger.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/merge.png" class="icon">
+								<h6 class="mb-0">PDF Merger</h6>
+								<p class="mb-0">Combine multiple PDFs into one file</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/document-editor.png" class="icon">
+								<h6 class="mb-0">PDF Editor</h6>
+								<p class="mb-0">Add / remove text and images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-compress.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/compression.png" class="icon">
+								<h6 class="mb-0">PDF Compress</h6>
+								<p class="mb-0">Reduce PDF file size</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-to-word.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/pdf.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/word.png" class="icon">
+								</div>
+								<h6 class="mb-0">PDF to Word</h6>
+								<p class="mb-0">Convert PDF into Word documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="word-to-pdf.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/word.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/pdf.png" class="icon">
+								</div>
+								<h6 class="mb-0">Word to PDF</h6>
+								<p class="mb-0">Convert Word documents into PDFs</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="word-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/word.png" class="icon">
+								<h6 class="mb-0">Word Editor</h6>
+								<p class="mb-0">Edit Word documents online</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="powerpoint-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/powerpoint.png" class="icon">
+								<h6 class="mb-0">Powerpoint Editor</h6>
+								<p class="mb-0">Edit powerpoint slides online</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="row mt-5 mb-3">
+				<div class="col-12 d-block d-md-flex justify-content-between align-items-center">
+					<div>
+						<h4>Video Tools</h4>
+						<p>Compress and convert video</p>
+					</div>
+					<a class="btn btn-primary btn-sm" href="video-tools.html">
+						<span>
+							View all tools
+							<i class="fa-solid fa-arrow-right ps-2"></i>
+						</span>
+					</a>
+				</div>
+			</div>
+
+			<div class="grid-container">
+				<div>
+					<a href="mp4-to-mpeg.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mpeg.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to MPEG</h6>
+								<p class="mb-0">Convert MP4 videos to MPEG</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mp4-to-mov.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mov.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to MOV</h6>
+								<p class="mb-0">Convert MP4 videos to MOV</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mp4-to-webm.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/webm.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to WebM</h6>
+								<p class="mb-0">Convert MP4 videos to WebM</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mp4-to-mkv.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mp4.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mkv.png" class="icon">
+								</div>
+								<h6 class="mb-0">MP4 to MKV</h6>
+								<p class="mb-0">Convert MP4 videos to MKV</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mpeg-to-mp4.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mpeg.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mp4.png" class="icon">
+								</div>
+								<h6 class="mb-0">MPEG to MP4</h6>
+								<p class="mb-0">Convert MPEG videos to MP4</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mpeg-to-mp4.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mpeg.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mov.png" class="icon">
+								</div>
+								<h6 class="mb-0">MPEG to MOV</h6>
+								<p class="mb-0">Convert MPEG videos to MOV</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="mov-to-mpeg.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<div class="d-flex align-items-center gap-2">
+									<img src="assets/images/icons/mov.png" class="icon">
+									<img src="assets/images/icons/right-arrow.png" class="arrow-icon">
+									<img src="assets/images/icons/mpeg.png" class="icon">
+								</div>
+								<h6 class="mb-0">MOV to MPEG</h6>
+								<p class="mb-0">Convert MOV videos to MPEG format</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="row mt-5 mb-3">
+				<div class="col-12 d-block d-md-flex justify-content-between align-items-center">
+					<div>
+						<h4>Developer Tools</h4>
+						<p>Beautify, minify and check difference</p>
+					</div>
+					<a class="btn btn-primary btn-sm" href="developer-tools.html">
+						<span>
+							View all tools
+							<i class="fa-solid fa-arrow-right ps-2"></i>
+						</span>
+					</a>
+				</div>
+			</div>
+
+			<div class="grid-container">
+				<div>
+					<a href="html-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/html.png" class="icon">
+								<h6 class="mb-0">HTML Beautifier</h6>
+								<p class="mb-0">Format messy HTML into clean, readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="html-minifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/html.png" class="icon">
+								<h6 class="mb-0">HTML Minifer</h6>
+								<p class="mb-0">Shrink HTML by removing spaces and comments</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="css-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/css.png" class="icon">
+								<h6 class="mb-0">CSS Beautifier</h6>
+								<p class="mb-0">Format messy CSS into clean, readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="css-minifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/css.png" class="icon">
+								<h6 class="mb-0">CSS Minifer</h6>
+								<p class="mb-0">Compress CSS for faster page loading</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="js-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/js.png" class="icon">
+								<h6 class="mb-0">JS Beautifier</h6>
+								<p class="mb-0">Format minified JavaScript into readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="js-minifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/js.png" class="icon">
+								<h6 class="mb-0">JS Minifier</h6>
+								<p class="mb-0">Compress JavaScript for faster page loading</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="php-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/php.png" class="icon">
+								<h6 class="mb-0">PHP Beautifier</h6>
+								<p class="mb-0">Format messy PHP into clean, readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="php-minifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/php.png" class="icon">
+								<h6 class="mb-0">PHP Minifier</h6>
+								<p class="mb-0">Strip spaces and comments from PHP files</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minify-tools.html">Minify Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

@@ -28,12 +28,139 @@
 						</a>
 						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
 					</div>
-					<div class="offcanvas-body justify-content-start">
+					<div class="offcanvas-body justify-content-center">
 						<ul class="navbar-nav">
 							<li class="nav-item">
-								<a class="nav-link" href="image-tools.html" role="button">
-									Image
+								<a class="nav-link active" href="index.html" role="button">
+									Home
 								</a>
+							</li>
+							<li class="nav-item dropdown has-megamenu">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Image Tools
+								</a>
+								<div class="dropdown-menu megamenu">
+									<div class="container">
+										<div class="row g-4">
+											<div class="col-xl-3">
+												<ul class="list-unstyled megamenu-list">
+													<li>
+														<a href="background-remover.html" class="megamenu-link">
+															<img src="assets/images/icons/background-remover.png" class="icon">
+															<span>
+																<strong>Background Remover</strong>
+																<small>Remove backgrounds instantly</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="change-background.html" class="megamenu-link">
+															<img src="assets/images/icons/image.png" class="icon">
+															<span>
+																<strong>Change Background</strong>
+																<small>Swap in a new backdrop</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="webp-to-jpg.html" class="megamenu-link">
+															<img src="assets/images/icons/image-converter.png" class="icon">
+															<span>
+																<strong>WebP to JPG</strong>
+																<small>Make JPGs smaller for faster pages</small>
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="col-xl-3">
+												<ul class="list-unstyled megamenu-list">
+													<li>
+														<a href="resize.html" class="megamenu-link">
+															<img src="assets/images/icons/resize.png" class="icon">
+															<span>
+																<strong>Resize &amp; Upscale</strong>
+																<small>Change size without quality loss</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="image-editor.html" class="megamenu-link">
+															<img src="assets/images/icons/image-editing.png" class="icon">
+															<span>
+																<strong>Image Editor</strong>
+																<small>Add & remove text and image</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="webp-to-png.html" class="megamenu-link">
+															<img src="assets/images/icons/image-converter.png" class="icon">
+															<span>
+																<strong>WebP to PNG</strong>
+																<small>Convert and keep transparency</small>
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="col-xl-3">
+												<ul class="list-unstyled megamenu-list">
+													
+													<li>
+														<a href="jpg-to-png.html" class="megamenu-link">
+															<img src="assets/images/icons/image-converter.png" class="icon">
+															<span>
+																<strong>JPG to PNG</strong>
+																<small>Convert JPG to lossless PNG</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="png-to-jpg.html" class="megamenu-link">
+															<img src="assets/images/icons/image-converter.png" class="icon">
+															<span>
+																<strong>PNG to JPG</strong>
+																<small>Change size without quality loss</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="image-compress.html" class="megamenu-link">
+															<img src="assets/images/icons/compression.png" class="icon">
+															<span>
+																<strong>Image Compress</strong>
+																<small>Reduce image file size while keeping it sharp</small>
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+											<div class="col-xl-3">
+												<ul class="list-unstyled megamenu-list">
+													<li>
+														<a href="png-to-jpg.html" class="megamenu-link">
+															<img src="assets/images/icons/image-converter.png" class="icon">
+															<span>
+																<strong>PNG to JPG</strong>
+																<small>Change size without quality loss</small>
+															</span>
+														</a>
+													</li>
+													<li>
+														<a href="png-to-webp.html" class="megamenu-link">
+															<img src="assets/images/icons/image-converter.png" class="icon">
+															<span>
+																<strong>PNG to WebP</strong>
+																<small>Add & remove text and image</small>
+															</span>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="document-tools.html" role="button">
@@ -46,11 +173,6 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="text-tools.html" role="button">
-									Text
-								</a>
-							</li>
-							<li class="nav-item">
 								<a class="nav-link" href="generate.tools.html" role="button">
 									Generate
 								</a>
@@ -58,6 +180,11 @@
 							<li class="nav-item">
 								<a class="nav-link" href="developer-tools.html" role="button">
 									Developer
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="blogs.html" role="button">
+									Blogs
 								</a>
 							</li>
 						</ul>
@@ -668,9 +795,9 @@
 		</div>
 
 		<div class="bottom-footer">
-			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+			<div class="container border-top border-1 py-3 d-block d-md-flex justify-content-between align-items-center">
 				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
-				<ul class="nav social-media">
+				<ul class="nav social-media justify-content-center mt-3 mt-md-0">
 					<li class="nav-item">
 						<a class="nav-link" href="#">
 							<i class="fa-brands fa-facebook"></i>

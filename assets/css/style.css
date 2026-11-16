@@ -109,6 +109,10 @@ label {
 	width: 200px;
 }
 
+.navbar-brand {
+	margin-right: 0px;
+}
+
 .navbar-nav .nav-link {
 	color: var(--black);
 }
@@ -156,6 +160,59 @@ header .checkbox-label .ball {
 
 header .checkbox:checked + .checkbox-label .ball {
   	transform: translateX(24px);
+}
+
+/* Mega Menu */
+
+.megamenu {
+	border: 0;
+	padding: 0.5rem 0;
+}
+
+.megamenu-title {
+	font-size: 0.75rem;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	color: var(--secondary);
+	margin-bottom: 0.75rem;
+}
+
+.megamenu-list li + li {
+	margin-top: 0.25rem;
+}
+
+.megamenu-link {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.75rem;
+	padding: 0.6rem 0.75rem;
+	border-radius: 0.5rem;
+	color: inherit;
+	text-decoration: none;
+	transition: background-color 0.15s ease;
+}
+
+.megamenu-link:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+.megamenu-link img {
+	width: 2rem;
+	height: 2rem;
+	flex: 0 0 2rem;
+	display: grid;
+	place-items: center;
+}
+
+.megamenu-link strong {
+	display: block;
+	font-size: 1rem;
+}
+
+.megamenu-link small {
+	display: block;
+	color: var(--secondary);
+	font-size: 0.8rem;
 }
 
 /* Main */
@@ -4329,10 +4386,6 @@ footer .nav-link {
 	color: var(--black);
 }
 
-.social-media .nav-link {
-	padding: 0px 8px;
-}
-
 .nav li a:before {
     content: '\f324';
     font-family: 'Font Awesome 7 Pro';
@@ -4345,4 +4398,14 @@ footer .nav-link {
 
 .nav .nav-link:hover, .nav .nav-link:focus {
     color: var(--primary);
+}
+
+.social-media .nav-link {
+	padding: 0px 8px;
+}
+
+.social-media li a:before {
+    content: '';
+    font-family: 'Font Awesome 7 Pro';
+	padding-right: 8px;
 }
