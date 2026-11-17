@@ -212,7 +212,7 @@
             }
             
             var x = document.createElement('button');
-           x.className = 'btn btn-secondary-outlined';
+            x.className = 'btn btn-secondary-outlined';
 			//x.textContent = '✕';
 			x.innerHTML = '<i class="fa-solid fa-xmark"></i>';
             x.title = 'Remove';
