@@ -107,3 +107,19 @@
 		display: block;
 	}
 }
+
+@media (max-width: 991px) {
+	.pg-panes {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 575px) {
+	.pg-value {
+		font-size: 18px;
+	}
+
+	.pg-range {
+		width: 110px;
+	}
+}

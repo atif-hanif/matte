@@ -34,3 +34,16 @@
 .dark .breadcrumb-item+.breadcrumb-item::before {
     color: var(--white);
 }
+
+.dark .pg-meter-row,
+.dark .pg-crack,
+.dark .pg-legend,
+.dark .bm-title,
+.dark .bm-size,
+.dark .pg-tips li {
+	color: var(--white);
+}
+
+.dark .pg-legend .pg-c-upper {
+	color: var(--white);
+}
