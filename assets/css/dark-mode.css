@@ -47,3 +47,17 @@
 .dark .pg-legend .pg-c-upper {
 	color: var(--white);
 }
+
+.dark .bm-title,
+.dark .bm-size,
+.dark .eg-tips li {
+	color: var(--white);
+}
+
+.dark .eg-verdict.ok {
+	color: var(--teal);
+}
+
+.dark .eg-verdict.bad {
+	color: var(--red);
+}

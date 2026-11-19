@@ -112,6 +112,15 @@
 	.pg-panes {
 		grid-template-columns: 1fr;
 	}
+
+	.eg-panes {
+		grid-template-columns: 1fr;
+	}
+
+	.eg-list,
+	.eg-text {
+		height: 320px;
+	}
 }
 
 @media (max-width: 575px) {

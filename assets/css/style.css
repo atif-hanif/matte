@@ -4293,7 +4293,7 @@ body.xe-dragging,body.xe-dragging * {
 }
 
 .bm-title {
-	font-size: 13px;
+	font-size: 16px;
 	font-weight: 600;
 	color: var(--black);
 	display: flex;
@@ -4563,6 +4563,192 @@ body.xe-dragging,body.xe-dragging * {
 
 .pg-s4 { 
 	background: var(--green) !important; 
+}
+
+/* Email Generator */
+
+#egSettings .mode-switch {
+	display: flex;
+	background: var(--surface-2);
+	border-radius: 8px;
+	padding: 3px;
+	gap: 2px;
+}
+
+#egSettings .mode-btn {
+	font-family: inherit;
+	border: none;
+	background: none;
+	color: var(--black);
+	font-size: 12.5px;
+	font-weight: 500;
+	padding: 7px 14px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+#egSettings .mode-btn.active {
+	background: var(--white);
+	color: var(--black);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+#egSettings .settings-group {
+	flex-wrap: wrap;
+}
+
+#egSettings .form-select {
+	width: auto;
+	font-size: 13px;
+}
+
+.eg-input {
+	width: 150px;
+	font-size: 13px;
+	padding: 6px 10px;
+	background: var(--white);
+	border: 1px solid var(--line);
+	border-radius: 7px;
+}
+
+.eg-user-input {
+	width: 190px;
+}
+
+.eg-panes {
+	align-items: start;
+}
+
+.eg-list {
+	list-style: none;
+	margin: 0;
+	padding: 6px;
+	height: 420px;
+	overflow: auto;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: var(--surface);
+}
+
+.eg-list li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	padding: 7px 10px;
+	border-radius: 8px;
+	font: 14px/1.4;
+	color: var(--secondary);
+}
+
+.eg-list li:hover {
+	background: var(--surface-2);
+}
+
+.eg-list li.eg-empty,
+.eg-list li.eg-empty:hover {
+	font: 400 14px/1.5;
+	color: #8a8a8a;
+	background: none;
+	padding: 10px;
+}
+
+.eg-addr {
+	min-width: 0;
+	word-break: break-all;
+}
+
+.eg-user {
+	color: var(--secondary);
+}
+
+.eg-at {
+	color: var(--primary);
+	font-weight: 600;
+}
+
+.eg-dom {
+	color: var(--blue);
+}
+
+.eg-pattern {
+	font: 400 11.5px/1.4;
+	color: #8a8a8a;
+	white-space: nowrap;
+	margin-left: auto;
+}
+
+.eg-copy {
+	flex-shrink: 0;
+	width: 30px;
+	height: 30px;
+	border-radius: 8px;
+	border: 1px solid var(--line);
+	background: var(--white);
+	color: var(--secondary);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12.5px;
+	opacity: 0.55;
+	transition: opacity .2s, border-color .2s, color .2s;
+}
+
+.eg-list li:hover .eg-copy {
+	opacity: 1;
+}
+
+.eg-copy:hover {
+	border-color: var(--primary);
+	color: var(--primary);
+}
+
+.eg-copy.copied {
+	opacity: 1;
+	border-color: var(--teal);
+	color: var(--teal);
+}
+
+.eg-text {
+	height: 420px;
+}
+
+.eg-check {
+	max-width: 640px;
+}
+
+.eg-check-input {
+	background: var(--surface);
+	border: 1px solid var(--line);
+	border-radius: 10px;
+	height: 44px;
+}
+
+.eg-verdict {
+	margin-top: 10px;
+	font-size: 14px;
+	font-weight: 600;
+	min-height: 21px;
+}
+
+.eg-verdict.ok {
+	color: var(--green);
+}
+
+.eg-verdict.bad {
+	color: var(--red);
+}
+
+.eg-verdict.warn {
+	color: #c27c0e;
+}
+
+.eg-tips {
+	margin: 6px 0 0;
+	padding-left: 18px;
+	font-size: 13px;
+	color: var(--black);
 }
 
 /* Back to Top */
