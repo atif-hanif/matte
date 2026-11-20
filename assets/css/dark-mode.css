@@ -61,3 +61,27 @@
 .dark .eg-verdict.bad {
 	color: var(--red);
 }
+
+.dark .ug-range-val,
+.dark .bm-title,
+.dark .bm-size,
+.dark .ug-tips li {
+	color: var(--white);
+}
+
+.dark .ug-verdict.ok {
+	color: var(--teal);
+}
+
+.dark .ug-verdict.bad {
+	color: var(--red);
+}
+
+.dark .bm-title,
+.dark .bm-size {
+	color: var(--white);
+}
+
+.dark .qr-warn {
+	color: var(--orange);
+}

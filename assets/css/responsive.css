@@ -121,6 +121,27 @@
 	.eg-text {
 		height: 320px;
 	}
+
+	.ug-panes {
+		grid-template-columns: 1fr;
+	}
+
+	.ug-list,
+	.ug-text {
+		height: 320px;
+	}
+
+	.qr-panes {
+		grid-template-columns: 1fr;
+	}
+
+	.qr-panes .bm-pane:last-child {
+		order: -1;
+	}
+
+	.qr-preview {
+		min-height: 300px;
+	}
 }
 
 @media (max-width: 575px) {
@@ -130,5 +151,14 @@
 
 	.pg-range {
 		width: 110px;
+	}
+
+	.ug-platforms {
+		grid-template-columns: 1fr;
+	}
+
+	.qr-row {
+		grid-template-columns: 1fr;
+		gap: 0;
 	}
 }
