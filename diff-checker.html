@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Diff Checker</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate-tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="developer-tools.html">Developer Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Diff Checker</li>
+				</ol>
+			</nav>
+
+			<h2>Diff Checker</h2>
+			<p>Compare two texts or files and see exactly what was added, removed and changed</p>
+
+			<div class="settings-bar show" id="dcSettings">
+				<div class="settings-group">
+					<label>View</label>
+					<div class="mode-switch" id="dcView">
+						<button type="button" class="mode-btn active" data-view="split">Side by side</button>
+						<button type="button" class="mode-btn" data-view="unified">Unified</button>
+					</div>
+				</div>
+
+				<div class="settings-group">
+					<label for="dcLevel">Highlight changes by</label>
+					<select id="dcLevel" class="form-select">
+						<option value="word" selected>Word</option>
+						<option value="char">Character</option>
+					</select>
+				</div>
+
+				<div class="settings-group">
+					<label class="bm-check">
+						<input type="checkbox" id="dcIgnoreWs">
+						Ignore whitespace
+					</label>
+				</div>
+
+				<div class="settings-group">
+					<label class="bm-check">
+						<input type="checkbox" id="dcIgnoreCase">
+						Ignore case
+					</label>
+				</div>
+
+				<div class="settings-group">
+					<label class="bm-check">
+						<input type="checkbox" id="dcCollapse" checked>
+						Hide unchanged lines
+					</label>
+				</div>
+			</div>
+
+			<div id="dcErr" class="err"></div>
+
+			<div class="toolbar show">
+				<div class="toolbar-status" id="dcStatus">Paste text in both boxes or open two files</div>
+
+				<div class="toolbar-actions">
+					<button type="button" class="btn btn-secondary-outlined" id="dcSampleBtn">
+						<i class="fa-sharp fa-solid fa-code-simple me-2"></i>
+						Sample
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="dcSwapBtn">
+						<i class="fa-solid fa-right-left me-2"></i>
+						Swap
+					</button>
+
+					<button type="button" class="btn btn-primary-outlined" id="dcClearBtn">
+						<i class="fa-solid fa-eraser me-2"></i>
+						Clear
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="dcCopyBtn" disabled>
+						<i class="fa-regular fa-copy me-2"></i>
+						Copy diff
+					</button>
+
+					<button type="button" class="btn btn-primary" id="dcDownloadBtn" disabled>
+						<i class="fa-solid fa-download me-2"></i>
+						Download
+					</button>
+				</div>
+			</div>
+
+			<div class="bm-panes dc-inputs">
+				<div class="bm-pane">
+					<div class="dc-pane-head">
+						<div class="bm-title" id="dcLeftName">Original</div>
+						<button type="button" class="dc-open" id="dcLeftOpen"><i class="fa-regular fa-folder-open me-1"></i> Open file</button>
+					</div>
+					<textarea id="dcLeft" class="bm-text" spellcheck="false" placeholder="Paste or drop the original text here…"></textarea>
+				</div>
+				<div class="bm-pane">
+					<div class="dc-pane-head">
+						<div class="bm-title" id="dcRightName">Changed</div>
+						<button type="button" class="dc-open" id="dcRightOpen"><i class="fa-regular fa-folder-open me-1"></i> Open file</button>
+					</div>
+					<textarea id="dcRight" class="bm-text" spellcheck="false" placeholder="Paste or drop the changed text here…"></textarea>
+				</div>
+			</div>
+
+			<input type="file" id="dcLeftFile" accept=".txt,.md,.csv,.json,.xml,.html,.htm,.css,.scss,.js,.mjs,.ts,.jsx,.tsx,.php,.py,.rb,.java,.c,.cpp,.h,.cs,.go,.rs,.swift,.kt,.sql,.yml,.yaml,.ini,.env,.conf,.config,.log,.sh,.bat,.svg,.vue,text/*">
+			<input type="file" id="dcRightFile" accept=".txt,.md,.csv,.json,.xml,.html,.htm,.css,.scss,.js,.mjs,.ts,.jsx,.tsx,.php,.py,.rb,.java,.c,.cpp,.h,.cs,.go,.rs,.swift,.kt,.sql,.yml,.yaml,.ini,.env,.conf,.config,.log,.sh,.bat,.svg,.vue,text/*">
+
+			<div class="dc-result-head">
+				<div class="dc-stats" id="dcStats"></div>
+			</div>
+			<div class="dc-out" id="dcOut"></div>
+
+			<h2 class="mt-5">About</h2>
+			<p>Paste two versions of a text, or open two files, and the differences appear straight away. Removed lines are shown in red and added lines in green, with the exact words or characters that changed highlighted inside each line. Switch between a side-by-side view and a single unified view, hide long stretches of unchanged lines, and ignore changes in spacing or letter case. You can copy or download the result as a standard .diff patch. It works with plain text, code, CSV, JSON, HTML and other text files. Everything runs in your browser, so your text never leaves your device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="json-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/json.png" class="icon">
+								<h6 class="mb-0">JSON Beautifier</h6>
+								<p class="mb-0">Format JSON into clean, readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="html-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/html.png" class="icon">
+								<h6 class="mb-0">HTML Beautifier</h6>
+								<p class="mb-0">Format messy HTML into clean, readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="xml-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/xml.png" class="icon">
+								<h6 class="mb-0">XML Beautifier</h6>
+								<p class="mb-0">Format messy XML into clean, readable markup</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="word-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/word.png" class="icon">
+								<h6 class="mb-0">Word Editor</h6>
+								<p class="mb-0">Edit Word documents in your browser</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/diff-checker.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Form Builder</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate-tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="developer-tools.html">Developer Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Form Builder</li>
+				</ol>
+			</nav>
+
+			<h2>Form Builder</h2>
+			<p>Lay out a form in rows and columns, add fields with validation, and copy the Bootstrap 5 HTML</p>
+
+			<div class="settings-bar show" id="fbSettings">
+				<div class="settings-group">
+					<label for="fbBp">Stack columns on</label>
+					<select id="fbBp" class="form-select">
+						<option value="">Never</option>
+						<option value="sm">Phones (below 576px)</option>
+						<option value="md" selected>Tablets (below 768px)</option>
+						<option value="lg">Laptops (below 992px)</option>
+					</select>
+				</div>
+
+				<div class="settings-group">
+					<label for="fbGap">Gap</label>
+					<select id="fbGap" class="form-select">
+						<option value="g-2">Small</option>
+						<option value="g-3" selected>Medium</option>
+						<option value="g-4">Large</option>
+					</select>
+				</div>
+
+				<div class="settings-group">
+					<label for="fbSubmit">Submit button</label>
+					<input type="text" id="fbSubmit" class="form-control" value="Submit" placeholder="No button">
+				</div>
+
+				<div class="settings-group">
+					<label class="bm-check">
+						<input type="checkbox" id="fbValidate" checked>
+						Validation messages
+					</label>
+				</div>
+
+				<div class="settings-group">
+					<label class="bm-check">
+						<input type="checkbox" id="fbStar" checked>
+						Mark required with *
+					</label>
+				</div>
+			</div>
+
+			<div id="fbErr" class="err"></div>
+
+			<div class="toolbar show">
+				<div class="toolbar-status" id="fbStatus">Add a row to start</div>
+
+				<div class="toolbar-actions">
+					<button type="button" class="btn btn-primary-outlined" id="fbAddRowBtn">
+						<i class="fa-solid fa-plus me-2"></i>
+						Add row
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="fbSampleBtn">
+						<i class="fa-sharp fa-solid fa-code-simple me-2"></i>
+						Sample
+					</button>
+
+					<button type="button" class="btn btn-primary-outlined" id="fbClearBtn">
+						<i class="fa-solid fa-eraser me-2"></i>
+						Clear
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="fbCopyBtn" disabled>
+						<i class="fa-regular fa-copy me-2"></i>
+						Copy HTML
+					</button>
+
+					<button type="button" class="btn btn-primary" id="fbDownloadBtn" disabled>
+						<i class="fa-solid fa-download me-2"></i>
+						Download
+					</button>
+				</div>
+			</div>
+
+			<div class="fb-panes">
+				<div class="fb-side">
+					<div class="bm-pane">
+						<div class="bm-title">Layout</div>
+						<div class="fb-card" id="fbRows"></div>
+					</div>
+					<div class="bm-pane">
+						<div class="bm-title">Field settings</div>
+						<div class="qr-card" id="fbField"></div>
+					</div>
+				</div>
+
+				<div class="bm-pane">
+					<div class="fb-out-head">
+						<div class="bm-title">Your form</div>
+						<div class="mode-switch" id="fbView">
+							<button type="button" class="mode-btn active" data-view="preview"><i class="fa-regular fa-eye me-1"></i>Preview</button>
+							<button type="button" class="mode-btn" data-view="code"><i class="fa-solid fa-code me-1"></i>HTML</button>
+						</div>
+					</div>
+					<div class="fb-preview" id="fbPreviewWrap">
+						<iframe id="fbFrame" title="Form preview"></iframe>
+					</div>
+					<textarea id="fbCode" class="bm-text fb-code is-hidden" spellcheck="false" readonly aria-label="Form HTML"></textarea>
+				</div>
+			</div>
+
+			<h2 class="mt-5">About</h2>
+			<p>Build an HTML form without writing code. Add rows, split each row into 1 to 12 columns, and choose a field for every column: text, email, number, password, phone, textarea, select, checkbox, radio, file upload, colour picker or calendar. Set labels, placeholders, options and validation rules such as required, length, number range, date range, pattern and allowed file types, then try the live preview. Copy the Bootstrap 5 HTML with its validation script, or download a ready-to-open page. Everything runs in your browser and your form is saved on this device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="html-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/html.png" class="icon">
+								<h6 class="mb-0">HTML Beautifier</h6>
+								<p class="mb-0">Format messy HTML into clean, readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="html-minifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/html.png" class="icon">
+								<h6 class="mb-0">HTML Minifier</h6>
+								<p class="mb-0">Strip spaces and comments from HTML</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="css-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/css.png" class="icon">
+								<h6 class="mb-0">CSS Beautifier</h6>
+								<p class="mb-0">Format messy CSS into clean, readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="js-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/js.png" class="icon">
+								<h6 class="mb-0">JS Beautifier</h6>
+								<p class="mb-0">Format messy JavaScript into readable code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/form-builder.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

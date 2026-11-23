@@ -85,3 +85,31 @@
 .dark .qr-warn {
 	color: var(--orange);
 }
+
+.dark .bm-title,
+.dark .bm-size {
+	color: var(--white);
+}
+
+.dark .bc-hint {
+	color: var(--gray-3);
+}
+
+.dark .bc-warn {
+	color: var(--orange);
+}
+
+.dark .kw-chip:not(.active),
+.dark .kw-group li,
+.dark .kw-group-head h6 {
+	color: var(--black);
+}
+
+.dark .bm-title,
+.dark .bm-size,
+.dark .sd-check-left > .sd-label,
+.dark .sd-check-right > .sd-label,
+.dark .sd-meter-row,
+.dark .sd-tips li {
+	color: var(--white);
+}

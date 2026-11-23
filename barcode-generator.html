@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Barcode Generator</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+	<link href="assets/css/barcode-generator.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="generate-tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="generate-tools.html">Generate Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Barcode Generator</li>
+				</ol>
+			</nav>
+
+			<h2>Barcode Generator</h2>
+			<p>Make EAN, UPC, Code 128 and other barcodes for products, labels and inventory</p>
+
+			<div class="settings-bar show" id="bcSettings">
+				<div class="settings-group">
+					<label>Type</label>
+					<div class="mode-switch" id="bcMode">
+						<button type="button" class="mode-btn active" data-mode="single">Single</button>
+						<button type="button" class="mode-btn" data-mode="batch">Batch</button>
+					</div>
+				</div>
+
+				<div class="settings-group">
+					<label for="bcFormat">Barcode format</label>
+					<select id="bcFormat" class="form-select">
+						<optgroup label="Retail products">
+							<option value="EAN13" selected>EAN-13 (most countries)</option>
+							<option value="UPC">UPC-A (USA, Canada)</option>
+							<option value="EAN8">EAN-8 (small packs)</option>
+							<option value="UPCE">UPC-E (small packs)</option>
+						</optgroup>
+						<optgroup label="Labels and inventory">
+							<option value="CODE128">Code 128 (any text)</option>
+							<option value="CODE39">Code 39</option>
+							<option value="CODE93">Code 93</option>
+						</optgroup>
+						<optgroup label="Shipping cartons">
+							<option value="ITF14">ITF-14</option>
+							<option value="ITF">ITF (Interleaved 2 of 5)</option>
+						</optgroup>
+						<optgroup label="Other">
+							<option value="codabar">Codabar (libraries, blood banks)</option>
+							<option value="MSI">MSI Plessey (shelves)</option>
+							<option value="pharmacode">Pharmacode (pharma packaging)</option>
+						</optgroup>
+					</select>
+				</div>
+
+				<div class="settings-group">
+					<span class="bc-hint" id="bcHint"></span>
+				</div>
+			</div>
+
+			<div id="bcErr" class="err"></div>
+
+			<div class="toolbar show">
+				<div class="toolbar-status" id="bcStatus">Type a value to make a barcode</div>
+
+				<div class="toolbar-actions">
+					<button type="button" class="btn btn-primary-outlined" id="bcClearBtn">
+						<i class="fa-solid fa-eraser me-2"></i>
+						Clear
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="bcCopyBtn" disabled>
+						<i class="fa-regular fa-copy me-2"></i>
+						Copy image
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="bcSvgBtn" disabled>
+						<i class="fa-solid fa-bezier-curve me-2"></i>
+						SVG
+					</button>
+
+					<button type="button" class="btn btn-primary" id="bcPngBtn" disabled>
+						<i class="fa-solid fa-download me-2"></i>
+						<span id="bcPngLabel">Download PNG</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="bm-panes bc-panes">
+				<div class="bm-pane">
+					<div class="bm-title">Content</div>
+					<div class="bc-card" id="bcFields">
+						<div data-for="single">
+							<label class="bc-label" for="bcValue">Barcode number or text</label>
+							<input type="text" id="bcValue" class="form-control bc-input bc-mono" value="590123412345" spellcheck="false" autocomplete="off">
+							<div class="bc-sub" id="bcCheck"></div>
+
+							<label class="bc-label" for="bcText">Text under the bars <span class="bc-val">optional</span></label>
+							<input type="text" id="bcText" class="form-control bc-input" placeholder="Leave empty to show the barcode value" autocomplete="off">
+						</div>
+
+						<div data-for="batch" class="is-hidden">
+							<label class="bc-label" for="bcBatch">One value per line <span class="bc-val">up to 500</span></label>
+							<textarea id="bcBatch" class="form-control bc-input bc-mono bc-area" rows="8" spellcheck="false" placeholder="590123412345&#10;400638133393&#10;012345678905"></textarea>
+							<div class="bc-sub">Download ZIP saves every valid barcode as a PNG, named after its value. SVG ZIP does the same with SVG files.</div>
+						</div>
+					</div>
+
+					<div class="bm-title mt-3">Design</div>
+					<div class="bc-card">
+						<div class="bc-row">
+							<div>
+								<label class="bc-label" for="bcWidth">Bar width <span class="bc-val" id="bcWidthVal">2</span></label>
+								<input type="range" id="bcWidth" class="bc-range" min="1" max="5" step="1" value="2">
+							</div>
+							<div>
+								<label class="bc-label" for="bcHeight">Bar height <span class="bc-val" id="bcHeightVal">100 px</span></label>
+								<input type="range" id="bcHeight" class="bc-range" min="30" max="250" step="5" value="100">
+							</div>
+						</div>
+
+						<div class="bc-row">
+							<div>
+								<label class="bc-label" for="bcFont">Text size <span class="bc-val" id="bcFontVal">20 px</span></label>
+								<input type="range" id="bcFont" class="bc-range" min="10" max="40" value="20">
+							</div>
+							<div>
+								<label class="bc-label" for="bcMargin">Margin <span class="bc-val" id="bcMarginVal">10 px</span></label>
+								<input type="range" id="bcMargin" class="bc-range" min="0" max="50" value="10">
+							</div>
+						</div>
+
+						<div class="bc-row">
+							<div>
+								<label class="bc-label" for="bcTextPos">Text</label>
+								<select id="bcTextPos" class="form-select bc-input">
+									<option value="bottom" selected>Below the bars</option>
+									<option value="top">Above the bars</option>
+									<option value="none">Hide text</option>
+								</select>
+							</div>
+							<div>
+								<label class="bc-label" for="bcScale">PNG scale</label>
+								<select id="bcScale" class="form-select bc-input">
+									<option value="1">1× (screen)</option>
+									<option value="2">2×</option>
+									<option value="4" selected>4× (print)</option>
+									<option value="8">8× (large print)</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="bc-row">
+							<div>
+								<label class="bc-label" for="bcFg">Bar colour</label>
+								<div class="bc-color">
+									<input type="color" id="bcFg" value="#000000">
+									<input type="text" id="bcFgHex" class="form-control bc-input bc-mono" value="#000000" maxlength="7" spellcheck="false">
+								</div>
+							</div>
+							<div>
+								<label class="bc-label" for="bcBg">Background</label>
+								<div class="bc-color">
+									<input type="color" id="bcBg" value="#ffffff">
+									<input type="text" id="bcBgHex" class="form-control bc-input bc-mono" value="#ffffff" maxlength="7" spellcheck="false">
+								</div>
+								<label class="bm-check mt-2"><input type="checkbox" id="bcTransparent"> Transparent background</label>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="bm-pane">
+					<div class="bm-title">Preview <span id="bcInfo" class="bm-size"></span></div>
+					<div class="bc-preview" id="bcPreview">
+						<div class="bc-single" id="bcSingle">
+							<svg id="bcSvg" role="img" aria-label="Barcode preview"></svg>
+						</div>
+						<div class="bc-grid is-hidden" id="bcGrid"></div>
+						<div class="bc-placeholder" id="bcPlaceholder">Your barcode appears here</div>
+					</div>
+					<div class="bc-warn" id="bcWarn"></div>
+					<p class="bc-tip">Scan a printed test with your phone or scanner before you print a full run.</p>
+				</div>
+			</div>
+
+			<h2 class="mt-5">About</h2>
+			<p>Make barcodes for products, shelves, stock labels, shipping cartons and libraries. Choose EAN-13, UPC-A, EAN-8 or UPC-E for retail products, Code 128, Code 39 or Code 93 for labels that need letters, ITF-14 for cartons, or Codabar, MSI and Pharmacode for special uses. For EAN and UPC you can type the number without its last digit and the check digit is added for you. If you type the full number, the tool tells you whether the check digit is right. Change the bar width, height, text and colours, then download a sharp PNG, an SVG for print, or switch to Batch to make up to 500 barcodes at once and download them as a ZIP file. To sell products in shops you need real EAN or UPC numbers registered with GS1 for your company. This tool draws the barcode but does not issue numbers. Everything runs in your browser.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="qr-code-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">QR Code Generator</h6>
+								<p class="mb-0">Make QR codes with your colours and logo</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="username-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Username Generator</h6>
+								<p class="mb-0">Create unique usernames</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="email-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Email Generator</h6>
+								<p class="mb-0">Create email addresses from names or usernames</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="password-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Password Generator</h6>
+								<p class="mb-0">Create strong, random passwords</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="generate-tools.html">Generate Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/vendors/jsbarcode/jsbarcode.all.min.js"></script>
+	<script src="assets/vendors/jszip/jszip.min.js"></script>
+	<script src="assets/js/barcode-generator.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

@@ -129,7 +129,8 @@
         }).length;
         $('summary').textContent = items.length + ' file' + (items.length === 1 ? '' : 's');
         $('go').disabled = busy || !q;
-        $('go').textContent = busy ? 'Converting…' : 'Convert';
+        //$('go').textContent = busy ? 'Converting…' : 'Convert';
+        $('go').innerHTML = busy ? '<i class="fa-solid fa-rotate me-2"></i>Converting…' : '<i class="fa-solid fa-rotate me-2"></i>Convert';
         $('cancel').hidden = !busy;
         var big = items.some(function(i) {
             return i.file.size > 1073741824

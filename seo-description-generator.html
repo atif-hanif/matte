@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — SEO Description Generator</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+	<link href="assets/css/seo-description-generator.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="generate-tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="generate-tools.html">Generate Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">SEO Description Generator</li>
+				</ol>
+			</nav>
+
+			<h2>SEO Description Generator</h2>
+			<p>Write meta descriptions that fit Google's limit, include your keyword and get more clicks</p>
+
+			<div class="settings-bar show" id="sdSettings">
+				<div class="settings-group">
+					<label for="sdType">Page type</label>
+					<select id="sdType" class="form-select sd-input">
+						<option value="service" selected>Service page</option>
+						<option value="home">Homepage</option>
+						<option value="product">Product page</option>
+						<option value="category">Category / shop page</option>
+						<option value="blog">Blog post / guide</option>
+						<option value="local">Local business</option>
+						<option value="tool">Online tool / app</option>
+						<option value="about">About / contact page</option>
+					</select>
+				</div>
+
+				<div class="settings-group">
+					<label for="sdTone">Tone</label>
+					<select id="sdTone" class="form-select sd-input">
+						<option value="pro" selected>Professional</option>
+						<option value="friendly">Friendly</option>
+						<option value="bold">Persuasive</option>
+					</select>
+				</div>
+
+				<div class="settings-group">
+					<label for="sdCta">Call to action</label>
+					<select id="sdCta" class="form-select sd-input">
+						<option value="auto" selected>Best for page type</option>
+						<option value="Get a free quote today.">Get a free quote</option>
+						<option value="Book a free consultation.">Book a consultation</option>
+						<option value="Shop now.">Shop now</option>
+						<option value="Order online today.">Order online</option>
+						<option value="Call us today.">Call us</option>
+						<option value="Learn more.">Learn more</option>
+						<option value="Read the full guide.">Read the guide</option>
+						<option value="Try it free.">Try it free</option>
+						<option value="">No call to action</option>
+					</select>
+				</div>
+			</div>
+
+			<div id="sdErr" class="err"></div>
+
+			<div class="toolbar show">
+				<div class="toolbar-status" id="sdStatus">Fill in the details and press Generate</div>
+
+				<div class="toolbar-actions">
+					<button type="button" class="btn btn-primary-outlined" id="sdClearBtn">
+						<i class="fa-solid fa-eraser me-2"></i>
+						Clear
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="sdCopyBtn" disabled>
+						<i class="fa-regular fa-copy me-2"></i>
+						Copy all
+					</button>
+
+					<button type="button" class="btn btn-primary" id="sdGenerateBtn">
+						<i class="fa-solid fa-wand-magic-sparkles me-2"></i>
+						Generate
+					</button>
+				</div>
+			</div>
+
+			<div class="bm-panes sd-panes">
+				<div class="bm-pane">
+					<div class="bm-title">Page details</div>
+					<div class="sd-card" id="sdFields">
+						<label class="sd-label" for="sdKeyword">Main keyword <span class="sd-req">required</span></label>
+						<input type="text" id="sdKeyword" class="form-control sd-input" value="website design" placeholder="e.g. website design" maxlength="70" autocomplete="off">
+
+						<div class="sd-row">
+							<div>
+								<label class="sd-label" for="sdBrand">Brand or business name</label>
+								<input type="text" id="sdBrand" class="form-control sd-input" value="Crezia Lab" placeholder="e.g. Crezia Lab" maxlength="40" autocomplete="off">
+							</div>
+							<div>
+								<label class="sd-label" for="sdLoc">Location <span class="sd-opt">optional</span></label>
+								<input type="text" id="sdLoc" class="form-control sd-input" placeholder="e.g. Karachi" maxlength="40" autocomplete="off">
+							</div>
+						</div>
+
+						<label class="sd-label" for="sdAudience">Who is it for? <span class="sd-opt">optional</span></label>
+						<input type="text" id="sdAudience" class="form-control sd-input" value="small businesses" placeholder="e.g. small businesses, students, homeowners" maxlength="50" autocomplete="off">
+
+						<label class="sd-label" for="sdPoints">Benefits or features <span class="sd-opt">comma separated, best first</span></label>
+						<input type="text" id="sdPoints" class="form-control sd-input" value="mobile-friendly, fast loading, SEO-ready" placeholder="e.g. free delivery, 24/7 support, 10 years experience" maxlength="160" autocomplete="off">
+
+						<label class="sd-label" for="sdUrl">Page link <span class="sd-opt">for the Google preview</span></label>
+						<input type="url" id="sdUrl" class="form-control sd-input" value="https://crezialab.com/website-design" placeholder="https://example.com/page" autocomplete="off" spellcheck="false">
+					</div>
+				</div>
+
+				<div class="bm-pane">
+					<div class="bm-title">Descriptions <span id="sdCount" class="bm-size"></span></div>
+					<div class="sd-results" id="sdResults">
+						<div class="sd-empty">Your descriptions appear here</div>
+					</div>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Check a description</h2>
+			<p>Paste or write a meta description to check its length and see how it may look in Google search results.</p>
+			<div class="sd-check">
+				<div class="sd-check-left">
+					<label class="sd-label" for="sdCheckTitle">Page title <span class="sd-opt">optional</span></label>
+					<input type="text" id="sdCheckTitle" class="form-control sd-input" placeholder="The page's title tag" autocomplete="off">
+					<label class="sd-label" for="sdCheckIn">Meta description</label>
+					<textarea id="sdCheckIn" class="form-control sd-input sd-area" rows="4" placeholder="Paste your meta description"></textarea>
+					<div class="sd-meter">
+						<div class="sd-bar"><span id="sdCheckBar"></span></div>
+						<div class="sd-meter-row">
+							<strong id="sdCheckLen">0 characters</strong>
+							<span id="sdCheckPx"></span>
+						</div>
+					</div>
+					<ul class="sd-tips" id="sdCheckTips"></ul>
+				</div>
+				<div class="sd-check-right">
+					<div class="sd-label">Google preview</div>
+					<div class="sd-serp" id="sdCheckSerp"></div>
+				</div>
+			</div>
+
+			<h2 class="mt-5">About</h2>
+			<p>A meta description is the short summary Google may show under your page title in search results. A good one includes the main keyword, says clearly what the page offers and ends with a reason to click. Fill in your keyword, brand, location and main benefits, choose the page type and tone, and get ten different descriptions to pick from. Each one shows its length in characters and in pixels, because Google cuts descriptions off by width, usually around 920 pixels or roughly 155–160 characters on desktop. The Google preview shows how the result may look, with your keyword in bold. You can edit any description and its length updates as you type. Google sometimes rewrites descriptions using text from the page, so make sure your page content matches what the description promises. Everything runs in your browser.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="seo-keywords-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">SEO Keywords Generator</h6>
+								<p class="mb-0">Find long-tail keywords for any topic or website</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="qr-code-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">QR Code Generator</h6>
+								<p class="mb-0">Make QR codes with your colours and logo</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="username-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Username Generator</h6>
+								<p class="mb-0">Create unique usernames</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="html-minifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/html.png" class="icon">
+								<h6 class="mb-0">HTML Minifier</h6>
+								<p class="mb-0">Make HTML files smaller</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="generate-tools.html">Generate Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/seo-description-generator.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>
