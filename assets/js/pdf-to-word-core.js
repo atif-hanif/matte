@@ -52,7 +52,7 @@
 	function fontInfo(page, fontName, styles) {
 		let real = '', bold = false, italic = false;
 		try {
-			const f = page.commonObjs.get(fontName);
+			const f = page.htmlmonObjs.get(fontName);
 			if (f) { real = f.name || ''; bold = !!f.bold; italic = !!f.italic; }
 		} catch (e) { /* font not resolved */ }
 		const probe = real || (styles[fontName] && styles[fontName].fontFamily) || '';
@@ -83,7 +83,7 @@
 			let done = false;
 			const fin = (v) => { if (!done) { done = true; resolve(v || null); } };
 			try {
-				const store = name.indexOf('g_') === 0 ? page.commonObjs : page.objs;
+				const store = name.indexOf('g_') === 0 ? page.htmlmonObjs : page.objs;
 				store.get(name, fin);
 			} catch (e) { fin(null); }
 			setTimeout(() => fin(null), 4000);

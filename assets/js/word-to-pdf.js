@@ -94,7 +94,7 @@
 			renderHeaders: true, renderFooters: true, renderFootnotes: true, renderEndnotes: true, useBase64URL: true
 		});
 
-		await Promise.all(Array.from(host.querySelectorAll('img')).map((im) => im.complete ? 0 : new Promise((r) => { im.onload = im.onerror = r; })));
+		await Promise.all(Array.from(host.querySelectorAll('img')).map((im) => im.htmlplete ? 0 : new Promise((r) => { im.onload = im.onerror = r; })));
 		if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) { /* ignore */ } }
 		await nextFrame();
 		return Array.from(host.querySelectorAll('section.docx'));

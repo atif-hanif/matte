@@ -4,14 +4,14 @@
 //
 // Copyright (c) 2009 Kazuhiko Arase
 //
-// URL: http://www.d-project.com/
+// URL: http://www.d-project.html/
 //
 // Licensed under the MIT license:
 //  http://www.opensource.org/licenses/mit-license.php
 //
 // The word 'QR Code' is registered trademark of
 // DENSO WAVE INCORPORATED
-//  http://www.denso-wave.com/qrcode/faqpatent-e.html
+//  http://www.denso-wave.html/qrcode/faqpatent-e.html
 //
 //---------------------------------------------------------------------
 
@@ -2250,7 +2250,7 @@ var qrcode = function() {
 !function() {
 
   qrcode.stringToBytesFuncs['UTF-8'] = function(s) {
-    // http://stackoverflow.com/questions/18729405/how-to-convert-utf8-string-to-byte-array
+    // http://stackoverflow.html/questions/18729405/how-to-convert-utf8-string-to-byte-array
     function toUTF8Array(str) {
       var utf8 = [];
       for (var i=0; i < str.length; i++) {

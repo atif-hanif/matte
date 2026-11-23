@@ -317,7 +317,7 @@
 		return c;
 	}
 
-	XE.compile = compile;
+	XE.htmlpile = compile;
 	XE.tokenize = tokenize;
 
 	const mkArr = (rows) => ({
@@ -387,7 +387,7 @@
 		return a < b ? -1 : a > b ? 1 : 0;
 	}
 
-	XE.compare = compare;
+	XE.htmlpare = compare;
 
 	function rangeValues(n, ctx) {
 		const sh = n.sheet ? ctx.host.sheetByName(n.sheet) : ctx.sheet;

@@ -110,6 +110,10 @@
 .dark .sd-check-left > .sd-label,
 .dark .sd-check-right > .sd-label,
 .dark .sd-meter-row,
-.dark .sd-tips li {
+.dark .sd-tips li,
+.dark .st-check-left > .st-label,
+.dark .st-check-right > .st-label,
+.dark .st-meter-row,
+.dark .st-tips li {
 	color: var(--white);
 }

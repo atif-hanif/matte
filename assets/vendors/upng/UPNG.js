@@ -196,12 +196,12 @@ UPNG.decode = function(buff)
 		offset += len;
 		var crc = bin.readUint(data, offset);  offset += 4;
 	}
-	delete out.compress;  delete out.interlace;  delete out.filter;
+	delete out.htmlpress;  delete out.interlace;  delete out.filter;
 	return out;
 }
 
 UPNG.decode._decompress = function(out, dd, w, h) {
-	if(out.compress ==0) dd = UPNG.decode._inflate(dd);
+	if(out.htmlpress ==0) dd = UPNG.decode._inflate(dd);
 
 	if     (out.interlace==0) dd = UPNG.decode._filterZero(dd, out, 0, w, h);
 	else if(out.interlace==1) dd = UPNG.decode._readInterlace(dd, out);
@@ -319,7 +319,7 @@ UPNG.decode._IHDR = function(data, offset, out)
 	out.height = bin.readUint(data, offset);  offset += 4;
 	out.depth     = data[offset];  offset++;
 	out.ctype     = data[offset];  offset++;
-	out.compress  = data[offset];  offset++;
+	out.htmlpress  = data[offset];  offset++;
 	out.filter    = data[offset];  offset++;
 	out.interlace = data[offset];  offset++;
 }
@@ -391,7 +391,7 @@ UPNG.encode = function(bufs, w, h, ps, dels, forbidPlte)
 	for(var i=0; i<8; i++) data[i]=wr[i];
 	var offset = 8,  bin = UPNG._bin, crc = UPNG.crc.crc, wUi = bin.writeUint, wUs = bin.writeUshort, wAs = bin.writeASCII;
 
-	var nimg = UPNG.encode.compressPNG(bufs, w, h, ps, forbidPlte);
+	var nimg = UPNG.encode.htmlpressPNG(bufs, w, h, ps, forbidPlte);
 
 	wUi(data,offset, 13);     offset+=4;
 	wAs(data,offset,"IHDR");  offset+=4;
@@ -475,9 +475,9 @@ UPNG.encode = function(bufs, w, h, ps, dels, forbidPlte)
 	return data.buffer.slice(0,offset);
 }
 
-UPNG.encode.compressPNG = function(bufs, w, h, ps, forbidPlte)
+UPNG.encode.htmlpressPNG = function(bufs, w, h, ps, forbidPlte)
 {
-	var out = UPNG.encode.compress(bufs, w, h, ps, false, forbidPlte);
+	var out = UPNG.encode.htmlpress(bufs, w, h, ps, false, forbidPlte);
 	for(var i=0; i<bufs.length; i++) {
 		var frm = out.frames[i], nw=frm.rect.width, nh=frm.rect.height, bpl=frm.bpl, bpp=frm.bpp;
 		var fdata = new Uint8Array(nh*bpl+nh);
@@ -486,7 +486,7 @@ UPNG.encode.compressPNG = function(bufs, w, h, ps, forbidPlte)
 	return out;
 }
 
-UPNG.encode.compress = function(bufs, w, h, ps, forGIF, forbidPlte)
+UPNG.encode.htmlpress = function(bufs, w, h, ps, forGIF, forbidPlte)
 {
 	if(forbidPlte==null) forbidPlte = false;
 	

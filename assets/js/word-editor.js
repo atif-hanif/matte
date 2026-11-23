@@ -477,12 +477,12 @@
 		let spec = '';
 		if(t.some((x) => x[0] === 1)) spec = ':ital,wght@' + t.map((x) => x[0] + ',' + x[1]).join(';');
 		else if(t.length > 1) spec = ':wght@' + t.map((x) => x[1]).join(';');
-		return 'https://fonts.googleapis.com/css2?family=' + cssName(f.name) + spec + '&display=swap';
+		return 'https://fonts.googleapis.html/css2?family=' + cssName(f.name) + spec + '&display=swap';
 	}
 
 	function previewCssUrl(names) { 
 		const chars = Array.from(new Set(names.join('').split(''))).join('');
-		return 'https://fonts.googleapis.com/css2?' + names.map((n) => 'family=' + cssName(n)).join('&') + '&text=' + encodeURIComponent(chars) + '&display=swap';
+		return 'https://fonts.googleapis.html/css2?' + names.map((n) => 'family=' + cssName(n)).join('&') + '&text=' + encodeURIComponent(chars) + '&display=swap';
 	}
 
 	function aliasPreviewCss(css) {

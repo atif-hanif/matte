@@ -134,11 +134,23 @@
 						<button type="button" class="mode-btn" data-tool="erase">Erase</button>
 					</div>
 					<span class="ed-sep"></span>
-					<button type="button" class="btn btn-primary-outlined" id="edAddTextBtn">+ Text</button>
-					<button type="button" class="btn btn-secondary-outlined" id="edAddImageBtn">+ Image</button>
+					<button type="button" class="btn btn-primary-outlined" id="edAddTextBtn">
+						<i class="fa-solid fa-text me-2"></i>
+						Text
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="edAddImageBtn">
+						<i class="fa-regular fa-image me-2"></i>
+						Image
+					</button>
 					<span class="ed-sep"></span>
-					<button type="button" class="btn btn-primary-outlined" id="edUndoBtn" disabled>Undo</button>
-					<button type="button" class="btn btn-secondary-outlined" id="edRedoBtn" disabled>Redo</button>
+					<button type="button" class="btn btn-primary-outlined" id="edUndoBtn" disabled>
+						<i class="fa-solid fa-arrow-rotate-left me-2"></i>
+						Undo
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="edRedoBtn" disabled>
+						<i class="fa-solid fa-arrow-rotate-right me-2"></i>
+						Redo
+					</button>
 					<div class="ed-toolbar-right">
 						<select id="edFormat" class="form-select img-convert" title="Download format">
 							<option value="png">PNG</option>
@@ -183,12 +195,25 @@
 							</div>
 
 							<div class="ed-actions">
-								<button type="button" class="btn btn-ghost is-active" id="edPaintBtn">Paint</button>
-								<button type="button" class="btn btn-ghost" id="edUnpaintBtn">Unpaint</button>
-								<button type="button" class="btn btn-ghost" id="edClearMaskBtn">Clear</button>
+								<button type="button" class="btn btn-primary-outlined is-active" id="edPaintBtn">
+									<i class="fa-regular fa-paintbrush me-2"></i>
+									Paint
+								</button>
+								<button type="button" class="btn btn-secondary-outlined" id="edUnpaintBtn">
+									<i class="fa-solid fa-eraser me-2"></i>
+									Unpaint
+								</button>
+								<button type="button" class="btn btn-primary-outlined" id="edClearMaskBtn">
+									<i class="fa-sharp fa-solid fa-eraser me-2"></i>
+									Clear
+								</button>
 							</div>
 
-							<button type="button" class="btn btn-primary" id="edEraseBtn" disabled>Erase marked area</button>
+							<button type="button" class="btn btn-primary" id="edEraseBtn" disabled>
+								<i class="fa-solid fa-eraser me-2"></i>
+								Erase marked area
+							</button>
+							
 							<progress id="edProgress" class="ed-progress is-hidden" max="100" value="0"></progress>
 
 							<p id="edStatus" class="ed-status"></p>
@@ -217,7 +242,7 @@
 
 									<div class="ed-field">
 										<label>Align</label>
-										<select id="edAlign" class="ed-select">
+										<select id="edAlign" class="form-select">
 											<option value="left">Left</option>
 											<option value="center">Center</option>
 											<option value="right">Right</option>
@@ -247,8 +272,12 @@
 
 								<p class="ed-hint is-hidden" id="edFontNote"></p>
 								<div class="ed-actions">
-									<button type="button" class="btn btn-primary-outlined" id="edBold"><b>B</b> Bold</button>
-									<button type="button" class="btn btn-secondary-outlined" id="edItalic"><i>I</i> Italic</button>
+									<button type="button" class="btn btn-primary-outlined" id="edBold">
+										<i class="fa-solid fa-bold"></i>
+									</button>
+									<button type="button" class="btn btn-secondary-outlined" id="edItalic">
+										<i class="fa-solid fa-italic"></i>
+									</button>
 								</div>
 
 								<div class="ed-row">
@@ -272,10 +301,22 @@
 							</div>
 
 							<div class="ed-actions">
-								<button type="button" class="btn btn-primary-outlined" id="edDupBtn">Duplicate</button>
-								<button type="button" class="btn btn-secondary-outlined" id="edForwardBtn">Bring forward</button>
-								<button type="button" class="btn btn-primary-outlined" id="edBackBtn">Send back</button>
-								<button type="button" class="btn btn-secondary-outlined" id="edDeleteBtn">Delete</button>
+								<button type="button" class="btn btn-primary-outlined" id="edDupBtn">
+									<i class="fa-solid fa-clone me-2"></i>
+									Duplicate
+								</button>
+								<button type="button" class="btn btn-secondary-outlined" id="edForwardBtn">
+									<i class="fa-regular fa-bring-forward me-2"></i>
+									Bring forward
+								</button>
+								<button type="button" class="btn btn-primary-outlined" id="edBackBtn">
+									<i class="fa-regular fa-send-backward me-2"></i>
+									Send back
+								</button>
+								<button type="button" class="btn btn-secondary-outlined" id="edDeleteBtn">
+									<i class="fa-regular fa-trash me-2"></i>
+									Delete
+								</button>
 							</div>
 						</section>
 					</aside>
@@ -433,7 +474,7 @@
 							<a class="nav-link" href="text-tools.html">Text Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+							<a class="nav-link" href="generator-tools.html">Generate Tools</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="developer-tools.html">Developer Tools</a>

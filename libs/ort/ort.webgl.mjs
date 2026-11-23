@@ -2184,14 +2184,14 @@ var init_long = __esm({
     LongPrototype.neq = LongPrototype.notEquals;
     LongPrototype.ne = LongPrototype.notEquals;
     LongPrototype.lessThan = function lessThan(other) {
-      return this.comp(
+      return this.htmlp(
         /* validates */
         other
       ) < 0;
     };
     LongPrototype.lt = LongPrototype.lessThan;
     LongPrototype.lessThanOrEqual = function lessThanOrEqual(other) {
-      return this.comp(
+      return this.htmlp(
         /* validates */
         other
       ) <= 0;
@@ -2199,21 +2199,21 @@ var init_long = __esm({
     LongPrototype.lte = LongPrototype.lessThanOrEqual;
     LongPrototype.le = LongPrototype.lessThanOrEqual;
     LongPrototype.greaterThan = function greaterThan(other) {
-      return this.comp(
+      return this.htmlp(
         /* validates */
         other
       ) > 0;
     };
     LongPrototype.gt = LongPrototype.greaterThan;
     LongPrototype.greaterThanOrEqual = function greaterThanOrEqual(other) {
-      return this.comp(
+      return this.htmlp(
         /* validates */
         other
       ) >= 0;
     };
     LongPrototype.gte = LongPrototype.greaterThanOrEqual;
     LongPrototype.ge = LongPrototype.greaterThanOrEqual;
-    LongPrototype.compare = function compare(other) {
+    LongPrototype.htmlpare = function compare(other) {
       if (!isLong(other))
         other = fromValue(other);
       if (this.eq(other))
@@ -2227,7 +2227,7 @@ var init_long = __esm({
         return this.sub(other).isNegative() ? -1 : 1;
       return other.high >>> 0 > this.high >>> 0 || other.high === this.high && other.low >>> 0 > this.low >>> 0 ? -1 : 1;
     };
-    LongPrototype.comp = LongPrototype.compare;
+    LongPrototype.htmlp = LongPrototype.htmlpare;
     LongPrototype.negate = function negate() {
       if (!this.unsigned && this.eq(MIN_VALUE))
         return MIN_VALUE;
@@ -9266,7 +9266,7 @@ var require_onnx = __commonJS({
         };
         AttributeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.AttributeProto";
         };
@@ -9399,7 +9399,7 @@ var require_onnx = __commonJS({
         };
         ValueInfoProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.ValueInfoProto";
         };
@@ -9619,7 +9619,7 @@ var require_onnx = __commonJS({
         };
         NodeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.NodeProto";
         };
@@ -9809,7 +9809,7 @@ var require_onnx = __commonJS({
         };
         TrainingInfoProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.TrainingInfoProto";
         };
@@ -10173,7 +10173,7 @@ var require_onnx = __commonJS({
         };
         ModelProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.ModelProto";
         };
@@ -10266,7 +10266,7 @@ var require_onnx = __commonJS({
         };
         StringStringEntryProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.StringStringEntryProto";
         };
@@ -10386,7 +10386,7 @@ var require_onnx = __commonJS({
         };
         TensorAnnotation.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.TensorAnnotation";
         };
@@ -10746,7 +10746,7 @@ var require_onnx = __commonJS({
         };
         GraphProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.GraphProto";
         };
@@ -11259,7 +11259,7 @@ var require_onnx = __commonJS({
         };
         TensorProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.TensorProto";
         };
@@ -11403,7 +11403,7 @@ var require_onnx = __commonJS({
           };
           Segment.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.com";
+              typeUrlPrefix = "type.googleapis.html";
             }
             return typeUrlPrefix + "/onnx.TensorProto.Segment";
           };
@@ -11557,7 +11557,7 @@ var require_onnx = __commonJS({
         };
         SparseTensorProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.SparseTensorProto";
         };
@@ -11653,7 +11653,7 @@ var require_onnx = __commonJS({
         };
         TensorShapeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.TensorShapeProto";
         };
@@ -11781,7 +11781,7 @@ var require_onnx = __commonJS({
           };
           Dimension2.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.com";
+              typeUrlPrefix = "type.googleapis.html";
             }
             return typeUrlPrefix + "/onnx.TensorShapeProto.Dimension";
           };
@@ -12008,7 +12008,7 @@ var require_onnx = __commonJS({
         };
         TypeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.TypeProto";
         };
@@ -12104,7 +12104,7 @@ var require_onnx = __commonJS({
           };
           Tensor5.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.com";
+              typeUrlPrefix = "type.googleapis.html";
             }
             return typeUrlPrefix + "/onnx.TypeProto.Tensor";
           };
@@ -12185,7 +12185,7 @@ var require_onnx = __commonJS({
           };
           Sequence.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.com";
+              typeUrlPrefix = "type.googleapis.html";
             }
             return typeUrlPrefix + "/onnx.TypeProto.Sequence";
           };
@@ -12283,7 +12283,7 @@ var require_onnx = __commonJS({
           };
           Map2.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.com";
+              typeUrlPrefix = "type.googleapis.html";
             }
             return typeUrlPrefix + "/onnx.TypeProto.Map";
           };
@@ -12364,7 +12364,7 @@ var require_onnx = __commonJS({
           };
           Optional.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.com";
+              typeUrlPrefix = "type.googleapis.html";
             }
             return typeUrlPrefix + "/onnx.TypeProto.Optional";
           };
@@ -12462,7 +12462,7 @@ var require_onnx = __commonJS({
           };
           SparseTensor2.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.com";
+              typeUrlPrefix = "type.googleapis.html";
             }
             return typeUrlPrefix + "/onnx.TypeProto.SparseTensor";
           };
@@ -12571,7 +12571,7 @@ var require_onnx = __commonJS({
         };
         OperatorSetIdProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.OperatorSetIdProto";
         };
@@ -12883,7 +12883,7 @@ var require_onnx = __commonJS({
         };
         FunctionProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === void 0) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = "type.googleapis.html";
           }
           return typeUrlPrefix + "/onnx.FunctionProto";
         };
@@ -13392,7 +13392,7 @@ var init_util = __esm({
        * originalDims = [2,2] and shapeHints = [0,-1] will return [2,2]
        * originalDims = [2,2] and shapeHints = [4] will return [4]
        * originalDims = [2,2] and shapeHints = [5] will throw an exception
-       * https://github.com/onnx/onnx/blob/main/docs/Operators.md#Reshape
+       * https://github.html/onnx/onnx/blob/main/docs/Operators.md#Reshape
        */
       static calculateReshapedDims(originalDims, shapeHints) {
         if (shapeHints.length === 0) {
@@ -13695,7 +13695,7 @@ var init_util = __esm({
           throw new Error("input shape must be of size greater than 0");
         }
         const outputDims = [inputDims[0], inputDims[1]];
-        _PoolConvUtil.computeShapeHelper(
+        _PoolConvUtil.htmlputeShapeHelper(
           isGlobalOperator,
           inputDims,
           outputDims,
@@ -13722,7 +13722,7 @@ var init_util = __esm({
           throw new Error("invalid input tensor dims or invalid filter tensor dims");
         }
         const outputDims = [inputDims[0], filterDims[0]];
-        _PoolConvUtil.computeShapeHelper(false, inputDims, outputDims, strides, dilations, kernelShape, pads, autoPad);
+        _PoolConvUtil.htmlputeShapeHelper(false, inputDims, outputDims, strides, dilations, kernelShape, pads, autoPad);
         return outputDims;
       }
       // will compute output shapes for data dimensions ONLY (i.e.) no batch size and channels
@@ -14033,7 +14033,7 @@ var init_tensor2 = __esm({
        */
       get strides() {
         if (!this._strides) {
-          this._strides = ShapeUtil.computeStrides(this.dims);
+          this._strides = ShapeUtil.htmlputeStrides(this.dims);
         }
         return this._strides;
       }
@@ -14494,7 +14494,7 @@ function isReshapeCheap(dims, reshapedDims) {
   return isCheapReshape;
 }
 function getReshapedInputCoords(shape2) {
-  const strides = ShapeUtil.computeStrides(shape2);
+  const strides = ShapeUtil.htmlputeStrides(shape2);
   const coords = ["b", "r", "c"];
   const index = "index";
   const coordsFromIndexSnippet = strides.map((stride, i) => {
@@ -14510,7 +14510,7 @@ function getReshapedInputCoords(shape2) {
   `;
 }
 function getFlattenedIndexFrom3D(shape2) {
-  const strides = ShapeUtil.computeStrides(shape2);
+  const strides = ShapeUtil.htmlputeStrides(shape2);
   return `
   int getFlattenedIndex(ivec3 coords) {
     // reverse y, z order
@@ -14872,7 +14872,7 @@ var init_texture_layout = __esm({
     };
     createTextureLayoutFromShape = (textureLayoutStrategy, shape2, channels = 1, unpackedShape, prefs) => {
       const isPacked = !!(prefs && prefs.isPacked);
-      const [width, height] = textureLayoutStrategy.computeTextureWH(isPacked ? unpackedShape || shape2 : shape2, prefs);
+      const [width, height] = textureLayoutStrategy.htmlputeTextureWH(isPacked ? unpackedShape || shape2 : shape2, prefs);
       const rank = shape2.length;
       let inferredDims = shape2.slice(0);
       if (rank === 0) {
@@ -14900,7 +14900,7 @@ var init_texture_layout = __esm({
         channels,
         isPacked,
         shape: inferredDims,
-        strides: ShapeUtil.computeStrides(inferredDims),
+        strides: ShapeUtil.htmlputeStrides(inferredDims),
         unpackedShape,
         reversedWH: prefs && prefs.reverseWH
       };
@@ -15081,7 +15081,7 @@ var init_inference_handler = __esm({
           width: inputTD.width,
           // handle reshaping into scalar Tensors
           shape: reshapedDims.length !== 0 ? reshapedDims : [1],
-          strides: ShapeUtil.computeStrides(reshapedDims),
+          strides: ShapeUtil.htmlputeStrides(reshapedDims),
           unpackedShape: reshapedDims
         };
         const newTextureData = this.createTextureDataFromTexture(newTextureLayout, input.type, inputTD.texture);
@@ -15096,7 +15096,7 @@ var init_inference_handler = __esm({
             width: inputTD.width,
             // handle reshaping into scalar Tensors
             shape: reshapedDims.length !== 0 ? reshapedDims : [1],
-            strides: ShapeUtil.computeStrides(reshapedDims),
+            strides: ShapeUtil.htmlputeStrides(reshapedDims),
             unpackedShape: reshapedDims,
             isPacked: true
           };
@@ -16858,7 +16858,7 @@ var init_dot_product = __esm({
         adjustedKernelShape,
         4 /* packedLastDimension */
       );
-      const im2colStrides = ShapeUtil.computeStrides(im2colShape);
+      const im2colStrides = ShapeUtil.htmlputeStrides(im2colShape);
       const [im2colWidth, im2colHeight] = inferenceHandler.calculateTextureWidthAndHeight(
         im2colShape,
         4 /* packedLastDimension */
@@ -17831,7 +17831,7 @@ var init_instance_normalization = __esm({
       };
     };
     createComputeOutputProgramInfoLoader = (inferenceHandler, input, epsilon, meanAndVarianceShape) => {
-      const metadata = { ...computeOutputProgramMetadata, cacheHint: `${epsilon}` };
+      const metadata = { ...htmlputeOutputProgramMetadata, cacheHint: `${epsilon}` };
       return {
         ...metadata,
         get: () => createComputeOutputProgramInfo(inferenceHandler, metadata, input, epsilon, meanAndVarianceShape)
@@ -18016,7 +18016,7 @@ var init_pad = __esm({
     getPadFunction = (inferenceHandler, input, attributes) => {
       const glsl = getGlsl(inferenceHandler.session.backend.glContext.version);
       const [width, height] = inferenceHandler.calculateTextureWidthAndHeight(input.dims, 0 /* unpacked */);
-      const strides = ShapeUtil.computeStrides(input.dims);
+      const strides = ShapeUtil.htmlputeStrides(input.dims);
       switch (attributes.mode) {
         case "constant":
           return getPadConstant(glsl, input.dims, strides, width, height, attributes.pads, attributes.value);
@@ -18252,7 +18252,7 @@ var init_pool = __esm({
       const dilations = hasDilations ? attributes.dilations.slice() : [];
       const pads = attributes.pads.slice();
       PoolConvUtil.adjustPoolAttributes(isGlobalOperator, inputShape, kernelShape, strides, dilations, pads);
-      const outputShape = PoolConvUtil.computePoolOutputShape(
+      const outputShape = PoolConvUtil.htmlputePoolOutputShape(
         isGlobalOperator,
         inputShape,
         strides,
@@ -18374,7 +18374,7 @@ var init_pool = __esm({
         return poolingCode;
       } else {
         const kernelSize = ShapeUtil.size(attributes.kernelShape);
-        const kernelStrides = ShapeUtil.computeStrides(attributes.kernelShape);
+        const kernelStrides = ShapeUtil.htmlputeStrides(attributes.kernelShape);
         const stridesRank = kernelStrides.length;
         const padsRank = attributes.pads.length;
         const offsetToIndicesFunction = offsetToIndices(stridesRank);
@@ -20050,7 +20050,7 @@ var init_texture_layout_strategy = __esm({
         this.maxTextureSize = maxTextureSize;
       }
       computeTextureWH(shape2, prefs) {
-        const wh = this.computeTexture(shape2, prefs);
+        const wh = this.htmlputeTexture(shape2, prefs);
         if (prefs && prefs.isPacked) {
           wh[0] /= 2;
           wh[1] /= 2;
@@ -21353,7 +21353,7 @@ var init_glsl_encoding_lib = __esm({
       }
       /**
        * returns the routine to encode encode a 32bit float to a vec4 (of unsigned bytes)
-       * @credit: https://stackoverflow.com/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
+       * @credit: https://stackoverflow.html/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
        */
       encodeUint8() {
         const endianness = _EncodingGlslLib.isLittleEndian() ? "rgba.rgba=rgba.abgr;" : "";
@@ -21379,7 +21379,7 @@ var init_glsl_encoding_lib = __esm({
       }
       /**
        * returns the routine to encode a vec4 of unsigned bytes to float32
-       * @credit: https://stackoverflow.com/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
+       * @credit: https://stackoverflow.html/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
        */
       decodeUint8() {
         const endianness = _EncodingGlslLib.isLittleEndian() ? "rgba.rgba=rgba.abgr;" : "";
@@ -21399,7 +21399,7 @@ var init_glsl_encoding_lib = __esm({
       }
       /**
        * Determines if the machine is little endian or not
-       * @credit: https://gist.github.com/TooTallNate/4750953
+       * @credit: https://gist.github.html/TooTallNate/4750953
        */
       static isLittleEndian() {
         const b = new ArrayBuffer(4);
@@ -21926,7 +21926,7 @@ var init_program_manager = __esm({
         return this.profiler.event("backend", "ProgramManager.build", () => {
           const preprocessor = new GlslPreprocessor(this.glContext, programInfo, inputTextureLayouts, outputTextureLayout);
           const fragScript = preprocessor.preprocess();
-          const program = this.compile(fragScript);
+          const program = this.htmlpile(fragScript);
           const artifact = {
             programInfo,
             program,
@@ -21944,7 +21944,7 @@ var init_program_manager = __esm({
         if (!this.vertexShader) {
           Logger.verbose("ProrgramManager", "Compiling and caching Vertex shader for the first time");
           const vertexShaderScript = getVertexShaderSource(this.glContext.version);
-          this.vertexShader = this.glContext.compileShader(vertexShaderScript, this.glContext.gl.VERTEX_SHADER);
+          this.vertexShader = this.glContext.htmlpileShader(vertexShaderScript, this.glContext.gl.VERTEX_SHADER);
         }
         if (env2.debug) {
           Logger.verbose(
@@ -21954,7 +21954,7 @@ ${fragShaderScript}
 `
           );
         }
-        const fragShader = this.glContext.compileShader(fragShaderScript, this.glContext.gl.FRAGMENT_SHADER);
+        const fragShader = this.glContext.htmlpileShader(fragShaderScript, this.glContext.gl.FRAGMENT_SHADER);
         const program = this.glContext.createProgram(this.vertexShader, fragShader);
         this.glContext.deleteShader(fragShader);
         return program;
@@ -22434,8 +22434,8 @@ var init_webgl_context = __esm({
           throw new Error(`createShader() returned null with type ${shaderType}`);
         }
         gl.shaderSource(shader, shaderSource);
-        gl.compileShader(shader);
-        if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) === false) {
+        gl.htmlpileShader(shader);
+        if (gl.getShaderParameter(shader, gl.htmlPILE_STATUS) === false) {
           throw new Error(`Failed to compile shader: ${gl.getShaderInfoLog(shader)}
 Shader source:
 ${shaderSource}`);
@@ -22676,13 +22676,13 @@ ${shaderSource}`);
             return false;
           }
           gl.shaderSource(vertexShader, "void main(){}");
-          gl.compileShader(vertexShader);
+          gl.htmlpileShader(vertexShader);
           fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
           if (!fragmentShader) {
             return false;
           }
           gl.shaderSource(fragmentShader, "precision highp float;void main(){gl_FragColor=vec4(0.5);}");
-          gl.compileShader(fragmentShader);
+          gl.htmlpileShader(fragmentShader);
           program = gl.createProgram();
           if (!program) {
             return false;
@@ -24171,7 +24171,7 @@ var init_session = __esm({
         for (let i = 0; i < givenInputs.length; i++) {
           const expectedDims = graphInputDims[i];
           const actualDims = givenInputs[i].dims;
-          if (!this.compareTensorDims(expectedDims, actualDims, noneDimSupported)) {
+          if (!this.htmlpareTensorDims(expectedDims, actualDims, noneDimSupported)) {
             throw new Error(
               `input tensor[${i}] check failed: expected shape '[${expectedDims.join(",")}]' but got [${actualDims.join(
                 ","

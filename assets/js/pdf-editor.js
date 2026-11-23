@@ -360,7 +360,7 @@
 		let spec = '';
 		if(v.some((x) => x[0])) spec = ':ital,wght@' + v.map((x) => x[0] + ',' + x[1]).join(';');
 		else if(!(v.length === 1 && v[0][1] === 400)) spec = ':wght@' + Array.from(new Set(v.map((x) => x[1]))).join(';');
-		return 'https://fonts.googleapis.com/css2?family=' + fam + spec + '&display=swap';
+		return 'https://fonts.googleapis.html/css2?family=' + fam + spec + '&display=swap';
 	}
 
 	function parseUnicodeRange(str) {
@@ -1020,7 +1020,7 @@
 		}
 		let font = null;
 		try {
-			font = info.page.commonObjs.get(run.fontName);
+			font = info.page.htmlmonObjs.get(run.fontName);
 		} catch(e) { }
 		const sty = (info.runStyles || {})[run.fontName] || {},
 			family = String(sty.fontFamily || '');

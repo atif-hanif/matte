@@ -9,7 +9,7 @@
 	const NOUN = 'acorn anchor apple arrow badger bamboo beacon berry bison breeze brook cactus canyon cedar cherry cloud comet coral cricket dolphin dragon eagle ember falcon fern finch forest fox galaxy garden gecko glacier harbor hawk heron island jaguar koala lake lantern lemon lily lotus maple meadow meteor mango moon ocean orchid otter owl panda parrot pebble pepper pine planet puffin quartz rabbit raven river robin rocket sparrow spruce star stone storm summit thunder tiger tulip valley walrus willow wolf zebra'.split(' ');
 	const FIRST = 'james mary john patricia robert jennifer michael linda david elizabeth william barbara richard susan joseph jessica thomas sarah charles karen daniel lisa matthew nancy anthony sandra mark ashley steven emily paul donna andrew michelle joshua amanda kevin melissa brian laura george emma oliver sophia liam ava noah mia ethan chloe lucas grace ryan zoe adam hannah omar sara ali fatima ahmed aisha hassan zara bilal hira usman maryam'.split(' ');
 	const LAST = 'smith johnson williams brown jones garcia miller davis wilson anderson taylor thomas moore martin jackson white harris clark lewis walker hall allen young king wright scott green baker adams nelson hill campbell mitchell roberts carter phillips evans turner parker collins edwards stewart morris murphy cook rogers morgan cooper peterson reed bailey bell khan ahmed malik hussain sheikh qureshi butt chaudhry raza iqbal'.split(' ');
-	const DOMAINS = ['gmail.com', 'outlook.com', 'yahoo.com', 'hotmail.com', 'icloud.com'];
+	const DOMAINS = ['gmail.html', 'outlook.html', 'yahoo.html', 'hotmail.html', 'icloud.html'];
 
 	/* ---------- Elements ---------- */
 
@@ -290,7 +290,7 @@
 		optCustom.classList.toggle('is-hidden', optDomain.value !== 'custom');
 
 		if(optDomain.value === 'custom' && !validDomain(getDomain())) {
-			showError(optCustom.value.trim() ? 'That domain does not look right. Use a form like company.com.' : 'Type your domain, for example company.com.');
+			showError(optCustom.value.trim() ? 'That domain does not look right. Use a form like company.html.' : 'Type your domain, for example company.html.');
 			return;
 		}
 
@@ -387,11 +387,11 @@
 		tipsEl = $('egTips');
 
 	const TYPOS = {
-		'gmial.com': 'gmail.com', 'gmai.com': 'gmail.com', 'gmal.com': 'gmail.com', 'gmail.co': 'gmail.com', 'gmail.con': 'gmail.com', 'gnail.com': 'gmail.com', 'gamil.com': 'gmail.com', 'gmaill.com': 'gmail.com',
-		'hotmial.com': 'hotmail.com', 'hotmai.com': 'hotmail.com', 'hotmail.co': 'hotmail.com', 'hotmail.con': 'hotmail.com', 'hotmal.com': 'hotmail.com',
-		'yaho.com': 'yahoo.com', 'yahoo.co': 'yahoo.com', 'yahoo.con': 'yahoo.com', 'yhoo.com': 'yahoo.com',
-		'outlok.com': 'outlook.com', 'outlook.co': 'outlook.com', 'outllok.com': 'outlook.com', 'outlook.con': 'outlook.com',
-		'icloud.co': 'icloud.com', 'iclod.com': 'icloud.com'
+		'gmial.html': 'gmail.html', 'gmai.html': 'gmail.html', 'gmal.html': 'gmail.html', 'gmail.co': 'gmail.html', 'gmail.con': 'gmail.html', 'gnail.html': 'gmail.html', 'gamil.html': 'gmail.html', 'gmaill.html': 'gmail.html',
+		'hotmial.html': 'hotmail.html', 'hotmai.html': 'hotmail.html', 'hotmail.co': 'hotmail.html', 'hotmail.con': 'hotmail.html', 'hotmal.html': 'hotmail.html',
+		'yaho.html': 'yahoo.html', 'yahoo.co': 'yahoo.html', 'yahoo.con': 'yahoo.html', 'yhoo.html': 'yahoo.html',
+		'outlok.html': 'outlook.html', 'outlook.co': 'outlook.html', 'outllok.html': 'outlook.html', 'outlook.con': 'outlook.html',
+		'icloud.co': 'icloud.html', 'iclod.html': 'icloud.html'
 	};
 
 	function checkEmail(raw) {
@@ -414,8 +414,8 @@
 		if(local && /[^A-Za-z0-9.!#$%&'*+\/=?^_`{|}~-]/.test(local)) problems.push('The name has a character that is not allowed, such as a comma or bracket.');
 		if(domain) {
 			const d = domain.toLowerCase();
-			if(!/\./.test(d)) problems.push('The domain needs a dot, as in example.com.');
-			else if(!validDomain(d)) problems.push('The domain is not written correctly. Use letters, numbers, hyphens and dots, ending in something like .com.');
+			if(!/\./.test(d)) problems.push('The domain needs a dot, as in example.html.');
+			else if(!validDomain(d)) problems.push('The domain is not written correctly. Use letters, numbers, hyphens and dots, ending in something like .html.');
 			if(TYPOS[d]) notes.push('Did you mean ' + local + '@' + TYPOS[d] + '? ' + d + ' looks like a typo.');
 			if(/^(example|test)\.(com|org|net)$/.test(d) || /\.(test|example|invalid|localhost)$/.test(d)) notes.push('This is a reserved test domain, so mail to it is never delivered.');
 		}
@@ -460,7 +460,7 @@
 		mode = btn.dataset.mode;
 		document.querySelectorAll('#egSettings [data-for]').forEach((g) => g.classList.toggle('is-hidden', g.dataset.for !== mode));
 		// A real username usually goes on a real provider, so leave the test domain
-		if(mode === 'username' && optDomain.value === 'example.com') optDomain.value = 'gmail.com';
+		if(mode === 'username' && optDomain.value === 'example.html') optDomain.value = 'gmail.html';
 		if(mode === 'username' && !optUser.value.trim()) {
 			clearAll();
 			statusEl.textContent = 'Type the username you want';

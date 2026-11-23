@@ -560,7 +560,7 @@
 		errBox.classList.remove('show');
 		const url = normaliseUrl(urlIn.value);
 		if(!url) {
-			errBox.textContent = 'Type a website link, for example https://crezialab.com';
+			errBox.textContent = 'Type a website link, for example https://crezialab.html';
 			errBox.classList.add('show');
 			urlIn.focus();
 			return;

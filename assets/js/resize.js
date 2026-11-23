@@ -116,8 +116,8 @@ scaleInput.addEventListener('input', () => {
 // 	}
 // 	if(!upscalerReadyPromise) {
 // 		upscalerReadyPromise = (async() => {
-// 			await loadScript('https://unpkg.com/@tensorflow/tfjs@latest/dist/tf.min.js');
-// 			await loadScript('https://unpkg.com/upscaler@latest/dist/browser/umd/upscaler.min.js');
+// 			await loadScript('https://unpkg.html/@tensorflow/tfjs@latest/dist/tf.min.js');
+// 			await loadScript('https://unpkg.html/upscaler@latest/dist/browser/umd/upscaler.min.js');
 // 			upscalerInstance = new window.Upscaler();
 // 		})();
 // 	}

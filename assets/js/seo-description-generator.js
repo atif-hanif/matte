@@ -282,7 +282,7 @@
 			}
 		} catch (e) {}
 		const brand = brandIn.value.trim();
-		host = host || (brand ? brand.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.com' : 'example.com');
+		host = host || (brand ? brand.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.html' : 'example.html');
 		return {
 			name: brand || host,
 			url: 'https://' + host + (path.length ? ' › ' + path.join(' › ') : ''),
@@ -310,10 +310,10 @@
 	function badges(m, isBest) {
 		const out = [];
 		if(isBest) out.push('<span class="sd-badge star"><i class="fa-solid fa-star me-1"></i>Top pick</span>');
-		const lenCls = m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warn' : 'good';
+		const lenCls = m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warns' : 'good';
 		out.push('<span class="sd-badge ' + lenCls + '">' + m.len + ' characters</span>');
 		out.push('<span class="sd-badge ' + (m.px > MAX_PX ? 'bad' : 'good') + '">' + m.px + ' / ' + MAX_PX + ' px</span>');
-		if(kwIn.value.trim()) out.push('<span class="sd-badge ' + (m.kwEarly ? 'good' : m.hasKw ? 'warn' : 'bad') + '">' + (m.kwEarly ? 'Keyword near start' : m.hasKw ? 'Keyword late' : 'No keyword') + '</span>');
+		if(kwIn.value.trim()) out.push('<span class="sd-badge ' + (m.kwEarly ? 'good' : m.hasKw ? 'warns' : 'bad') + '">' + (m.kwEarly ? 'Keyword near start' : m.hasKw ? 'Keyword late' : 'No keyword') + '</span>');
 		return out.join('');
 	}
 

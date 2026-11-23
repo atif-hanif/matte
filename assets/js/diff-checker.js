@@ -17,17 +17,14 @@
 		dlBtn = $('dcDownloadBtn');
 
 	const CONTEXT = 3;
-	const LINE_LIMIT = 8000; // edit distance at which the line diff gives up and shows a block replace
-	const INLINE_MAX = 3000; // longest line that gets word or character highlights
+	const LINE_LIMIT = 8000;
+	const INLINE_MAX = 3000;
 
 	let view = 'split',
 		timer = null,
 		last = null,
 		openFolds = {};
 
-	/* ---------- Myers diff ---------- */
-
-	// Returns ops: [type, aIndex, bIndex], type is 0 equal, -1 removed, 1 added
 	function diff(a, b, limit) {
 		const ops = [];
 		const n = a.length,
@@ -65,7 +62,6 @@
 		}
 
 		if(!found) {
-			// Too different to diff cheaply: show the changed middle as one replaced block
 			for(let i = 0; i < N; i++) ops.push([-1, s + i, -1]);
 			for(let j = 0; j < M; j++) ops.push([1, -1, s + j]);
 			return ops.concat(tail.reverse());
@@ -100,8 +96,6 @@
 		return [listA.map(to), listB.map(to)];
 	}
 
-	/* ---------- Helpers ---------- */
-
 	function esc(s) {
 		return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 	}
@@ -127,7 +121,6 @@
 		TOKEN = /\w+|\s+|[^\w\s]/g;
 	}
 
-	// Word or character highlights inside a changed line pair
 	function inline(oldLine, newLine) {
 		if(oldLine.length > INLINE_MAX || newLine.length > INLINE_MAX) {
 			return [mark(oldLine, 'del'), mark(newLine, 'ins')];
@@ -138,7 +131,7 @@
 		const norm = (t) => optCase.checked ? t.toLowerCase() : t;
 		const [ia, ib] = ids(ta.map(norm), tb.map(norm));
 		let ops = diff(ia, ib, 2000);
-		// A space sitting between two changed words joins them into one highlight
+		
 		if(optLevel.value !== 'char') {
 			const merged = [];
 			ops.forEach((o, i) => {
@@ -174,15 +167,12 @@
 		return s ? '<mark class="dc-' + cls + '">' + esc(s) + '</mark>' : '';
 	}
 
-	/* ---------- Compare ---------- */
-
 	function compare() {
 		const a = lines(leftEl.value),
 			b = lines(rightEl.value);
 		const [ka, kb] = ids(a.map(key), b.map(key));
 		const ops = diff(ka, kb, LINE_LIMIT);
 
-		// Rows for display: eq, mod (paired removal + addition), del, add
 		const rows = [];
 		let i = 0,
 			removed = 0,
@@ -216,13 +206,10 @@
 		return { a: a, b: b, ops: ops, rows: rows, removed: removed, added: added };
 	}
 
-	/* ---------- Render ---------- */
-
 	function code(text) {
 		return text === '' ? '&#8203;' : esc(text);
 	}
 
-	// Groups rows into visible pieces, folding long unchanged runs
 	function pieces(rows) {
 		const out = [];
 		let k = 0;
@@ -254,7 +241,7 @@
 		let h = '<table class="dc-table dc-split"><colgroup><col class="dc-c-num"><col class="dc-c-sign"><col><col class="dc-c-num"><col class="dc-c-sign"><col></colgroup><tbody>';
 		pieces(res.rows).forEach((p) => {
 			if(p.t === 'fold') { h += foldRow(p, 6); return; }
-			// side: 'l' (removed side) or 'r' (added side); a missing line leaves a grey gap
+			
 			const cells = (side, n, sign, html) => n < 0 ?
 				'<td class="dc-num dc-blank"></td><td class="dc-sign dc-blank"></td><td class="dc-code dc-blank"></td>' :
 				'<td class="dc-num dc-' + side + '">' + (n + 1) + '</td><td class="dc-sign dc-' + side + '">' + (p.t === 'eq' ? '' : sign) + '</td><td class="dc-code dc-' + side + '">' + html + '</td>';
@@ -275,7 +262,7 @@
 			const p = list[k];
 			if(p.t === 'fold') { h += foldRow(p, 4); k++; continue; }
 			if(p.t === 'eq') { h += line('dc-eq', p.l + 1, p.r + 1, '', code(a[p.l])); k++; continue; }
-			// A changed block: all removals first, then all additions
+			
 			const block = [];
 			while(k < list.length && list[k].t !== 'eq' && list[k].t !== 'fold') block.push(list[k++]);
 			block.forEach((q) => { if(q.l >= 0) h += line('dc-del dc-l', q.l + 1, '', '−', q.t === 'mod' ? q.lh || '&#8203;' : code(a[q.l])); });
@@ -289,8 +276,6 @@
 		outEl.innerHTML = view === 'split' ? renderSplit(last) : renderUnified(last);
 	}
 
-	/* ---------- Unified patch for copy / download ---------- */
-
 	function patch(res) {
 		const { a, b, ops } = res;
 		const out = ['--- ' + ($('dcLeftName').textContent || 'Original'), '+++ ' + ($('dcRightName').textContent || 'Changed')];
@@ -303,7 +288,7 @@
 			while(c < changed.length && changed[c] <= end + 2 * CONTEXT + 1) end = changed[c++];
 			end = Math.min(ops.length - 1, end + CONTEXT);
 			const slice = ops.slice(start, end + 1);
-			// Line positions where the hunk starts on each side
+
 			let aStart = 0,
 				bStart = 0;
 			for(let i = 0; i < start; i++) {
@@ -321,8 +306,6 @@
 		}
 		return out.join('\n') + '\n';
 	}
-
-	/* ---------- Run ---------- */
 
 	function run() {
 		errBox.classList.remove('show');
@@ -374,8 +357,6 @@
 		openFolds[btn.dataset.fold] = true;
 		render();
 	});
-
-	/* ---------- Files ---------- */
 
 	function loadFile(file, target, nameEl) {
 		if(!file) return;
@@ -429,8 +410,6 @@
 			}
 		});
 	});
-
-	/* ---------- Toolbar ---------- */
 
 	$('dcSwapBtn').addEventListener('click', () => {
 		const t = leftEl.value;

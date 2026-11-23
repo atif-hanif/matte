@@ -140,10 +140,19 @@
 						<button type="button" class="mode-btn" data-tool="signature">Signature</button>
 					</div>
 
-					<button type="button" class="btn btn-primary-outlined" id="peAddImageBtn">Picture</button>
+					<button type="button" class="btn btn-primary-outlined" id="peAddImageBtn">
+						<i class="fa-regular fa-image me-2"></i>
+						Picture
+					</button>
 					<span class="pe-sep"></span>
-					<button type="button" class="btn btn-secondary-outlined" id="peUndoBtn" disabled>Undo</button>
-					<button type="button" class="btn btn-secondary-outlined" id="peRedoBtn" disabled>Redo</button>
+					<button type="button" class="btn btn-secondary-outlined" id="peUndoBtn" disabled>
+						<i class="fa-regular fa-arrow-rotate-left me-2"></i>
+						Undo
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="peRedoBtn" disabled>
+						<i class="fa-regular fa-arrow-rotate-right"></i>
+						Redo
+					</button>
 					<span class="pe-sep"></span>
 					<button type="button" class="btn btn-primary-outlined" id="pePrevBtn" aria-label="Previous page">
 						<i class="fa-solid fa-chevron-left"></i>
@@ -160,7 +169,11 @@
 					<button type="button" class="btn btn-secondary-outlined" id="peZoomIn" aria-label="Zoom in">
 						<i class="fa-solid fa-plus"></i>
 					</button>
-					<button type="button" class="btn btn-secondary-outlined" id="peFitBtn">Fit</button>
+					<button type="button" class="btn btn-secondary-outlined" id="peFitBtn">
+						<i class="fa-solid fa-expand me-2"></i>
+						Fit
+					</button>
+
 					<div class="pe-toolbar-right">
 						<span class="pe-status" id="peStatus"></span>
 						<button type="button" class="btn btn-secondary" id="peNewBtn">
@@ -189,12 +202,21 @@
 						<section class="pe-section is-hidden" id="peSigPanel">
 							<h3>Signature</h3>
 							<canvas id="peSigPad" class="pe-sigpad" width="600" height="240"></canvas>
+
 							<div class="pe-row">
 								<label for="peSigColor">Ink</label>
-								<input type="color" id="peSigColor" class="color-input" value="#1B2A6B"> </div>
+								<input type="color" id="peSigColor" class="color-input" value="#1B2A6B">
+							</div>
+
 							<div class="pe-actions">
-								<button type="button" class="btn btn-ghost btn-sm" id="peSigClear">Clear</button>
-								<button type="button" class="btn btn-primary btn-sm" id="peSigPlace">Place on page</button>
+								<button type="button" class="btn btn-secondary btn-sm" id="peSigClear">
+									<i class="fa-solid fa-eraser me-2"></i>
+									Clear
+								</button>
+								<button type="button" class="btn btn-primary btn-sm" id="peSigPlace">
+									<i class="fa-regular fa-page me-2"></i>
+									Place on page
+								</button>
 							</div>
 						</section>
 
@@ -202,7 +224,10 @@
 							<h3>Color</h3>
 							<div class="pe-row">
 								<input type="color" id="peRectColor" class="color-input" value="#ffffff">
-								<button type="button" class="btn btn-ghost btn-sm" id="pePickBtn">Pick from page</button>
+								<button type="button" class="btn btn-secondary btn-sm" id="pePickBtn">
+									<i class="fa-solid fa-eye-dropper me-2"></i>
+									Pick from page
+								</button>
 							</div>
 						</section>
 
@@ -210,7 +235,8 @@
 							<h3>Pen</h3>
 							<div class="pe-row">
 								<label for="peDrawColor">Color</label>
-								<input type="color" id="peDrawColor" class="color-input" value="#e03131"> </div>
+								<input type="color" id="peDrawColor" class="color-input" value="#e03131">
+							</div>
 							<div class="pe-row">
 								<label for="peDrawWidth">Width</label>
 								<input type="range" id="peDrawWidth" min="1" max="24" step="1" value="3">
@@ -230,21 +256,34 @@
 										<ul class="pe-fontlist" id="peFontList" role="listbox"></ul>
 									</div>
 								</div>
-								<label class="pe-field">Size (pt)
-									<input type="number" id="peFontSize" class="pe-number" min="4" max="400" step="1" value="14"> </label>
-								<label class="pe-field">Color
-									<input type="color" id="peTextColor" class="color-input" value="#111111"> </label>
-								<div class="pe-field">Style
+								<label class="pe-field">
+									Size (pt)
+									<input type="number" id="peFontSize" class="pe-number" min="4" max="400" step="1" value="14">
+								</label>
+
+								<label class="pe-field">
+									Color
+									<input type="color" id="peTextColor" class="color-input" value="#111111">
+								</label>
+
+								<div class="pe-field">
+									Style
 									<div class="pe-actions">
-										<button type="button" class="btn btn-ghost btn-sm" id="peBold"><b>B</b></button>
-										<button type="button" class="btn btn-ghost btn-sm" id="peItalic"><i>I</i></button>
-										<button type="button" class="btn btn-ghost btn-sm" id="peUnderline"><u>U</u></button>
+										<button type="button" class="btn btn-secondary-outlined btn-sm" id="peBold">
+											<i class="fa-solid fa-bold"></i>
+										</button>
+										<button type="button" class="btn btn-primary-outlined btn-sm" id="peItalic">
+											<i class="fa-solid fa-italic"></i>
+										</button>
+										<button type="button" class="btn btn-secondary-outlined btn-sm" id="peUnderline">
+											<i class="fa-solid fa-underline"></i>
+										</button>
 									</div>
 								</div>
 							</div>
 
 							<label class="pe-field pe-wide">Link (optional)
-								<input type="text" id="peLinkUrl" class="pe-number pe-wide" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://example.com">
+								<input type="text" id="peLinkUrl" class="pe-number pe-wide" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://example.html">
 							</label>
 
 							<p class="pe-hint pe-linknote is-hidden" id="peLinkNote"></p>
@@ -260,10 +299,22 @@
 							</div>
 
 							<div class="pe-actions">
-								<button type="button" class="btn btn-ghost btn-sm" id="peDupBtn">Duplicate</button>
-								<button type="button" class="btn btn-ghost btn-sm" id="peForwardBtn">Bring forward</button>
-								<button type="button" class="btn btn-ghost btn-sm" id="peBackBtn">Send back</button>
-								<button type="button" class="btn btn-ghost btn-sm" id="peDeleteBtn">Delete</button>
+								<button type="button" class="btn btn-secondary-outlined btn-sm" id="peDupBtn">
+									<i class="fa-solid fa-clone me-2"></i>
+									Duplicate
+								</button>
+								<button type="button" class="btn btn-primary-outlined btn-sm" id="peForwardBtn">
+									<i class="fa-regular fa-bring-forward me-2"></i>
+									Bring forward
+								</button>
+								<button type="button" class="btn btn-secondary-outlined btn-sm" id="peBackBtn">
+									<i class="fa-regular fa-send-backward me-2"></i>
+									Send back
+								</button>
+								<button type="button" class="btn btn-primary-outlined btn-sm" id="peDeleteBtn">
+									<i class="fa-regular fa-trash me-2"></i>
+									Delete
+								</button>
 							</div>
 						</section>
 					</aside>
@@ -393,7 +444,7 @@
 							<a class="nav-link" href="text-tools.html">Text Tools</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="generator-tools.com">Generate Tools</a>
+							<a class="nav-link" href="generator-tools.html">Generate Tools</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="developer-tools.html">Developer Tools</a>

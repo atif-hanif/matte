@@ -2694,7 +2694,7 @@ var init_util = __esm({
           throw new Error("input shape must be of size greater than 0");
         }
         const outputDims = [inputDims[0], inputDims[1]];
-        _PoolConvUtil.computeShapeHelper(
+        _PoolConvUtil.htmlputeShapeHelper(
           isGlobalOperator,
           inputDims,
           outputDims,
@@ -2721,7 +2721,7 @@ var init_util = __esm({
           throw new Error("invalid input tensor dims or invalid filter tensor dims");
         }
         const outputDims = [inputDims[0], filterDims[0]];
-        _PoolConvUtil.computeShapeHelper(false, inputDims, outputDims, strides, dilations, kernelShape, pads, autoPad);
+        _PoolConvUtil.htmlputeShapeHelper(false, inputDims, outputDims, strides, dilations, kernelShape, pads, autoPad);
         return outputDims;
       }
       // will compute output shapes for data dimensions ONLY (i.e.) no batch size and channels
@@ -3967,7 +3967,7 @@ var init_common = __esm({
         if (dim.length !== 0) {
           programUniforms.push(
             { type: 12 /* uint32 */, data: dim },
-            { type: 12 /* uint32 */, data: ShapeUtil.computeStrides(dim) }
+            { type: 12 /* uint32 */, data: ShapeUtil.htmlputeStrides(dim) }
           );
         }
       });
@@ -4252,7 +4252,7 @@ var init_common = __esm({
         if (!useUniform && needShapeStrides) {
           impls.unshift(
             `const ${shape} = ${type.indices}(${shapeOrRank.join(",")});`,
-            `const ${strides} = ${type.indices}(${ShapeUtil.computeStrides(shapeOrRank).join(",")});`
+            `const ${strides} = ${type.indices}(${ShapeUtil.htmlputeStrides(shapeOrRank).join(",")});`
           );
         }
         return impls.join("\n");
@@ -4593,7 +4593,7 @@ var init_transpose = __esm({
     };
     transpose = (context, attributes) => {
       validateInputs(context.inputs, attributes.perm);
-      context.compute(createTransposeProgramInfo(context.inputs[0], attributes.perm));
+      context.htmlpute(createTransposeProgramInfo(context.inputs[0], attributes.perm));
     };
     parseTransposeAttributes = (attributes) => createAttributeWithCacheKey({ perm: attributes.perm });
   }
@@ -4783,7 +4783,7 @@ var init_reduce_shared = __esm({
       let input = context.inputs[0];
       const permutedAxes = getAxesPermutation(axes, context.inputs[0].dims.length);
       if (permutedAxes.length > 0) {
-        input = context.compute(createTransposeProgramInfo(context.inputs[0], permutedAxes), {
+        input = context.htmlpute(createTransposeProgramInfo(context.inputs[0], permutedAxes), {
           inputs: [0],
           outputs: [-1]
         })[0];
@@ -4794,7 +4794,7 @@ var init_reduce_shared = __esm({
       if (updatedAttributes.keepDims) {
         finalOutputShape = expandShapeToKeepDim(outputShape, normalizeAxes);
       }
-      context.compute(
+      context.htmlpute(
         createReduceSharedProgramInfo(
           name,
           updatedAttributes.cacheKey,
@@ -4945,7 +4945,7 @@ var init_reduce = __esm({
     runReduceProgram = (context, name, attributes, reduceOp) => {
       const inputs = context.inputs;
       const updatedAttributes = inputs.length === 1 ? attributes : createReduceAttributesFromInputs(inputs, attributes);
-      context.compute(
+      context.htmlpute(
         createReduceProgramInfo(
           name,
           { hint: updatedAttributes.cacheKey, inputDependencies: ["rank"] },
@@ -5208,7 +5208,7 @@ var best_index : i32 = 0;`,
           output.setByOffset("global_idx", "best_index")
         ];
       };
-      context.compute(
+      context.htmlpute(
         createReduceProgramInfo(
           "ArgMin",
           { hint: attributes.cacheKey, inputDependencies: ["rank"] },
@@ -5242,7 +5242,7 @@ var best_index : i32 = 0;`,
           output.setByOffset("global_idx", "best_index")
         ];
       };
-      context.compute(
+      context.htmlpute(
         createReduceProgramInfo(
           "argMax",
           { hint: attributes.cacheKey, inputDependencies: ["rank"] },
@@ -5860,7 +5860,7 @@ var init_attention = __esm({
       if (totalSequenceLengthInput) {
         inputsK.push(totalSequenceLengthInput);
       }
-      const probs = context.compute(
+      const probs = context.htmlpute(
         createAttentionProbsProgramInfo(
           outputCount,
           q,
@@ -5874,7 +5874,7 @@ var init_attention = __esm({
         ),
         { inputs: inputsK, outputs: outputCount > 1 ? [-1, 1] : [-1] }
       )[0];
-      context.compute(
+      context.htmlpute(
         createInPlaceSoftmaxProgramInfo(
           probs,
           parameters.batchSize,
@@ -5897,7 +5897,7 @@ var init_attention = __esm({
       if (totalSequenceLengthInput) {
         inputsV.push(totalSequenceLengthInput);
       }
-      context.compute(
+      context.htmlpute(
         createVxAttentionScoreProgramInfo(
           outputCount,
           probs,
@@ -6009,7 +6009,7 @@ var init_attention = __esm({
     }
   }`;
       };
-      return context.compute(
+      return context.htmlpute(
         {
           name: "AttentionPrepare",
           shaderCache: { inputDependencies: ["type", "type", "type"] },
@@ -6160,7 +6160,7 @@ var init_batch_norm = __esm({
       if (attributes.trainingMode) {
         throw new Error("BatchNormalization trainingMode is not supported yet.");
       } else {
-        context.compute(createBatchNormInferenceProgramInfo(inputs, updatedAttributes));
+        context.htmlpute(createBatchNormInferenceProgramInfo(inputs, updatedAttributes));
       }
     };
   }
@@ -6220,7 +6220,7 @@ var init_bias_add = __esm({
     };
     biasAdd = (context) => {
       validateInputs5(context.inputs);
-      context.compute(createBiasAddProgramInfo(context.inputs));
+      context.htmlpute(createBiasAddProgramInfo(context.inputs));
     };
   }
 });
@@ -6292,25 +6292,25 @@ var init_unary_op = __esm({
       };
     };
     abs = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Abs", "abs"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Abs", "abs"));
     };
     acos = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Acos", "acos"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Acos", "acos"));
     };
     acosh = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Acosh", "acosh"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Acosh", "acosh"));
     };
     asin = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Asin", "asin"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Asin", "asin"));
     };
     asinh = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Asinh", "asinh"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Asinh", "asinh"));
     };
     atan = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Atan", "atan"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Atan", "atan"));
     };
     atanh = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Atanh", "atanh"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Atanh", "atanh"));
     };
     parseCastAttributes = (attributes) => createAttributeWithCacheKey(attributes);
     cast = (context, attributes) => {
@@ -6334,7 +6334,7 @@ var init_unary_op = __esm({
         default:
           throw new RangeError(`not supported type (specified in attribute 'to' from 'Cast' operator): ${attributes.to}`);
       }
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(context.inputs[0], "Cast", func, void 0, attributes.cacheKey, attributes.to)
       );
     };
@@ -6360,7 +6360,7 @@ var init_unary_op = __esm({
     clip = (context, clipAttributes) => {
       const attributes = clipAttributes ? clipAttributes : generateClipAttributesFromInputs(context.inputs);
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "Clip",
@@ -6381,18 +6381,18 @@ var init_unary_op = __esm({
       );
     };
     ceil = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Ceil", "ceil"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Ceil", "ceil"));
     };
     cos = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Cos", "cos"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Cos", "cos"));
     };
     cosh = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Cosh", "cosh"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Cosh", "cosh"));
     };
     parseAlphaAttributes = (attributes) => createAttributeWithCacheKey(attributes);
     elu = (context, attributes) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "Elu",
@@ -6426,17 +6426,17 @@ fn erf_vf32(v: vec4<${varType}>) -> vec4<${varType}> {
 }`;
     erf = (context) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Erf", (a) => `erf_vf32(${a})`, erfImpl(dataType)));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Erf", (a) => `erf_vf32(${a})`, erfImpl(dataType)));
     };
     exp = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Exp", "exp"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Exp", "exp"));
     };
     floor = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Floor", "floor"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Floor", "floor"));
     };
     gelu = (context) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "Gelu",
@@ -6447,7 +6447,7 @@ fn erf_vf32(v: vec4<${varType}>) -> vec4<${varType}> {
     };
     leakyRelu = (context, attributes) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "LeakyRelu",
@@ -6458,17 +6458,17 @@ fn erf_vf32(v: vec4<${varType}>) -> vec4<${varType}> {
       );
     };
     not = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Not", (a) => `!${a}`));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Not", (a) => `!${a}`));
     };
     neg = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Neg", (a) => `-${a}`));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Neg", (a) => `-${a}`));
     };
     reciprocal = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Reciprocal", (a) => `1.0/${a}`));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Reciprocal", (a) => `1.0/${a}`));
     };
     relu = (context) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "Relu",
@@ -6477,14 +6477,14 @@ fn erf_vf32(v: vec4<${varType}>) -> vec4<${varType}> {
       );
     };
     sigmoid = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Sigmoid", (a) => `(1.0 / (1.0 + exp(-${a})))`));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Sigmoid", (a) => `(1.0 / (1.0 + exp(-${a})))`));
     };
     parseHardSigmoidAttributes = (attributes) => createAttributeWithCacheKey(
       attributes
     );
     hardSigmoid = (context, attributes) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "HardSigmoid",
@@ -6495,20 +6495,20 @@ fn erf_vf32(v: vec4<${varType}>) -> vec4<${varType}> {
       );
     };
     sin = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Sin", "sin"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Sin", "sin"));
     };
     sinh = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Sinh", "sinh"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Sinh", "sinh"));
     };
     sqrt = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Sqrt", "sqrt"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Sqrt", "sqrt"));
     };
     tan = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Tan", "tan"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Tan", "tan"));
     };
     tanhExpression = (a) => `sign(${a}) * (1 - exp(-2 * abs(${a}))) / (1 + exp(-2 * abs(${a})))`;
     tanh = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Tanh", tanhExpression));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Tanh", tanhExpression));
     };
     fastGeluImpl = (varType = "f32") => `
 const fast_gelu_a: ${varType} = 0.5;
@@ -6522,7 +6522,7 @@ fn tanh_v(v: vec4<${varType}>) -> vec4<${varType}> {
     fastGeluExpression = (x) => `(fast_gelu_a + fast_gelu_a * tanh_v(${x} * (fast_gelu_c * ${x} * ${x} + fast_gelu_b))) * ${x}`;
     fastGelu = (context) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "FastGelu",
@@ -6535,7 +6535,7 @@ fn tanh_v(v: vec4<${varType}>) -> vec4<${varType}> {
     };
     thresholdedRelu = (context, attributes) => {
       const dataType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "ThresholdedRelu",
@@ -6547,7 +6547,7 @@ fn tanh_v(v: vec4<${varType}>) -> vec4<${varType}> {
       return 0;
     };
     log = (context) => {
-      context.compute(createElementwiseProgramInfo(context.inputs[0], "Log", "log"));
+      context.htmlpute(createElementwiseProgramInfo(context.inputs[0], "Log", "log"));
     };
     quickGeluImpl = (varType, alpha) => `
 const alpha = vec4<${varType}>(${alpha});
@@ -6570,7 +6570,7 @@ fn quick_gelu_impl(x: vec4<${varType}>) -> vec4<${varType}> {
     quickGeluExpression = (x) => `quick_gelu_impl(${x})`;
     quickgelu = (context, attributes) => {
       const dType = tensorTypeToWsglValueType(context.inputs[0].dataType);
-      context.compute(
+      context.htmlpute(
         createElementwiseProgramInfo(
           context.inputs[0],
           "QuickGelu",
@@ -6647,7 +6647,7 @@ var init_bias_split_gelu = __esm({
     };
     biasSplitGelu = (context) => {
       validateInputs6(context.inputs);
-      context.compute(createBiasSplitGeluProgramInfo(context.inputs));
+      context.htmlpute(createBiasSplitGeluProgramInfo(context.inputs));
     };
   }
 });
@@ -6832,7 +6832,7 @@ var init_binary_op = __esm({
       };
     };
     runBinaryOp = (context, name, funcCall, additionalImplementation, cacheKey, outputDataType) => {
-      context.compute(
+      context.htmlpute(
         createBinaryOpProgramInfo(
           name,
           cacheKey ?? "",
@@ -7066,7 +7066,7 @@ var init_concat = __esm({
         0
       );
       const nonEmptyInputs = inputs.filter((input) => ShapeUtil.size(input.dims) > 0);
-      context.compute(createConcatProgramInfo(nonEmptyInputs, adjustedAxis, outputShape, inputs[0].dataType), {
+      context.htmlpute(createConcatProgramInfo(nonEmptyInputs, adjustedAxis, outputShape, inputs[0].dataType), {
         inputs: nonEmptyInputs
       });
     };
@@ -8737,7 +8737,7 @@ var init_conv = __esm({
       if (attributes.group !== 1) {
         const convInputs2 = [inputs[0]];
         if (isChannelsLast) {
-          const transposedWeight2 = context.kernelCustomData.wT ?? context.compute(createTransposeProgramInfo(inputs[1], weightTransposeAttribute), {
+          const transposedWeight2 = context.kernelCustomData.wT ?? context.htmlpute(createTransposeProgramInfo(inputs[1], weightTransposeAttribute), {
             inputs: [1],
             outputs: [attributes.wIsConst ? -2 : -1]
           })[0];
@@ -8753,12 +8753,12 @@ var init_conv = __esm({
         }
         const enableGroupedConvVectorize = !context.adapterInfo.isArchitecture("ampere");
         if (enableGroupedConvVectorize && isChannelsLast && inputs[1].dims[0] === attributes.group && inputs[1].dims[1] === 1 && attributes.dilations[0] === 1 && attributes.dilations[1] === 1) {
-          context.compute(
+          context.htmlpute(
             createGroupedConvVectorizeProgramInfo(convInputs2, attributes, outputShape, squeezeOutputShapeFunction),
             { inputs: convInputs2 }
           );
         } else {
-          context.compute(createGroupedConvProgramInfo(convInputs2, attributes, outputShape, squeezeOutputShapeFunction), {
+          context.htmlpute(createGroupedConvProgramInfo(convInputs2, attributes, outputShape, squeezeOutputShapeFunction), {
             inputs: convInputs2
           });
         }
@@ -8779,7 +8779,7 @@ var init_conv = __esm({
         let xReshaped, wReshaped, matmulOutputShape;
         const matmulInputs = [];
         if (isChannelsLast) {
-          const transposedWeight2 = context.kernelCustomData.wT ?? context.compute(createTransposeProgramInfo(inputs[1], weightTransposeAttribute), {
+          const transposedWeight2 = context.kernelCustomData.wT ?? context.htmlpute(createTransposeProgramInfo(inputs[1], weightTransposeAttribute), {
             inputs: [1],
             outputs: [attributes.wIsConst ? -2 : -1]
           })[0];
@@ -8811,7 +8811,7 @@ var init_conv = __esm({
         const N = matmulOutputShape[2];
         const K = matmulInputs[0].dims[matmulInputs[0].dims.length - 1];
         if (N < 8 && K < 8) {
-          context.compute(
+          context.htmlpute(
             createNaiveMatmulProgramInfo(
               matmulInputs,
               attributes,
@@ -8823,7 +8823,7 @@ var init_conv = __esm({
             { inputs: matmulInputs }
           );
         } else {
-          context.compute(
+          context.htmlpute(
             createMatmulProgramInfo(
               matmulInputs,
               attributes,
@@ -8841,7 +8841,7 @@ var init_conv = __esm({
         /* backend.adapterInfo.isIntel() */
         true
       );
-      const transposedWeight = context.kernelCustomData.wT ?? context.compute(createTransposeProgramInfo(inputs[1], weightTransposeAttribute), {
+      const transposedWeight = context.kernelCustomData.wT ?? context.htmlpute(createTransposeProgramInfo(inputs[1], weightTransposeAttribute), {
         inputs: [1],
         outputs: [attributes.wIsConst ? -2 : -1]
       })[0];
@@ -8855,7 +8855,7 @@ var init_conv = __esm({
       const dimAOuter = isChannelsLast ? outHeight * outWidth : outChannels;
       const dimBOuter = isChannelsLast ? outChannels : outHeight * outWidth;
       const dimInner = weightHeight * weightWidth * inputChannels;
-      context.compute(
+      context.htmlpute(
         createConv2DMatMulProgramInfo(
           convInputs,
           attributes,
@@ -8916,7 +8916,7 @@ var init_conv = __esm({
         false,
         format
       );
-      context.compute(
+      context.htmlpute(
         createConv3DNaiveProgramInfo(
           inputs,
           adjustedAttributes,
@@ -9331,7 +9331,7 @@ var init_conv_transpose = __esm({
       }
     };
     convTranspose2d = (context, inputs, attributes, squeezeOutputShapeFunction) => {
-      const transposedWeight = context.kernelCustomData.wT ?? context.compute(createTransposeProgramInfo(inputs[1], [2, 3, 0, 1]), {
+      const transposedWeight = context.kernelCustomData.wT ?? context.htmlpute(createTransposeProgramInfo(inputs[1], [2, 3, 0, 1]), {
         inputs: [1],
         outputs: [attributes.wIsConst ? -2 : -1]
       })[0];
@@ -9342,7 +9342,7 @@ var init_conv_transpose = __esm({
       if (inputs.length === 3) {
         convTransposeInputs.push(inputs[2]);
       }
-      context.compute(createConvTranspose2DProgramInfo(convTransposeInputs, attributes, squeezeOutputShapeFunction), {
+      context.htmlpute(createConvTranspose2DProgramInfo(convTransposeInputs, attributes, squeezeOutputShapeFunction), {
         inputs: convTransposeInputs
       });
     };
@@ -9467,7 +9467,7 @@ var init_cumsum = __esm({
       const inputShape = context.inputs[0].dims;
       const inputType = context.inputs[0].dataType;
       const axis = context.inputs[1];
-      context.compute(createCumsumProgramInfo(inputType, inputShape, axis, attributes), { inputs: [0] });
+      context.htmlpute(createCumsumProgramInfo(inputType, inputShape, axis, attributes), { inputs: [0] });
     };
     parseCumSumAttributes = (attributes) => {
       const exclusive = attributes.exclusive === 1;
@@ -9566,7 +9566,7 @@ var init_depth_to_space = __esm({
     };
     depthToSpace = (context, attributes) => {
       validateInputs10(context.inputs);
-      context.compute(createDepthToSpaceProgramInfo(context.inputs[0], attributes));
+      context.htmlpute(createDepthToSpaceProgramInfo(context.inputs[0], attributes));
     };
     parseDepthToSpaceAttributes = (attributes) => createAttributeWithCacheKey({
       blocksize: attributes.blocksize,
@@ -9818,7 +9818,7 @@ var init_einsum = __esm({
       const einsumEquation = new EinsumEquation(context.inputs, attributes.equation);
       const outputShape = einsumEquation.outputDims;
       const inputShapes = context.inputs.map((input, _) => input.dims);
-      context.compute(createEinsumProgramInfo(inputShapes, context.inputs[0].dataType, einsumEquation, outputShape));
+      context.htmlpute(createEinsumProgramInfo(inputShapes, context.inputs[0].dataType, einsumEquation, outputShape));
     };
     parseEinsumAttributes = (attributes) => {
       const equation = attributes.equation.replace(/\s+/g, "");
@@ -9925,7 +9925,7 @@ var init_expand = __esm({
     };
     expand = (context) => {
       validateInputs11(context.inputs);
-      context.compute(createExpandProgramInfo(context.inputs), { inputs: [0] });
+      context.htmlpute(createExpandProgramInfo(context.inputs), { inputs: [0] });
     };
   }
 });
@@ -9989,7 +9989,7 @@ var init_fast_gelu = __esm({
       if (context.inputs.length < 2 || ShapeUtil.size(context.inputs[1].dims) === 0) {
         fastGelu(context);
       } else {
-        context.compute(createFastGeluProgramInfo(context.inputs));
+        context.htmlpute(createFastGeluProgramInfo(context.inputs));
       }
     };
   }
@@ -10105,7 +10105,7 @@ var init_gather = __esm({
     gather = (context, attributes) => {
       const inputs = context.inputs;
       validateInputs12(inputs);
-      context.compute(createGatherProgramInfo(context.inputs, attributes));
+      context.htmlpute(createGatherProgramInfo(context.inputs, attributes));
     };
   }
 });
@@ -10164,7 +10164,7 @@ var init_gather_nd = __esm({
     input_slice_offsets_data[global_idx] =  base_offset + u32(relative_slice_offset);
   }`;
       };
-      return context.compute(
+      return context.htmlpute(
         {
           name: "computeSliceOffsets",
           shaderCache: { hint: `${inputDims.length}_${sizesFromSliceDimsData.length}`, inputDependencies: ["rank"] },
@@ -10229,7 +10229,7 @@ var init_gather_nd = __esm({
           output[global_idx] = data[u32(slice_offset) + global_idx % uniforms.slice_size];
         }`;
       };
-      context.compute(
+      context.htmlpute(
         {
           name: "GatherND",
           shaderCache: { hint: attributes.cacheKey, inputDependencies: ["rank", "rank"] },
@@ -10404,7 +10404,7 @@ var init_gather_block_quantized = __esm({
     gatherBlockQuantized = (context, attributes) => {
       const inputs = context.inputs;
       validateInputs13(inputs, attributes);
-      context.compute(createGatherBlockQuantizedProgramInfo(context.inputs, attributes));
+      context.htmlpute(createGatherBlockQuantizedProgramInfo(context.inputs, attributes));
     };
     parseGatherBlockQuantizedAttributes = (attributes) => createAttributeWithCacheKey({
       blockSize: attributes.blockSize,
@@ -10490,7 +10490,7 @@ var init_gather_elements = __esm({
     gatherElements = (context, attributes) => {
       const inputs = context.inputs;
       validateInputs14(inputs);
-      context.compute(createGatherElementsProgramInfo(context.inputs, attributes));
+      context.htmlpute(createGatherElementsProgramInfo(context.inputs, attributes));
     };
   }
 });
@@ -10780,7 +10780,7 @@ var init_gemm = __esm({
     };
     gemm = (context, attributes) => {
       validateInputs15(context.inputs);
-      context.compute(createGemmProgramInfo(context.inputs, attributes));
+      context.htmlpute(createGemmProgramInfo(context.inputs, attributes));
     };
   }
 });
@@ -11017,7 +11017,7 @@ var init_grid_sample = __esm({
     };
     gridSample = (context, attributes) => {
       validateInputs16(context.inputs);
-      context.compute(createGridSampleProgramInfo(context.inputs, attributes));
+      context.htmlpute(createGridSampleProgramInfo(context.inputs, attributes));
     };
     parseGridSampleAttributes = (attributes) => createAttributeWithCacheKey({
       alignCorners: attributes.align_corners,
@@ -11237,7 +11237,7 @@ var init_multihead_attention = __esm({
     qkv_with_bias[global_idx] = qkv[global_idx] + bias[bias_offset_idx];
   }`;
       };
-      return context.compute(
+      return context.htmlpute(
         {
           name: "MultiHeadAttentionAddBias",
           shaderCache: { inputDependencies: ["type", "type"] },
@@ -11263,7 +11263,7 @@ var init_multihead_attention = __esm({
         if (numHeads === 1 || sequenceLength === 1) {
           return reshapedInput;
         }
-        return context.compute(createTransposeProgramInfo(reshapedInput, weightTransposeAttribute2.perm), {
+        return context.htmlpute(createTransposeProgramInfo(reshapedInput, weightTransposeAttribute2.perm), {
           inputs: [reshapedInput],
           outputs: [-1]
         })[0];
@@ -11284,7 +11284,7 @@ var init_multihead_attention = __esm({
           if (numHeads === 1 || sequenceLength === 1) {
             return reshapedInput;
           }
-          return context.compute(createTransposeProgramInfo(reshapedInput, weightTransposeAttribute2.perm), {
+          return context.htmlpute(createTransposeProgramInfo(reshapedInput, weightTransposeAttribute2.perm), {
             inputs: [reshapedInput],
             outputs: [-1]
           })[0];
@@ -11460,7 +11460,7 @@ fn calculateOutputIndex(index: u32) -> u32 {
     split = (context, attributes) => {
       validateInputs18(context.inputs);
       const updatedAttributes = context.inputs.length === 1 ? attributes : createSplitAttributesFromInputs(context.inputs, attributes);
-      context.compute(createSplitProgramInfo(context.inputs, updatedAttributes), { inputs: [0] });
+      context.htmlpute(createSplitProgramInfo(context.inputs, updatedAttributes), { inputs: [0] });
     };
     parseSplitAttributes = (attributes) => {
       const axis = attributes.axis;
@@ -11543,7 +11543,7 @@ var init_rotary_embedding = __esm({
         hiddenSize / headSize,
         headSize - halfRotaryEmbeddingDim
       );
-      const globalStrides = ShapeUtil.computeStrides(globalShape);
+      const globalStrides = ShapeUtil.htmlputeStrides(globalShape);
       const programUniforms = [
         { type: 1 /* float */, data: scale },
         { type: 12 /* uint32 */, data: globalShape },
@@ -11615,7 +11615,7 @@ var init_rotary_embedding = __esm({
     };
     rotaryEmbedding = (context, attributes) => {
       validateInputs19(context.inputs, attributes);
-      context.compute(createRotaryEmbeddingProgramInfo(context.inputs, attributes));
+      context.htmlpute(createRotaryEmbeddingProgramInfo(context.inputs, attributes));
     };
   }
 });
@@ -11786,7 +11786,7 @@ var init_group_query_attention = __esm({
       const numHeads = params.kvNumHeads;
       if (input.dims.length === 3 && params.kvSequenceLength !== 0) {
         reshapedInput = input.reshape([params.batchSize, params.kvSequenceLength, numHeads, params.headSize]);
-        reshapedInput = context.compute(createTransposeProgramInfo(reshapedInput, weightTransposeAttribute3.perm), {
+        reshapedInput = context.htmlpute(createTransposeProgramInfo(reshapedInput, weightTransposeAttribute3.perm), {
           inputs: [reshapedInput],
           outputs: [-1]
         })[0];
@@ -11880,11 +11880,11 @@ var init_group_query_attention = __esm({
         numOutputs: 3,
         splitSizes: [params.numHeads * params.headSize, kvNumHeads * params.headSize, kvNumHeads * params.headSize]
       });
-      const [query, key, value] = !k && !v ? context.compute(createSplitProgramInfo([q], splitAttributes), { inputs: [q], outputs: [-1, -1, -1] }) : [q, k, v];
+      const [query, key, value] = !k && !v ? context.htmlpute(createSplitProgramInfo([q], splitAttributes), { inputs: [q], outputs: [-1, -1, -1] }) : [q, k, v];
       let qRotary;
       let kRotary;
       if (attributes.doRotary) {
-        const posIds = context.compute(
+        const posIds = context.htmlpute(
           generatePositionIdsProgramInfo(params.batchSize, params.sequenceLength, seqLens, totalSequenceLengthInput),
           { inputs: [seqLens, totalSequenceLengthInput], outputs: [-1] }
         )[0];
@@ -11898,7 +11898,7 @@ var init_group_query_attention = __esm({
         });
         const inputs = [query, posIds, cosCache, sinCache];
         const outputs = [-1];
-        qRotary = context.compute(createRotaryEmbeddingProgramInfo(inputs, qRotaryEmbeddingAttributes), {
+        qRotary = context.htmlpute(createRotaryEmbeddingProgramInfo(inputs, qRotaryEmbeddingAttributes), {
           inputs,
           outputs
         })[0];
@@ -11909,7 +11909,7 @@ var init_group_query_attention = __esm({
           rotaryEmbeddingDim: 0,
           scale: attributes.scale
         });
-        kRotary = context.compute(createRotaryEmbeddingProgramInfo(inputs, kRotaryEmbeddingAttributes), {
+        kRotary = context.htmlpute(createRotaryEmbeddingProgramInfo(inputs, kRotaryEmbeddingAttributes), {
           inputs,
           outputs
         })[0];
@@ -12009,7 +12009,7 @@ var init_instance_norm = __esm({
     }
   }`;
       };
-      return context.compute(
+      return context.htmlpute(
         {
           name: "InstanceNormComputeChannelScaleShift",
           // TODO: use epsilon as uniform. Currently epsilon as uniform fails test_instancenorm_epsilon.
@@ -12063,7 +12063,7 @@ var init_instance_norm = __esm({
       ${output.setByOffset("global_idx", "value")};
   }`;
       };
-      context.compute(
+      context.htmlpute(
         {
           name: "InstanceNormalization",
           shaderCache: { hint: `${components}`, inputDependencies },
@@ -12103,7 +12103,7 @@ var init_instance_norm = __esm({
         transposedXPerm.push(i + 1);
       }
       needTranspose = needTranspose && xShape[xShape.length - 1] !== 1;
-      const transposedX = needTranspose ? context.compute(createTransposeProgramInfo(context.inputs[0], transposedXPerm), {
+      const transposedX = needTranspose ? context.htmlpute(createTransposeProgramInfo(context.inputs[0], transposedXPerm), {
         inputs: [context.inputs[0]],
         outputs: [-1]
       })[0] : context.inputs[0].reshape(Array.from({ length: xShape.length }, (_, i) => xShape[transposedXPerm[i]]));
@@ -12152,7 +12152,7 @@ var init_instance_norm = __esm({
     output[global_idx] = fma(input[global_idx], ${scaleData(0)}, ${scaleData(1)});
   }`;
       };
-      context.compute(
+      context.htmlpute(
         {
           name: "InstanceNormalizationNHWC",
           shaderCache: { hint: `${components}`, inputDependencies },
@@ -12302,7 +12302,7 @@ var init_layer_norm = __esm({
     };
     layerNorm = (context, attributes) => {
       validateInputs21(context.inputs);
-      context.compute(createLayerNormProgramInfo(context.inputs, attributes, context.outputCount));
+      context.htmlpute(createLayerNormProgramInfo(context.inputs, attributes, context.outputCount));
     };
   }
 });
@@ -12332,7 +12332,7 @@ var init_matmul = __esm({
       const N = outputShape[outputShape.length - 1];
       const K = context.inputs[0].dims[context.inputs[0].dims.length - 1];
       if (N < 8 && K < 8) {
-        context.compute(createNaiveMatmulProgramInfo(context.inputs, { activation: "" }, outputShape));
+        context.htmlpute(createNaiveMatmulProgramInfo(context.inputs, { activation: "" }, outputShape));
       } else {
         const M = outputShape[outputShape.length - 2];
         const batchA = ShapeUtil.size(context.inputs[0].dims.slice(0, -2));
@@ -12342,11 +12342,11 @@ var init_matmul = __esm({
           const reshapedB = context.inputs[1].reshape([1, K, N]);
           const matmulOutputShape = [1, batchA, N];
           const matmulInputs = [reshapedA, reshapedB];
-          context.compute(createMatmulProgramInfo(matmulInputs, { activation: "" }, outputShape, matmulOutputShape), {
+          context.htmlpute(createMatmulProgramInfo(matmulInputs, { activation: "" }, outputShape, matmulOutputShape), {
             inputs: matmulInputs
           });
         } else {
-          context.compute(createMatmulProgramInfo(context.inputs, { activation: "" }, outputShape));
+          context.htmlpute(createMatmulProgramInfo(context.inputs, { activation: "" }, outputShape));
         }
       }
     };
@@ -12733,9 +12733,9 @@ var init_matmulnbits = __esm({
     matMulNBits = (context, attributes) => {
       validateInputs23(context.inputs, attributes);
       if (attributes.blockSize === 32 && context.adapterInfo.isVendor("intel") && context.adapterInfo.isArchitecture("gen-12lp")) {
-        context.compute(createMatMulNBitsBlockSize32ProgramInfo(context.inputs, attributes));
+        context.htmlpute(createMatMulNBitsBlockSize32ProgramInfo(context.inputs, attributes));
       } else {
-        context.compute(createMatMulNBitsProgramInfo(context.inputs, attributes));
+        context.htmlpute(createMatMulNBitsProgramInfo(context.inputs, attributes));
       }
     };
     parseMatMulNBitsAttributes = (attributes) => createAttributeWithCacheKey(attributes);
@@ -12949,7 +12949,7 @@ var init_pad = __esm({
     pad = (context, attributes) => {
       validateInputs24(context.inputs);
       const updatedAttributes = createPadAttributesFromInputs(context.inputs, attributes);
-      context.compute(createPadProgramInfo(context.inputs, updatedAttributes), { inputs: [0] });
+      context.htmlpute(createPadProgramInfo(context.inputs, updatedAttributes), { inputs: [0] });
     };
   }
 });
@@ -12980,7 +12980,7 @@ var init_pool = __esm({
       const dilations = hasDilations ? attributes.dilations.slice() : [];
       const pads = attributes.pads.slice();
       PoolConvUtil.adjustPoolAttributes(isGlobalOperator, inputShapeAsChannelFirst, kernelShape, strides, dilations, pads);
-      const outputShapeAsChannelFirst = PoolConvUtil.computePoolOutputShape(
+      const outputShapeAsChannelFirst = PoolConvUtil.htmlputePoolOutputShape(
         isGlobalOperator,
         inputShapeAsChannelFirst,
         strides,
@@ -13054,7 +13054,7 @@ var init_pool = __esm({
         if (isChannelsLast) {
           throw new Error("Pooling with kernelShape.length > 2 is not supported for NHWC format.");
         }
-        const kernelStrides = ShapeUtil.computeStrides(attributes.kernelShape);
+        const kernelStrides = ShapeUtil.htmlputeStrides(attributes.kernelShape);
         programUniforms.push(
           { type: 12 /* uint32 */, data: kernelStrides },
           { type: 12 /* uint32 */, data: attributes.pads },
@@ -13276,7 +13276,7 @@ var init_pool = __esm({
     };
     averagePool = (context, attributes) => {
       validateInputs25(context.inputs);
-      context.compute(createAveragePoolProgramInfo("AveragePool", context.inputs[0], false, attributes));
+      context.htmlpute(createAveragePoolProgramInfo("AveragePool", context.inputs[0], false, attributes));
     };
     globalPoolAttributes = {
       autoPad: "",
@@ -13294,7 +13294,7 @@ var init_pool = __esm({
     };
     globalAveragePool = (context, attributes) => {
       validateInputs25(context.inputs);
-      context.compute(createAveragePoolProgramInfo("GlobalAveragePool", context.inputs[0], true, attributes));
+      context.htmlpute(createAveragePoolProgramInfo("GlobalAveragePool", context.inputs[0], true, attributes));
     };
     createMaxPoolProgramInfo = (name, input, isGlobalOperator, attributes) => {
       const [adjustedAttributes, outputShape] = getAdjustedPoolAttributesAndOutputShape(
@@ -13345,7 +13345,7 @@ var init_pool = __esm({
     };
     maxPool = (context, attributes) => {
       validateInputs25(context.inputs);
-      context.compute(createMaxPoolProgramInfo("MaxPool", context.inputs[0], false, attributes));
+      context.htmlpute(createMaxPoolProgramInfo("MaxPool", context.inputs[0], false, attributes));
     };
     parseMaxPoolAttributes = (attributes) => {
       const storageOrder = attributes.storage_order;
@@ -13366,7 +13366,7 @@ var init_pool = __esm({
     };
     globalMaxPool = (context, attributes) => {
       validateInputs25(context.inputs);
-      context.compute(createMaxPoolProgramInfo("GlobalMaxPool", context.inputs[0], true, attributes));
+      context.htmlpute(createMaxPoolProgramInfo("GlobalMaxPool", context.inputs[0], true, attributes));
     };
   }
 });
@@ -13560,7 +13560,7 @@ var init_quantize_linear = __esm({
     };
     dequantizeLinear = (context, attributes) => {
       validateInputs26(context.inputs, attributes);
-      context.compute(createDequantizeLinearProgramInfo(context.inputs, attributes));
+      context.htmlpute(createDequantizeLinearProgramInfo(context.inputs, attributes));
     };
     parseDequantizeLinearAttributes = (attributes) => createAttributeWithCacheKey({ axis: attributes.axis, blockSize: attributes.blockSize });
   }
@@ -13637,7 +13637,7 @@ var init_range = __esm({
       if (env2.webgpu.validateInputContent) {
         validateInputsContent(start, limit, delta);
       }
-      context.compute(createRangeProgramInfo(start, limit, delta, context.inputs[0].dataType), { inputs: [] });
+      context.htmlpute(createRangeProgramInfo(start, limit, delta, context.inputs[0].dataType), { inputs: [] });
     };
   }
 });
@@ -13804,7 +13804,7 @@ var init_scatter_nd = __esm({
     };
     parseScatterNDAttributes = (attributes) => createAttributeWithCacheKey({ reduction: attributes.reduction });
     scatterND = (context, attributes) => {
-      context.compute(createScatterNDProgramInfo(context.inputs, attributes), {
+      context.htmlpute(createScatterNDProgramInfo(context.inputs, attributes), {
         inputs: [context.inputs[1], context.inputs[2]],
         outputs: []
       });
@@ -14397,7 +14397,7 @@ var init_resize = __esm({
         throw Error("Only default value (0) for Antialias attribute is supported");
       }
       validateInputs27(context.inputs, attributes, opsetVersion, scales, sizes, roi);
-      context.compute(createResizeProgramInfo(context.inputs[0], attributes, opsetVersion, scales, sizes, roi), {
+      context.htmlpute(createResizeProgramInfo(context.inputs[0], attributes, opsetVersion, scales, sizes, roi), {
         inputs: [0]
       });
     };
@@ -14544,7 +14544,7 @@ var init_skip_layer_norm = __esm({
         let ix = local_id.x;
         let iy = global_id.x / ${workgroupSize};
 
-        let hidden_size_vectorized: u32 = uniforms.hidden_size / uniforms.components;
+        let hidden_size_vectorized: u32 = uniforms.hidden_size / uniforms.htmlponents;
         var stride = hidden_size_vectorized / ${workgroupSize};
         let offset = ix * stride + iy * hidden_size_vectorized;
         let offset1d = stride * ix;
@@ -14627,7 +14627,7 @@ var init_skip_layer_norm = __esm({
       if (context.outputCount > 3) {
         outputs.push(3);
       }
-      context.compute(createSkipLayerNormProgramInfo(context.inputs, attributes, context.outputCount, isTraining), {
+      context.htmlpute(createSkipLayerNormProgramInfo(context.inputs, attributes, context.outputCount, isTraining), {
         outputs
       });
     };
@@ -14801,7 +14801,7 @@ var init_slice = __esm({
     slice = (context, attributes) => {
       validateInputs29(context.inputs, attributes);
       const updatedAttributes = createSliceAttributesFromInputs(context.inputs, attributes);
-      context.compute(createSliceProgramInfo(context.inputs, updatedAttributes), { inputs: [0] });
+      context.htmlpute(createSliceProgramInfo(context.inputs, updatedAttributes), { inputs: [0] });
     };
     parseSliceAttributes = (attributes) => {
       const starts = attributes.starts;
@@ -14840,7 +14840,7 @@ var init_softmax = __esm({
         perm = Array.from({ length: inputRank }, (_, i) => i);
         perm[axis] = inputRank - 1;
         perm[inputRank - 1] = axis;
-        transposedInput = context.compute(createTransposeProgramInfo(input, perm), {
+        transposedInput = context.htmlpute(createTransposeProgramInfo(input, perm), {
           inputs: [input],
           outputs: [-1]
         })[0];
@@ -14943,7 +14943,7 @@ var init_softmax = __esm({
           setValue(row, col, row_stride, value);
         }
       }`;
-      const result = context.compute(
+      const result = context.htmlpute(
         {
           name: "Softmax",
           // Note that in JSEP, WG size is not included in cache by default, but WebGPU EP it is.
@@ -14961,7 +14961,7 @@ var init_softmax = __esm({
         }
       )[0];
       if (isTransposeRequired) {
-        context.compute(createTransposeProgramInfo(result, perm), {
+        context.htmlpute(createTransposeProgramInfo(result, perm), {
           inputs: [result]
         });
       }
@@ -15050,7 +15050,7 @@ var init_tile = __esm({
     };
     tile = (context) => {
       validateInputs31(context.inputs);
-      context.compute(createTileProgramInfo(context.inputs), { inputs: [0] });
+      context.htmlpute(createTileProgramInfo(context.inputs), { inputs: [0] });
     };
   }
 });
@@ -15153,7 +15153,7 @@ var init_where = __esm({
       };
     };
     where = (context) => {
-      context.compute(createWhereOpProgramInfo(context.inputs));
+      context.htmlpute(createWhereOpProgramInfo(context.inputs));
     };
   }
 });
@@ -15344,21 +15344,21 @@ var init_program_manager = __esm({
           entries.push({ binding: entries.length, resource: uniformBufferBinding });
         }
         const bindGroup = device.createBindGroup({
-          layout: buildArtifact.computePipeline.getBindGroupLayout(0),
+          layout: buildArtifact.htmlputePipeline.getBindGroupLayout(0),
           entries,
           label: buildArtifact.programInfo.name
         });
         if (this.backend.sessionStatus === "capturing") {
           const commandInfo = {
             kernelId: this.backend.currentKernelId,
-            computePipeline: buildArtifact.computePipeline,
+            computePipeline: buildArtifact.htmlputePipeline,
             bindGroup,
             dispatchGroup
           };
           const sessionCommandList = this.backend.capturedCommandList.get(this.backend.currentSessionId);
           sessionCommandList.push(commandInfo);
         }
-        computePassEncoder.setPipeline(buildArtifact.computePipeline);
+        computePassEncoder.setPipeline(buildArtifact.htmlputePipeline);
         computePassEncoder.setBindGroup(0, bindGroup);
         computePassEncoder.dispatchWorkgroups(...dispatchGroup);
         this.backend.writeTimestamp(this.backend.pendingDispatchNumber * 2 + 1);
@@ -15514,8 +15514,8 @@ var init_backend_webgpu = __esm({
          * only one kernel can be computed at a moment.
          */
         this.currentKernelId = null;
-        this.commandEncoder = null;
-        this.computePassEncoder = null;
+        this.htmlmandEncoder = null;
+        this.htmlputePassEncoder = null;
         this.maxDispatchNumber = 16;
         this.pendingDispatchNumber = 0;
         // info of kernels pending submission for a single batch
@@ -15606,13 +15606,13 @@ var init_backend_webgpu = __esm({
         this.gpuDataManager.dispose();
       }
       getCommandEncoder() {
-        if (!this.commandEncoder) {
-          this.commandEncoder = this.device.createCommandEncoder();
+        if (!this.htmlmandEncoder) {
+          this.htmlmandEncoder = this.device.createCommandEncoder();
         }
-        return this.commandEncoder;
+        return this.htmlmandEncoder;
       }
       getComputePassEncoder() {
-        if (!this.computePassEncoder) {
+        if (!this.htmlputePassEncoder) {
           const commandEncoder = this.getCommandEncoder();
           const computePassDescriptor = {};
           if (this.queryType === "at-passes") {
@@ -15622,25 +15622,25 @@ var init_backend_webgpu = __esm({
               endOfPassWriteIndex: this.pendingDispatchNumber * 2 + 1
             };
           }
-          this.computePassEncoder = commandEncoder.beginComputePass(computePassDescriptor);
+          this.htmlputePassEncoder = commandEncoder.beginComputePass(computePassDescriptor);
         }
-        return this.computePassEncoder;
+        return this.htmlputePassEncoder;
       }
       endComputePass() {
-        if (this.computePassEncoder) {
-          this.computePassEncoder.end();
-          this.computePassEncoder = null;
+        if (this.htmlputePassEncoder) {
+          this.htmlputePassEncoder.end();
+          this.htmlputePassEncoder = null;
         }
       }
       flush() {
-        if (!this.commandEncoder) {
+        if (!this.htmlmandEncoder) {
           return;
         }
         TRACE_FUNC_BEGIN();
         this.endComputePass();
         let queryReadBuffer;
         if (this.queryType !== "none") {
-          this.commandEncoder.resolveQuerySet(
+          this.htmlmandEncoder.resolveQuerySet(
             this.querySet,
             0,
             this.pendingDispatchNumber * 2,
@@ -15653,7 +15653,7 @@ var init_backend_webgpu = __esm({
           );
           this.pendingQueries.set(queryReadBuffer, this.pendingKernels);
           this.pendingKernels = [];
-          this.commandEncoder.copyBufferToBuffer(
+          this.htmlmandEncoder.copyBufferToBuffer(
             this.queryResolveBuffer,
             0,
             queryReadBuffer,
@@ -15661,9 +15661,9 @@ var init_backend_webgpu = __esm({
             this.pendingDispatchNumber * 2 * 8
           );
         }
-        this.device.queue.submit([this.commandEncoder.finish()]);
+        this.device.queue.submit([this.htmlmandEncoder.finish()]);
         this.gpuDataManager.refreshPendingBuffers();
-        this.commandEncoder = null;
+        this.htmlmandEncoder = null;
         this.pendingDispatchNumber = 0;
         if (this.queryType !== "none") {
           void queryReadBuffer.mapAsync(GPUMapMode.READ).then(() => {
@@ -16017,7 +16017,7 @@ var init_backend_webgpu = __esm({
         if (this.queryType !== "inside-passes") {
           return;
         }
-        this.computePassEncoder.writeTimestamp(this.querySet, index);
+        this.htmlputePassEncoder.writeTimestamp(this.querySet, index);
       }
       setQueryType() {
         this.queryType = "none";
@@ -16066,9 +16066,9 @@ var init_backend_webgpu = __esm({
           const computePassEncoder = this.getComputePassEncoder();
           const command = sessionCommandList[i];
           this.writeTimestamp(this.pendingDispatchNumber * 2);
-          computePassEncoder.setPipeline(command.computePipeline);
+          computePassEncoder.setPipeline(command.htmlputePipeline);
           computePassEncoder.setBindGroup(0, command.bindGroup);
-          computePassEncoder.dispatchWorkgroups(...command.dispatchGroup);
+          computePassEncoder.dispatchWorkgroups(...htmlmand.dispatchGroup);
           this.writeTimestamp(this.pendingDispatchNumber * 2 + 1);
           this.pendingDispatchNumber++;
           if (this.queryType !== "none") {
@@ -16299,7 +16299,7 @@ var init_init = __esm({
                 () => `[WebGPU] jsepRun: sessionHandle=${sessionHandle}, kernel=${kernel}, contextDataOffset=${contextDataOffset}`
               );
               const context = new ComputeContextImpl(module, backend, Number(contextDataOffset));
-              return backend.computeKernel(Number(kernel), context, errors);
+              return backend.htmlputeKernel(Number(kernel), context, errors);
             },
             // jsepCaptureBegin
             () => backend.captureBegin(),

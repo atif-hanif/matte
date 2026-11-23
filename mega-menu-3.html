@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte</title>
+	<link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>  
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-center">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link active" href="index.html" role="button">
+									Home
+								</a>
+							</li>
+							<li class="nav-item dropdown has-megamenu">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Image
+								</a>
+								<div class="dropdown-menu megamenu">
+									<div class="container">
+										<ul class="list-unstyled megamenu-list">
+											<li>
+												<a href="background-remover.html" class="megamenu-link">
+													<img src="assets/images/icons/background-remover.png" class="icon">
+													<span>
+														<strong>Background Remover</strong>
+														<small>Remove backgrounds instantly</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="image-compress.html" class="megamenu-link">
+													<img src="assets/images/icons/compression.png" class="icon">
+													<span>
+														<strong>Image Compress</strong>
+														<small>Reduce image file size</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="webp-to-jpg.html" class="megamenu-link">
+													<img src="assets/images/icons/jpg.png" class="icon">
+													<span>
+														<strong>WebP to JPG</strong>
+														<small>Make JPGs smaller for faster pages</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="png-to-svg.html" class="megamenu-link">
+													<img src="assets/images/icons/svg.png" class="icon">
+													<span>
+														<strong>PNG to SVG</strong>
+														<small>Trace PNG into resize vector graphic</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="resize.html" class="megamenu-link">
+													<img src="assets/images/icons/resize.png" class="icon">
+													<span>
+														<strong>Resize &amp; Upscale</strong>
+														<small>Change size without quality loss</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="image-creator.html" class="megamenu-link">
+													<img src="assets/images/icons/image-editing.png" class="icon">
+													<span>
+														<strong>Image Creator</strong>
+														<small>Turn your ideas into images</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="webp-to-png.html" class="megamenu-link">
+													<img src="assets/images/icons/png.png" class="icon">
+													<span>
+														<strong>WebP to PNG</strong>
+														<small>Convert and keep transparency</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="svg-to-png.html" class="megamenu-link">
+													<img src="assets/images/icons/png.png" class="icon">
+													<span>
+														<strong>SVG to PNG</strong>
+														<small>Export SVG graphics as PNG at any size</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="change-background.html" class="megamenu-link">
+													<img src="assets/images/icons/image.png" class="icon">
+													<span>
+														<strong>Change Background</strong>
+														<small>Swap in a new backdrop</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="jpg-to-png.html" class="megamenu-link">
+													<img src="assets/images/icons/png.png" class="icon">
+													<span>
+														<strong>JPG to PNG</strong>
+														<small>Convert JPG to lossless PNG</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="png-to-webp.html" class="megamenu-link">
+													<img src="assets/images/icons/webp.png" class="icon">
+													<span>
+														<strong>PNG to WebP</strong>
+														<small>Keep transparency at lighter weight</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="png-to-ico.html" class="megamenu-link">
+													<img src="assets/images/icons/ico.png" class="icon">
+													<span>
+														<strong>PNG to ICO</strong>
+														<small>Make favicons and app icons</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="image-editor.html" class="megamenu-link">
+													<img src="assets/images/icons/image-editing.png" class="icon">
+													<span>
+														<strong>Image Editor</strong>
+														<small>Add & remove text and image</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="jpg-to-webp.html" class="megamenu-link">
+													<img src="assets/images/icons/webp.png" class="icon">
+													<span>
+														<strong>JPG to WebP</strong>
+														<small>Make WebP images work</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="png-to-jpg.html" class="megamenu-link">
+													<img src="assets/images/icons/jpg.png" class="icon">
+													<span>
+														<strong>PNG to JPG</strong>
+														<small>Change size without quality loss</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="ico-to-png.html" class="megamenu-link">
+													<img src="assets/images/icons/png.png" class="icon">
+													<span>
+														<strong>ICO to PNG</strong>
+														<small>Extract PNG images from ICO icon files</small>
+													</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown has-megamenu">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Document
+								</a>
+								<div class="dropdown-menu megamenu">
+									<div class="container">
+										<ul class="list-unstyled megamenu-list">
+											<li>
+												<a href="pdf-splitter.html" class="megamenu-link">
+													<img src="assets/images/icons/splitter.png" class="icon">
+													<span>
+														<strong>PDF Splitter</strong>
+														<small>Split a PDF into pages or files</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="pdf-to-word.html" class="megamenu-link">
+													<img src="assets/images/icons/pdf.png" class="icon">
+													<span>
+														<strong>PDF to Word</strong>
+														<small>Convert PDF into Word documents</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="excel-editor.html" class="megamenu-link">
+													<img src="assets/images/icons/excel.png" class="icon">
+													<span>
+														<strong>Excel Editor</strong>
+														<small>Edit excel sheets online</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="pdf-merger.html" class="megamenu-link">
+													<img src="assets/images/icons/merge.png" class="icon">
+													<span>
+														<strong>PDF Merger</strong>
+														<small>Combine multiple PDFs into one file</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="word-to-pdf.html" class="megamenu-link">
+													<img src="assets/images/icons/word.png" class="icon">
+													<span>
+														<strong>Word to PDF</strong>
+														<small>Convert Word documents into PDFs</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="excel-to-csv.html" class="megamenu-link">
+													<img src="assets/images/icons/excel.png" class="icon">
+													<span>
+														<strong>Excel to CSV</strong>
+														<small>Convert Excel into CSV files</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="pdf-editor.html" class="megamenu-link">
+													<img src="assets/images/icons/document-editor.png" class="icon">
+													<span>
+														<strong>PDF Editor</strong>
+														<small>Add / remove text and images</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="word-editor.html" class="megamenu-link">
+													<img src="assets/images/icons/word.png" class="icon">
+													<span>
+														<strong>Word Editor</strong>
+														<small>Edit Word documents online</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="csv-to-excel.html" class="megamenu-link">
+													<img src="assets/images/icons/csv.png" class="icon">
+													<span>
+														<strong>CSV to Excel</strong>
+														<small>Convert CSV files into Excel</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="pdf-compress.html" class="megamenu-link">
+													<img src="assets/images/icons/compression.png" class="icon">
+													<span>
+														<strong>PDF Compress</strong>
+														<small>Reduce PDF file size</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="powerpoint-editor.html" class="megamenu-link">
+													<img src="assets/images/icons/powerpoint.png" class="icon">
+													<span>
+														<strong>Powerpoint Editor</strong>
+														<small>Edit powerpoint slides online</small>
+													</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown has-megamenu">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Video
+								</a>
+								<div class="dropdown-menu megamenu">
+									<div class="container">
+										<ul class="list-unstyled megamenu-list">
+											<li>
+												<a href="mp4-to-mkv.html" class="megamenu-link">
+													<img src="assets/images/icons/mp4.png" class="icon">
+													<span>
+														<strong>MP4 to MKV</strong>
+														<small>Convert MP4 videos to MKV</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mpeg-to-mkv.html" class="megamenu-link">
+													<img src="assets/images/icons/mpeg.png" class="icon">
+													<span>
+														<strong>MPEG to MKV</strong>
+														<small>Convert MPEG videos to MKV</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mov-to-mkv.html" class="megamenu-link">
+													<img src="assets/images/icons/mov.png" class="icon">
+													<span>
+														<strong>MOV to MKV</strong>
+														<small>Convert MOV videos to MKV</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mov-to-mkv.html" class="megamenu-link">
+													<img src="assets/images/icons/mov.png" class="icon">
+													<span>
+														<strong>MOV to MKV</strong>
+														<small>Convert MOV videos to MKV</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mp4-to-mov.html" class="megamenu-link">
+													<img src="assets/images/icons/mp4.png" class="icon">
+													<span>
+														<strong>MP4 to MOV</strong>
+														<small>Convert MP4 videos to MOV</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mpeg-to-mov.html" class="megamenu-link">
+													<img src="assets/images/icons/mpeg.png" class="icon">
+													<span>
+														<strong>MPEG to MOV</strong>
+														<small>Convert MPEG videos to MOV</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mov-to-mpeg.html" class="megamenu-link">
+													<img src="assets/images/icons/mov.png" class="icon">
+													<span>
+														<strong>MKV to MPEG</strong>
+														<small>Convert MKV videos to MPEG</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mp4-to-mpeg.html" class="megamenu-link">
+													<img src="assets/images/icons/mp4.png" class="icon">
+													<span>
+														<strong>MP4 to MPEG</strong>
+														<small>Convert MP4 videos to MPEG</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mpeg-to-mp4.html" class="megamenu-link">
+													<img src="assets/images/icons/mpeg.png" class="icon">
+													<span>
+														<strong>MPEG to MP4</strong>
+														<small>Convert MPEG videos to MP4</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mov-to-mp4.html" class="megamenu-link">
+													<img src="assets/images/icons/mov.png" class="icon">
+													<span>
+														<strong>MOV to MP4</strong>
+														<small>Convert MOV videos to MP4</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mp4-to-webm.html" class="megamenu-link">
+													<img src="assets/images/icons/mp4.png" class="icon">
+													<span>
+														<strong>MP4 to WebM</strong>
+														<small>Convert MP4 videos WebM</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mpeg-to-webm.html" class="megamenu-link">
+													<img src="assets/images/icons/mpeg.png" class="icon">
+													<span>
+														<strong>MPEG to WebM</strong>
+														<small>Convert MPEG videos to WebM</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="mov-to-webm.html" class="megamenu-link">
+													<img src="assets/images/icons/mov.png" class="icon">
+													<span>
+														<strong>MOV to WebM</strong>
+														<small>Convert MOV videos to WebM</small>
+													</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown has-megamenu">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Generator
+								</a>
+								<div class="dropdown-menu megamenu">
+									<div class="container">
+										<ul class="list-unstyled megamenu-list">
+											<li>
+												<a href="background-remover.html" class="megamenu-link">
+													<img src="assets/images/icons/background-remover.png" class="icon">
+													<span>
+														<strong>Background Remover</strong>
+														<small>Remove backgrounds instantly</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="change-background.html" class="megamenu-link">
+													<img src="assets/images/icons/image.png" class="icon">
+													<span>
+														<strong>Change Background</strong>
+														<small>Swap in a new backdrop</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="webp-to-jpg.html" class="megamenu-link">
+													<img src="assets/images/icons/image-converter.png" class="icon">
+													<span>
+														<strong>WebP to JPG</strong>
+														<small>Make JPGs smaller for faster pages</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="resize.html" class="megamenu-link">
+													<img src="assets/images/icons/resize.png" class="icon">
+													<span>
+														<strong>Resize &amp; Upscale</strong>
+														<small>Change size without quality loss</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="image-editor.html" class="megamenu-link">
+													<img src="assets/images/icons/image-editing.png" class="icon">
+													<span>
+														<strong>Image Editor</strong>
+														<small>Add & remove text and image</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="webp-to-png.html" class="megamenu-link">
+													<img src="assets/images/icons/image-converter.png" class="icon">
+													<span>
+														<strong>WebP to PNG</strong>
+														<small>Convert and keep transparency</small>
+													</span>
+												</a>
+											</li>
+
+											<li>
+												<a href="jpg-to-png.html" class="megamenu-link">
+													<img src="assets/images/icons/image-converter.png" class="icon">
+													<span>
+														<strong>JPG to PNG</strong>
+														<small>Convert JPG to lossless PNG</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="png-to-jpg.html" class="megamenu-link">
+													<img src="assets/images/icons/image-converter.png" class="icon">
+													<span>
+														<strong>PNG to JPG</strong>
+														<small>Change size without quality loss</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="image-compress.html" class="megamenu-link">
+													<img src="assets/images/icons/compression.png" class="icon">
+													<span>
+														<strong>Image Compress</strong>
+														<small>Reduce image file size</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="png-to-jpg.html" class="megamenu-link">
+													<img src="assets/images/icons/image-converter.png" class="icon">
+													<span>
+														<strong>PNG to JPG</strong>
+														<small>Change size without quality loss</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="png-to-webp.html" class="megamenu-link">
+													<img src="assets/images/icons/image-converter.png" class="icon">
+													<span>
+														<strong>PNG to WebP</strong>
+														<small>Add & remove text and image</small>
+													</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item dropdown has-megamenu">
+								<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Developer
+								</a>
+								<div class="dropdown-menu megamenu">
+									<div class="container">
+										<ul class="list-unstyled megamenu-list">
+											<li>
+												<a href="html-beautifier.html" class="megamenu-link">
+													<img src="assets/images/icons/html.png" class="icon">
+													<span>
+														<strong>HTML Beautifier</strong>
+														<small>Format messy HTML into clean, readable code</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="js-beautifier.html" class="megamenu-link">
+													<img src="assets/images/icons/js.png" class="icon">
+													<span>
+														<strong>JS Beautifier</strong>
+														<small>Format minified JavaScript into readable code</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="json-beautifier.html" class="megamenu-link">
+													<img src="assets/images/icons/json.png" class="icon">
+													<span>
+														<strong>JSON Beautifier</strong>
+														<small>Format messy PHP into clean, readable code</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="html-minifier.html" class="megamenu-link">
+													<img src="assets/images/icons/html.png" class="icon">
+													<span>
+														<strong>HTML Minifier</strong>
+														<small>Shrink HTML by removing spaces and comments</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="js-minifier.html" class="megamenu-link">
+													<img src="assets/images/icons/js.png" class="icon">
+													<span>
+														<strong>JS Beautifier</strong>
+														<small>Compress JavaScript for faster page loading</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="json-minifier.html" class="megamenu-link">
+													<img src="assets/images/icons/json.png" class="icon">
+													<span>
+														<strong>JSON Minifier</strong>
+														<small>Strip spaces and comments from PHP files</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="css-beautifier.html" class="megamenu-link">
+													<img src="assets/images/icons/css.png" class="icon">
+													<span>
+														<strong>CSS Beautifier</strong>
+														<small>Format messy CSS into clean, readable code</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="php-beautifier.html" class="megamenu-link">
+													<img src="assets/images/icons/php.png" class="icon">
+													<span>
+														<strong>PHP Beautifier</strong>
+														<small>Format messy PHP into clean, readable code</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="xml-beautifier.html" class="megamenu-link">
+													<img src="assets/images/icons/xml.png" class="icon">
+													<span>
+														<strong>XML Beautifier</strong>
+														<small>Format messy PHP into clean, readable code</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="css-minifier.html" class="megamenu-link">
+													<img src="assets/images/icons/css.png" class="icon">
+													<span>
+														<strong>CSS Minifier</strong>
+														<small>Compress CSS code for faster page loading</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="php-minifier.html" class="megamenu-link">
+													<img src="assets/images/icons/php.png" class="icon">
+													<span>
+														<strong>PHP Minifier</strong>
+														<small>Strip spaces and comments from PHP files</small>
+													</span>
+												</a>
+											</li>
+											<li>
+												<a href="xml-minifier.html" class="megamenu-link">
+													<img src="assets/images/icons/xml.png" class="icon">
+													<span>
+														<strong>XML Minifier</strong>
+														<small>Strip spaces and comments from PHP files</small>
+													</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="blogs.html" role="button">
+									Blogs
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>
