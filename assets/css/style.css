@@ -227,7 +227,7 @@ header .checkbox:checked + .checkbox-label .ball {
 	gap: 0.75rem;
 	padding: 0.6rem 0.75rem;
 	border-radius: 0.5rem;
-	color: inherit;
+	color: var(--black);
 	text-decoration: none;
 	transition: background-color 0.15s ease;
 }
@@ -928,12 +928,6 @@ input[type=file] {
 	align-items: start;
 }
 
-@media (max-width:860px) {
-	.ed-layout {
-		grid-template-columns: 1fr;
-	}
-}
-
 .ed-canvas-wrap {
 	border: 1px solid var(--line);
 	border-radius: 12px;
@@ -1125,7 +1119,7 @@ input[type=file] {
 }
 
 .ed-fontbtn:hover {
-	border-background: var(--black);
+	border-color: var(--primary);
 }
 
 .ed-fontbtn[aria-expanded="true"] {
@@ -1447,9 +1441,9 @@ input[type=file] {
 
 .cm-note {
 	flex-basis: 100%;
-	font-size: 11px;
+	font-size: 12px;
 	line-height: 1.4;
-	background: var(--black);
+	color: var(--red);
 }
 
 .cm-note.is-warn {
@@ -1458,7 +1452,7 @@ input[type=file] {
 
 .cm-same {
 	font-weight: 600;
-	background: var(--black);
+	color: var(--red);
 }
 
 .cm-saved {
@@ -1785,7 +1779,7 @@ input[type=file] {
 }
 
 .pe-thumb:hover {
-	border-background: var(--black);
+	border-color: var(--primary);
 }
 
 .pe-thumb.is-current {
@@ -1815,11 +1809,11 @@ input[type=file] {
 	margin-top: 6px;
 }
 
-.pe-thumb-n {
+/* .pe-thumb-n {
 	font-size: 11px;
 	font-weight: 600;
 	background: var(--black);
-}
+} */
 
 .pe-thumb-btns {
 	display: flex;
@@ -1827,7 +1821,6 @@ input[type=file] {
 }
 
 .pe-icon {
-	font-family: inherit;
 	font-size: 13px;
 	line-height: 1;
 	width: 22px;
@@ -1836,7 +1829,7 @@ input[type=file] {
 	border: none;
 	border-radius: 5px;
 	background: none;
-	background: var(--black);
+	color: var(--black);
 	cursor: pointer;
 }
 
@@ -2229,7 +2222,7 @@ input[type=file] {
 	font-family: inherit;
 	border: none;
 	background: none;
-	background: var(--black);
+	color: var(--black);
 	font-size: 12.5px;
 	font-weight: 500;
 	padding: 7px 14px;
@@ -2370,13 +2363,13 @@ input[type=file] {
 }
 
 .we-name {
-	font-size: 13.5px;
+	font-size: 6px;
 	color: var(--black);
 	background: var(--white);
 	border: 1px solid var(--line);
 	border-radius: 8px;
 	padding: 8px 10px;
-	width: 200px;
+	width: 200px !important;
 }
 
 .we-status {
@@ -2611,18 +2604,6 @@ input[type=file] {
 	text-align: right;
 }
 
-@media (max-width:900px) {
-	.we-paper.is-letter,.we-paper.is-a4 {
-		width: 100%;
-		padding: 32px 24px;
-		min-height: 600px;
-	}
-
-	.we-desk {
-		padding: 10px;
-	}
-}
-
 .ed-sep {
 	width: 1px;
 	height: 22px;
@@ -2649,7 +2630,6 @@ input[type=file] {
     gap: 8px;
 }
 
-/* ---------- 7. picture selection (resize, rotate, layout) ---------- */
 .we-paper img {
 	-webkit-user-drag: none;
 	user-select: none;
@@ -2750,7 +2730,7 @@ input[type=file] {
 	top: -24px;
 	width: 1px;
 	height: 24px;
-	background: var(--black);
+	color: var(--black);
 }
 
 .we-sel-rot {
@@ -2891,7 +2871,7 @@ input[type=file] {
 	height: 12px;
 	margin: -6px 0 0 -6px;
 	box-sizing: border-box;
-	background: var(--black);
+	color: var(--black);
 	border: 1px solid var(--white);
 	pointer-events: auto;
 	touch-action: none;
@@ -2992,7 +2972,7 @@ input[type=file] {
 
 .we-fontbtn .chev {
 	flex-shrink: 0;
-	background: var(--black);
+	color: var(--black);
 	transition: transform .15s ease;
 }
 
@@ -3085,7 +3065,7 @@ input[type=file] {
 	left: 4px;
 	top: 3px;
 	font-size: 11px;
-	background: var(--black);
+	color: var(--black);
 	z-index: 2;
 	background: rgba(255,255,255,0.8);
 	padding: 0 4px;
@@ -3348,7 +3328,7 @@ input[type=file] {
 	top: calc(-26px / var(--z));
 	width: calc(1.5px / var(--z));
 	height: calc(26px / var(--z));
-	background: var(--black);
+	color: var(--black);
 }
 
 .pe-sel .pe-rot {
@@ -3376,7 +3356,7 @@ body.pe-dragging,body.pe-dragging * {
 	position: fixed;
 	inset: 0;
 	z-index: 1000;
-	background: var(--black);
+	color: var(--black);
 	display: flex;
 	align-items: center;
 	justify-content: center;

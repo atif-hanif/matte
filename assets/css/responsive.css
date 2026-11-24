@@ -173,6 +173,24 @@
 	}
 }
 
+@media (max-width:860px) {
+	.ed-layout {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width:900px) {
+	.we-paper.is-letter,.we-paper.is-a4 {
+		width: 100%;
+		padding: 32px 24px;
+		min-height: 600px;
+	}
+
+	.we-desk {
+		padding: 10px;
+	}
+}
+
 @media (max-width: 991px) {
 	.pg-panes {
 		grid-template-columns: 1fr;
@@ -299,5 +317,4 @@
 	.has-megamenu:hover > .megamenu {
 		display: block;
 	}
-
 }
