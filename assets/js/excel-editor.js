@@ -81,7 +81,7 @@
 		const w = [f[2]].concat(f[3] ? [f[3]] : []).sort((a, b) => a - b);
 		const l = document.createElement('link');
 		l.rel = 'stylesheet';
-		l.href = 'https://fonts.googleapis.html/css2?family=' + encodeURIComponent(f[0]).replace(/%20/g, '+') + ':wght@' + w.join(';') + '&display=swap';
+		l.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(f[0]).replace(/%20/g, '+') + ':wght@' + w.join(';') + '&display=swap';
 		l.onload = () => {
 			widthCache.clear();
 			scheduleDraw();
@@ -2547,7 +2547,7 @@
 			if(blank(a.kv) && blank(b.kv)) return a.r - b.r;
 			if(blank(a.kv)) return 1;
 			if(blank(b.kv)) return -1;
-			let c = XE.htmlpare(a.kv, b.kv);
+			let c = XE.compare(a.kv, b.kv);
 			if(isErr(a.kv) || isErr(b.kv)) c = isErr(a.kv) ? (isErr(b.kv) ? 0 : 1) : -1;
 			return(desc ? -c : c) || (a.r - b.r);
 		});

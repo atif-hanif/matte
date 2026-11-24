@@ -171,7 +171,7 @@
 	});
 
 	$('bmSampleBtn').addEventListener('click', () => {
-		inEl.value = '<!DOCTYPE html><html><head><title>Sample</title><style>body{margin:0;font-family:sans-serif}.card{padding:16px;border:1px solid #ddd}</style></head><body><!-- page header --><div class="card"><h1>Hello</h1><p>Some <b>bold</b> and <i>italic</i> text.</p><ul><li>One</li><li>Two</li></ul><a href="https://example.html" target="_blank" rel="noopener" class="button button-primary">Visit</a></div><script>function hi(){var a=1;if(a){console.log("hi")}}hi();</script></body></html>';
+		inEl.value = '<!DOCTYPE html><html><head><title>Sample</title><style>body{margin:0;font-family:sans-serif}.card{padding:16px;border:1px solid #ddd}</style></head><body><!-- page header --><div class="card"><h1>Hello</h1><p>Some <b>bold</b> and <i>italic</i> text.</p><ul><li>One</li><li>Two</li></ul><a href="https://example.com" target="_blank" rel="noopener" class="button button-primary">Visit</a></div><script>function hi(){var a=1;if(a){console.log("hi")}}hi();</script></body></html>';
 		fileName = 'sample.html';
 		run();
 	});

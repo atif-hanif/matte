@@ -73,7 +73,7 @@
 		const w = [f[2]].concat(f[3] ? [f[3]] : []).sort((a, b) => a - b);
 		const l = document.createElement('link');
 		l.rel = 'stylesheet';
-		l.href = 'https://fonts.googleapis.html/css2?family=' + encodeURIComponent(f[0]).replace(/%20/g, '+') + ':wght@' + w.join(';') + '&display=swap';
+		l.href = 'https://fonts.googleapis.com/css2?family=' + encodeURIComponent(f[0]).replace(/%20/g, '+') + ':wght@' + w.join(';') + '&display=swap';
 		document.head.appendChild(l);
 	}
 

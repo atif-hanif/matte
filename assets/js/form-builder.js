@@ -118,7 +118,7 @@
 					f('text', 6, { label: 'Last name', name: 'last_name', placeholder: 'Doe', required: true })
 				]),
 				newRow([
-					f('email', 6, { label: 'Email', name: 'email', placeholder: 'name@example.html', required: true }),
+					f('email', 6, { label: 'Email', name: 'email', placeholder: 'name@example.com', required: true }),
 					f('tel', 6, { label: 'Phone', name: 'phone', placeholder: '+92 300 1234567', pattern: '[0-9+()\\s-]{7,20}', help: 'Digits, spaces and + only' })
 				]),
 				newRow([

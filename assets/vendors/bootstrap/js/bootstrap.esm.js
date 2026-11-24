@@ -201,7 +201,7 @@ const noop = () => {};
  * @param {HTMLElement} element
  * @return void
  *
- * @see https://www.harrytheo.html/blog/2021/02/restart-a-css-animation-with-javascript/#restarting-a-css-animation
+ * @see https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/#restarting-a-css-animation
  */
 const reflow = element => {
   element.offsetHeight; // eslint-disable-line no-unused-expressions
@@ -1979,7 +1979,7 @@ class Dropdown extends BaseComponent {
       if (!context || context._config.autoClose === false) {
         continue;
       }
-      const composedPath = event.htmlposedPath();
+      const composedPath = event.composedPath();
       const isMenuTarget = composedPath.includes(context._menu);
       if (composedPath.includes(context._element) || context._config.autoClose === 'inside' && !isMenuTarget || context._config.autoClose === 'outside' && isMenuTarget) {
         continue;

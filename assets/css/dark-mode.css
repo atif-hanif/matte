@@ -86,11 +86,6 @@
 	color: var(--orange);
 }
 
-.dark .bm-title,
-.dark .bm-size {
-	color: var(--white);
-}
-
 .dark .bc-hint {
 	color: var(--gray-3);
 }
@@ -114,6 +109,11 @@
 .dark .st-check-left > .st-label,
 .dark .st-check-right > .st-label,
 .dark .st-meter-row,
-.dark .st-tips li {
+.dark .st-tips li,
+.dark .ph-tab:not(.active) {
 	color: var(--white);
+}
+
+.dark .ph-tab:not(.active) {
+	color: var(--black);
 }

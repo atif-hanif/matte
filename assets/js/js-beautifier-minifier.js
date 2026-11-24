@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-
+	
 	const $ = (id) => document.getElementById(id);
 	const inEl = $('bmIn'),
 		outEl = $('bmOut'),
@@ -26,6 +26,7 @@
 	const lib = window.beautifier || window.js_beautify && {
 		js: window.js_beautify
 	};
+
 	if(!lib || !lib.js) showError('The beautifier library did not load. Check assets/vendors/js-beautify/beautifier.min.js.');
 
 	function showError(msg) {
@@ -123,9 +124,7 @@
 	}
 
 	inEl.addEventListener('input', schedule);
-
 	[optIndent, optBrace, optWrap, optBlank, optFnSpace, optChain, optCompress, optMangle, optLicense].forEach((el) => el.addEventListener('change', run));
-
 	modeBox.addEventListener('click', (e) => {
 		const b = e.target.closest('.mode-btn');
 		if(!b) return;
@@ -193,7 +192,6 @@
 		r.onerror = () => showError('The file could not be read.');
 		r.readAsText(f);
 	}
-
 	$('bmOpenBtn').addEventListener('click', () => $('bmFileInput').click());
 
 	$('bmFileInput').addEventListener('change', (e) => {

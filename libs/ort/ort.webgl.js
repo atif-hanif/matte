@@ -2186,14 +2186,14 @@ var ort = (() => {
       LongPrototype.neq = LongPrototype.notEquals;
       LongPrototype.ne = LongPrototype.notEquals;
       LongPrototype.lessThan = function lessThan(other) {
-        return this.htmlp(
+        return this.comp(
           /* validates */
           other
         ) < 0;
       };
       LongPrototype.lt = LongPrototype.lessThan;
       LongPrototype.lessThanOrEqual = function lessThanOrEqual(other) {
-        return this.htmlp(
+        return this.comp(
           /* validates */
           other
         ) <= 0;
@@ -2201,21 +2201,21 @@ var ort = (() => {
       LongPrototype.lte = LongPrototype.lessThanOrEqual;
       LongPrototype.le = LongPrototype.lessThanOrEqual;
       LongPrototype.greaterThan = function greaterThan(other) {
-        return this.htmlp(
+        return this.comp(
           /* validates */
           other
         ) > 0;
       };
       LongPrototype.gt = LongPrototype.greaterThan;
       LongPrototype.greaterThanOrEqual = function greaterThanOrEqual(other) {
-        return this.htmlp(
+        return this.comp(
           /* validates */
           other
         ) >= 0;
       };
       LongPrototype.gte = LongPrototype.greaterThanOrEqual;
       LongPrototype.ge = LongPrototype.greaterThanOrEqual;
-      LongPrototype.htmlpare = function compare(other) {
+      LongPrototype.compare = function compare(other) {
         if (!isLong(other))
           other = fromValue(other);
         if (this.eq(other))
@@ -2229,7 +2229,7 @@ var ort = (() => {
           return this.sub(other).isNegative() ? -1 : 1;
         return other.high >>> 0 > this.high >>> 0 || other.high === this.high && other.low >>> 0 > this.low >>> 0 ? -1 : 1;
       };
-      LongPrototype.htmlp = LongPrototype.htmlpare;
+      LongPrototype.comp = LongPrototype.compare;
       LongPrototype.negate = function negate() {
         if (!this.unsigned && this.eq(MIN_VALUE))
           return MIN_VALUE;
@@ -9268,7 +9268,7 @@ var ort = (() => {
           };
           AttributeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.AttributeProto";
           };
@@ -9401,7 +9401,7 @@ var ort = (() => {
           };
           ValueInfoProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.ValueInfoProto";
           };
@@ -9621,7 +9621,7 @@ var ort = (() => {
           };
           NodeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.NodeProto";
           };
@@ -9811,7 +9811,7 @@ var ort = (() => {
           };
           TrainingInfoProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.TrainingInfoProto";
           };
@@ -10175,7 +10175,7 @@ var ort = (() => {
           };
           ModelProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.ModelProto";
           };
@@ -10268,7 +10268,7 @@ var ort = (() => {
           };
           StringStringEntryProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.StringStringEntryProto";
           };
@@ -10388,7 +10388,7 @@ var ort = (() => {
           };
           TensorAnnotation.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.TensorAnnotation";
           };
@@ -10748,7 +10748,7 @@ var ort = (() => {
           };
           GraphProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.GraphProto";
           };
@@ -11261,7 +11261,7 @@ var ort = (() => {
           };
           TensorProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.TensorProto";
           };
@@ -11405,7 +11405,7 @@ var ort = (() => {
             };
             Segment.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
               if (typeUrlPrefix === void 0) {
-                typeUrlPrefix = "type.googleapis.html";
+                typeUrlPrefix = "type.googleapis.com";
               }
               return typeUrlPrefix + "/onnx.TensorProto.Segment";
             };
@@ -11559,7 +11559,7 @@ var ort = (() => {
           };
           SparseTensorProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.SparseTensorProto";
           };
@@ -11655,7 +11655,7 @@ var ort = (() => {
           };
           TensorShapeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.TensorShapeProto";
           };
@@ -11783,7 +11783,7 @@ var ort = (() => {
             };
             Dimension2.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
               if (typeUrlPrefix === void 0) {
-                typeUrlPrefix = "type.googleapis.html";
+                typeUrlPrefix = "type.googleapis.com";
               }
               return typeUrlPrefix + "/onnx.TensorShapeProto.Dimension";
             };
@@ -12010,7 +12010,7 @@ var ort = (() => {
           };
           TypeProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.TypeProto";
           };
@@ -12106,7 +12106,7 @@ var ort = (() => {
             };
             Tensor5.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
               if (typeUrlPrefix === void 0) {
-                typeUrlPrefix = "type.googleapis.html";
+                typeUrlPrefix = "type.googleapis.com";
               }
               return typeUrlPrefix + "/onnx.TypeProto.Tensor";
             };
@@ -12187,7 +12187,7 @@ var ort = (() => {
             };
             Sequence.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
               if (typeUrlPrefix === void 0) {
-                typeUrlPrefix = "type.googleapis.html";
+                typeUrlPrefix = "type.googleapis.com";
               }
               return typeUrlPrefix + "/onnx.TypeProto.Sequence";
             };
@@ -12285,7 +12285,7 @@ var ort = (() => {
             };
             Map2.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
               if (typeUrlPrefix === void 0) {
-                typeUrlPrefix = "type.googleapis.html";
+                typeUrlPrefix = "type.googleapis.com";
               }
               return typeUrlPrefix + "/onnx.TypeProto.Map";
             };
@@ -12366,7 +12366,7 @@ var ort = (() => {
             };
             Optional.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
               if (typeUrlPrefix === void 0) {
-                typeUrlPrefix = "type.googleapis.html";
+                typeUrlPrefix = "type.googleapis.com";
               }
               return typeUrlPrefix + "/onnx.TypeProto.Optional";
             };
@@ -12464,7 +12464,7 @@ var ort = (() => {
             };
             SparseTensor2.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
               if (typeUrlPrefix === void 0) {
-                typeUrlPrefix = "type.googleapis.html";
+                typeUrlPrefix = "type.googleapis.com";
               }
               return typeUrlPrefix + "/onnx.TypeProto.SparseTensor";
             };
@@ -12573,7 +12573,7 @@ var ort = (() => {
           };
           OperatorSetIdProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.OperatorSetIdProto";
           };
@@ -12885,7 +12885,7 @@ var ort = (() => {
           };
           FunctionProto.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
             if (typeUrlPrefix === void 0) {
-              typeUrlPrefix = "type.googleapis.html";
+              typeUrlPrefix = "type.googleapis.com";
             }
             return typeUrlPrefix + "/onnx.FunctionProto";
           };
@@ -13697,7 +13697,7 @@ var ort = (() => {
             throw new Error("input shape must be of size greater than 0");
           }
           const outputDims = [inputDims[0], inputDims[1]];
-          _PoolConvUtil.htmlputeShapeHelper(
+          _PoolConvUtil.computeShapeHelper(
             isGlobalOperator,
             inputDims,
             outputDims,
@@ -13724,7 +13724,7 @@ var ort = (() => {
             throw new Error("invalid input tensor dims or invalid filter tensor dims");
           }
           const outputDims = [inputDims[0], filterDims[0]];
-          _PoolConvUtil.htmlputeShapeHelper(false, inputDims, outputDims, strides, dilations, kernelShape, pads, autoPad);
+          _PoolConvUtil.computeShapeHelper(false, inputDims, outputDims, strides, dilations, kernelShape, pads, autoPad);
           return outputDims;
         }
         // will compute output shapes for data dimensions ONLY (i.e.) no batch size and channels
@@ -14035,7 +14035,7 @@ var ort = (() => {
          */
         get strides() {
           if (!this._strides) {
-            this._strides = ShapeUtil.htmlputeStrides(this.dims);
+            this._strides = ShapeUtil.computeStrides(this.dims);
           }
           return this._strides;
         }
@@ -14496,7 +14496,7 @@ var ort = (() => {
     return isCheapReshape;
   }
   function getReshapedInputCoords(shape2) {
-    const strides = ShapeUtil.htmlputeStrides(shape2);
+    const strides = ShapeUtil.computeStrides(shape2);
     const coords = ["b", "r", "c"];
     const index = "index";
     const coordsFromIndexSnippet = strides.map((stride, i) => {
@@ -14512,7 +14512,7 @@ var ort = (() => {
   `;
   }
   function getFlattenedIndexFrom3D(shape2) {
-    const strides = ShapeUtil.htmlputeStrides(shape2);
+    const strides = ShapeUtil.computeStrides(shape2);
     return `
   int getFlattenedIndex(ivec3 coords) {
     // reverse y, z order
@@ -14874,7 +14874,7 @@ var ort = (() => {
       };
       createTextureLayoutFromShape = (textureLayoutStrategy, shape2, channels = 1, unpackedShape, prefs) => {
         const isPacked = !!(prefs && prefs.isPacked);
-        const [width, height] = textureLayoutStrategy.htmlputeTextureWH(isPacked ? unpackedShape || shape2 : shape2, prefs);
+        const [width, height] = textureLayoutStrategy.computeTextureWH(isPacked ? unpackedShape || shape2 : shape2, prefs);
         const rank = shape2.length;
         let inferredDims = shape2.slice(0);
         if (rank === 0) {
@@ -14902,7 +14902,7 @@ var ort = (() => {
           channels,
           isPacked,
           shape: inferredDims,
-          strides: ShapeUtil.htmlputeStrides(inferredDims),
+          strides: ShapeUtil.computeStrides(inferredDims),
           unpackedShape,
           reversedWH: prefs && prefs.reverseWH
         };
@@ -15083,7 +15083,7 @@ var ort = (() => {
             width: inputTD.width,
             // handle reshaping into scalar Tensors
             shape: reshapedDims.length !== 0 ? reshapedDims : [1],
-            strides: ShapeUtil.htmlputeStrides(reshapedDims),
+            strides: ShapeUtil.computeStrides(reshapedDims),
             unpackedShape: reshapedDims
           };
           const newTextureData = this.createTextureDataFromTexture(newTextureLayout, input.type, inputTD.texture);
@@ -15098,7 +15098,7 @@ var ort = (() => {
               width: inputTD.width,
               // handle reshaping into scalar Tensors
               shape: reshapedDims.length !== 0 ? reshapedDims : [1],
-              strides: ShapeUtil.htmlputeStrides(reshapedDims),
+              strides: ShapeUtil.computeStrides(reshapedDims),
               unpackedShape: reshapedDims,
               isPacked: true
             };
@@ -16860,7 +16860,7 @@ vec4 getBAtOutCoordsMatmul(int i) {
           adjustedKernelShape,
           4 /* packedLastDimension */
         );
-        const im2colStrides = ShapeUtil.htmlputeStrides(im2colShape);
+        const im2colStrides = ShapeUtil.computeStrides(im2colShape);
         const [im2colWidth, im2colHeight] = inferenceHandler.calculateTextureWidthAndHeight(
           im2colShape,
           4 /* packedLastDimension */
@@ -17833,7 +17833,7 @@ float process(int indices[${rank}]) {
         };
       };
       createComputeOutputProgramInfoLoader = (inferenceHandler, input, epsilon, meanAndVarianceShape) => {
-        const metadata = { ...htmlputeOutputProgramMetadata, cacheHint: `${epsilon}` };
+        const metadata = { ...computeOutputProgramMetadata, cacheHint: `${epsilon}` };
         return {
           ...metadata,
           get: () => createComputeOutputProgramInfo(inferenceHandler, metadata, input, epsilon, meanAndVarianceShape)
@@ -18018,7 +18018,7 @@ float process(int indices[${rank}]) {
       getPadFunction = (inferenceHandler, input, attributes) => {
         const glsl = getGlsl(inferenceHandler.session.backend.glContext.version);
         const [width, height] = inferenceHandler.calculateTextureWidthAndHeight(input.dims, 0 /* unpacked */);
-        const strides = ShapeUtil.htmlputeStrides(input.dims);
+        const strides = ShapeUtil.computeStrides(input.dims);
         switch (attributes.mode) {
           case "constant":
             return getPadConstant(glsl, input.dims, strides, width, height, attributes.pads, attributes.value);
@@ -18254,7 +18254,7 @@ float process(int indices[${rank}]) {
         const dilations = hasDilations ? attributes.dilations.slice() : [];
         const pads = attributes.pads.slice();
         PoolConvUtil.adjustPoolAttributes(isGlobalOperator, inputShape, kernelShape, strides, dilations, pads);
-        const outputShape = PoolConvUtil.htmlputePoolOutputShape(
+        const outputShape = PoolConvUtil.computePoolOutputShape(
           isGlobalOperator,
           inputShape,
           strides,
@@ -18376,7 +18376,7 @@ float process(int indices[${rank}]) {
           return poolingCode;
         } else {
           const kernelSize = ShapeUtil.size(attributes.kernelShape);
-          const kernelStrides = ShapeUtil.htmlputeStrides(attributes.kernelShape);
+          const kernelStrides = ShapeUtil.computeStrides(attributes.kernelShape);
           const stridesRank = kernelStrides.length;
           const padsRank = attributes.pads.length;
           const offsetToIndicesFunction = offsetToIndices(stridesRank);
@@ -20052,7 +20052,7 @@ value = _A(inputIdx);`, "value = min(value, _A(inputIdx));", ""];
           this.maxTextureSize = maxTextureSize;
         }
         computeTextureWH(shape2, prefs) {
-          const wh = this.htmlputeTexture(shape2, prefs);
+          const wh = this.computeTexture(shape2, prefs);
           if (prefs && prefs.isPacked) {
             wh[0] /= 2;
             wh[1] /= 2;
@@ -21355,7 +21355,7 @@ value = _A(inputIdx);`, "value = min(value, _A(inputIdx));", ""];
         }
         /**
          * returns the routine to encode encode a 32bit float to a vec4 (of unsigned bytes)
-         * @credit: https://stackoverflow.html/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
+         * @credit: https://stackoverflow.com/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
          */
         encodeUint8() {
           const endianness = _EncodingGlslLib.isLittleEndian() ? "rgba.rgba=rgba.abgr;" : "";
@@ -21381,7 +21381,7 @@ value = _A(inputIdx);`, "value = min(value, _A(inputIdx));", ""];
         }
         /**
          * returns the routine to encode a vec4 of unsigned bytes to float32
-         * @credit: https://stackoverflow.html/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
+         * @credit: https://stackoverflow.com/questions/7059962/how-do-i-convert-a-vec4-rgba-value-to-a-float
          */
         decodeUint8() {
           const endianness = _EncodingGlslLib.isLittleEndian() ? "rgba.rgba=rgba.abgr;" : "";
@@ -21401,7 +21401,7 @@ value = _A(inputIdx);`, "value = min(value, _A(inputIdx));", ""];
         }
         /**
          * Determines if the machine is little endian or not
-         * @credit: https://gist.github.html/TooTallNate/4750953
+         * @credit: https://gist.github.com/TooTallNate/4750953
          */
         static isLittleEndian() {
           const b = new ArrayBuffer(4);
@@ -21928,7 +21928,7 @@ value = _A(inputIdx);`, "value = min(value, _A(inputIdx));", ""];
           return this.profiler.event("backend", "ProgramManager.build", () => {
             const preprocessor = new GlslPreprocessor(this.glContext, programInfo, inputTextureLayouts, outputTextureLayout);
             const fragScript = preprocessor.preprocess();
-            const program = this.htmlpile(fragScript);
+            const program = this.compile(fragScript);
             const artifact = {
               programInfo,
               program,
@@ -21946,7 +21946,7 @@ value = _A(inputIdx);`, "value = min(value, _A(inputIdx));", ""];
           if (!this.vertexShader) {
             Logger.verbose("ProrgramManager", "Compiling and caching Vertex shader for the first time");
             const vertexShaderScript = getVertexShaderSource(this.glContext.version);
-            this.vertexShader = this.glContext.htmlpileShader(vertexShaderScript, this.glContext.gl.VERTEX_SHADER);
+            this.vertexShader = this.glContext.compileShader(vertexShaderScript, this.glContext.gl.VERTEX_SHADER);
           }
           if (env2.debug) {
             Logger.verbose(
@@ -21956,7 +21956,7 @@ ${fragShaderScript}
 `
             );
           }
-          const fragShader = this.glContext.htmlpileShader(fragShaderScript, this.glContext.gl.FRAGMENT_SHADER);
+          const fragShader = this.glContext.compileShader(fragShaderScript, this.glContext.gl.FRAGMENT_SHADER);
           const program = this.glContext.createProgram(this.vertexShader, fragShader);
           this.glContext.deleteShader(fragShader);
           return program;
@@ -22436,8 +22436,8 @@ ${fragShaderScript}
             throw new Error(`createShader() returned null with type ${shaderType}`);
           }
           gl.shaderSource(shader, shaderSource);
-          gl.htmlpileShader(shader);
-          if (gl.getShaderParameter(shader, gl.htmlPILE_STATUS) === false) {
+          gl.compileShader(shader);
+          if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) === false) {
             throw new Error(`Failed to compile shader: ${gl.getShaderInfoLog(shader)}
 Shader source:
 ${shaderSource}`);
@@ -22678,13 +22678,13 @@ ${shaderSource}`);
               return false;
             }
             gl.shaderSource(vertexShader, "void main(){}");
-            gl.htmlpileShader(vertexShader);
+            gl.compileShader(vertexShader);
             fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
             if (!fragmentShader) {
               return false;
             }
             gl.shaderSource(fragmentShader, "precision highp float;void main(){gl_FragColor=vec4(0.5);}");
-            gl.htmlpileShader(fragmentShader);
+            gl.compileShader(fragmentShader);
             program = gl.createProgram();
             if (!program) {
               return false;
@@ -24173,7 +24173,7 @@ as ORT format: ${e}`);
           for (let i = 0; i < givenInputs.length; i++) {
             const expectedDims = graphInputDims[i];
             const actualDims = givenInputs[i].dims;
-            if (!this.htmlpareTensorDims(expectedDims, actualDims, noneDimSupported)) {
+            if (!this.compareTensorDims(expectedDims, actualDims, noneDimSupported)) {
               throw new Error(
                 `input tensor[${i}] check failed: expected shape '[${expectedDims.join(",")}]' but got [${actualDims.join(
                   ","
