@@ -63,6 +63,14 @@
 	.pe-thumb {
 		min-width: 120px;
 	}
+
+	.pc-setup {
+		padding: 22px;
+	}
+
+	.pc-setup-grid {
+		grid-template-columns: 1fr;
+	}
 }
 
 @media (max-width: 767px) {
@@ -253,6 +261,10 @@
 	}
 
 	.ph-panes {
+		grid-template-columns: 1fr;
+	}
+
+	.sm-panes {
 		grid-template-columns: 1fr;
 	}
 }

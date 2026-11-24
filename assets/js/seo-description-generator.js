@@ -3,11 +3,6 @@
 
 	const $ = (id) => document.getElementById(id);
 
-	/* ---------- Templates ----------
-	   {k} keyword  {K} Keyword  {b} brand  {l} location  {a} audience
-	   {pts} benefits as a list  {Pts} same, capitalised  {y} year  {cta} call to action
-	   [ ... ] is an optional part, dropped when a value inside it is empty. */
-
 	const T = {
 		service: [
 			'Professional {k}[ in {l}][ for {a}]. {Pts}. [Built by {b}. ]{cta}',
@@ -99,8 +94,6 @@
 		'Try it free.': 'Try it free now!'
 	};
 
-	/* ---------- Elements ---------- */
-
 	const optType = $('sdType'),
 		optTone = $('sdTone'),
 		optCta = $('sdCta'),
@@ -118,16 +111,12 @@
 		copyBtn = $('sdCopyBtn'),
 		clearBtn = $('sdClearBtn');
 
-	/* ---------- Measuring (Google shows descriptions in 14px Arial) ---------- */
-
 	const ctx = document.createElement('canvas').getContext('2d');
 	ctx.font = '14px Arial, Helvetica, sans-serif';
 	const px = (s) => Math.round(ctx.measureText(s).width);
 	const MAX_PX = 920,
 		MIN_CH = 120,
 		MAX_CH = 160;
-
-	/* ---------- Helpers ---------- */
 
 	const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 
@@ -137,7 +126,7 @@
 	}
 
 	function fill(tpl, v) {
-		// optional parts
+		
 		let s = tpl.replace(/\[([^\[\]]*)\]/g, (m, inner) => {
 			const keys = inner.match(/\{(\w+)\}/g) || [];
 			return keys.every((k) => v[k.slice(1, -1)]) ? inner : '';
@@ -146,7 +135,7 @@
 		if(keys.some((k) => !v[k.slice(1, -1)] && k !== '{cta}')) return null;
 		s = s.replace(/\{(\w+)\}/g, (m, k) => v[k] || '');
 		s = s.replace(/\s+/g, ' ').replace(/\s+([.,:?!])/g, '$1').replace(/\.\./g, '.').replace(/,\./g, '.').trim();
-		// capital letter at the start and after each sentence
+		
 		s = s.replace(/(^|[.?!]\s+)([a-z])/g, (m, a, b) => a + b.toUpperCase());
 		return s;
 	}
@@ -175,8 +164,6 @@
 		return ptsIn.value.split(/[,;\n]+/).map((s) => s.trim().replace(/\.$/, '')).filter(Boolean).slice(0, 4);
 	}
 
-	/* ---------- Scoring ---------- */
-
 	function measure(text) {
 		const k = kwIn.value.trim().toLowerCase();
 		const lower = text.toLowerCase();
@@ -203,14 +190,12 @@
 		return s;
 	}
 
-	/* ---------- Generate ---------- */
-
 	function candidates() {
 		const type = optType.value;
 		const isLocal = type === 'local';
 		let list = T[type].slice();
 		if(isLocal && !locIn.value.trim()) list = T.service.slice();
-		// tone templates and extra service phrasings only suit service-style pages
+
 		const serviceLike = ['service', 'home', 'local'].includes(type);
 		if(serviceLike) list = list.concat(TONE[optTone.value] || []);
 		if(serviceLike && type !== 'service') list = list.concat(T.service.slice(0, 3));
@@ -219,7 +204,7 @@
 		const seen = new Set(),
 			out = [];
 		list.forEach((tpl, order) => {
-			// try the full version first, then shorter ones until it fits
+			
 			const tries = [];
 			for(let n = Math.max(pts.length, 1); n >= 1; n--) tries.push([n, false, false]);
 			tries.push([1, true, false]);
@@ -246,8 +231,6 @@
 		});
 		return out.sort((a, b) => b.score - a.score || a.order - b.order).slice(0, 10);
 	}
-
-	/* ---------- Google preview ---------- */
 
 	function esc(s) {
 		return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -305,8 +288,6 @@
 			'<div class="sd-serp-desc">' + (desc ? boldKeyword(esc(truncatePx(desc)), kwIn.value.trim()) : '<span style="color:#9aa0a6">Your description appears here</span>') + '</div>';
 	}
 
-	/* ---------- Render results ---------- */
-
 	function badges(m, isBest) {
 		const out = [];
 		if(isBest) out.push('<span class="sd-badge star"><i class="fa-solid fa-star me-1"></i>Top pick</span>');
@@ -332,7 +313,7 @@
 			item.dataset.best = i === 0 ? '1' : '';
 			resultsEl.appendChild(item);
 		});
-		// show the preview of the top pick straight away
+
 		const first = resultsEl.querySelector('.sd-item');
 		if(first) togglePreview(first, true);
 	}
@@ -376,8 +357,6 @@
 		copyBtn.disabled = false;
 		runCheck();
 	}
-
-	/* ---------- Copy ---------- */
 
 	function copyText(text, btn) {
 		const done = () => {
@@ -429,7 +408,6 @@
 		if(item) refreshItem(item);
 	});
 
-	// keep pasted text plain
 	resultsEl.addEventListener('paste', (e) => {
 		if(!e.target.closest('.sd-item-text')) return;
 		e.preventDefault();
@@ -450,8 +428,6 @@
 		runCheck();
 		kwIn.focus();
 	});
-
-	/* ---------- Checker ---------- */
 
 	const checkIn = $('sdCheckIn'),
 		checkTitle = $('sdCheckTitle'),
@@ -500,8 +476,6 @@
 
 	checkIn.addEventListener('input', runCheck);
 	checkTitle.addEventListener('input', runCheck);
-
-	/* ---------- Events ---------- */
 
 	genBtn.addEventListener('click', generate);
 	[optType, optTone, optCta].forEach((el) => el.addEventListener('change', generate));

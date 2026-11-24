@@ -250,14 +250,14 @@
 	function badges(m, isBest, droppedBrand) {
 		const out = [];
 		if(isBest) out.push('<span class="st-badge star"><i class="fa-solid fa-star me-1"></i>Top pick</span>');
-		out.push('<span class="st-badge ' + (m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warn' : 'good') + '">' + m.len + ' characters</span>');
+		out.push('<span class="st-badge ' + (m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warns' : 'good') + '">' + m.len + ' characters</span>');
 		out.push('<span class="st-badge ' + (m.px > MAX_PX ? 'bad' : 'good') + '">' + m.px + ' / ' + MAX_PX + ' px</span>');
 		if(kwIn.value.trim()) {
-			const kw = m.kwAt === 0 ? ['good', 'Keyword first'] : m.kwAt > 0 && m.kwAt <= 30 ? ['good', 'Keyword early'] : m.kwAt > 30 ? ['warn', 'Keyword late'] : ['bad', 'No keyword'];
+			const kw = m.kwAt === 0 ? ['good', 'Keyword first'] : m.kwAt > 0 && m.kwAt <= 30 ? ['good', 'Keyword early'] : m.kwAt > 30 ? ['warns', 'Keyword late'] : ['bad', 'No keyword'];
 			out.push('<span class="st-badge ' + kw[0] + '">' + kw[1] + '</span>');
 		}
-		if(m.kwCount > 1) out.push('<span class="st-badge warn">Keyword repeated</span>');
-		if(droppedBrand) out.push('<span class="st-badge warn">Brand left out to fit</span>');
+		if(m.kwCount > 1) out.push('<span class="st-badge warns">Keyword repeated</span>');
+		if(droppedBrand) out.push('<span class="st-badge warns">Brand left out to fit</span>');
 		return out.join('');
 	}
 

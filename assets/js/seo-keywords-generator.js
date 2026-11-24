@@ -368,9 +368,8 @@
 
 	/* ---------- Website analysis ---------- */
 
-	// Pages are read straight from the site when it allows it; otherwise through
-	// this public read-only proxy. Change or remove it here if you prefer.
-	const PROXY = 'https://api.allorigins.win/raw?url=';
+	// Pages are read with MatteFetch (assets/js/fetch-page.js): directly when the
+	// site allows it, otherwise through a chain of public proxies.
 
 	const STOP = new Set(('a about above after again against all am an and any are as at be because been before being below between both but by can could did do does doing down during each few for from further had has have having he her here hers herself him himself his how i if in into is it its itself just let me more most my myself no nor not now of off on once only or other our ours ourselves out over own same she should so some such than that the their theirs them themselves then there these they this those through to too under until up very was we were what when where which while who whom why will with would you your yours yourself yourselves ' +
 		'also get got may might must shall us via etc per within without across upon among around whether either neither yet ever every much many one two three new use used using make makes made like just well way ways need needs know see one ' +
@@ -397,28 +396,6 @@
 		} catch (e) {
 			return '';
 		}
-	}
-
-	async function fetchWithTimeout(url, ms) {
-		const ctrl = new AbortController();
-		const t = setTimeout(() => ctrl.abort(), ms);
-		try {
-			const res = await fetch(url, { signal: ctrl.signal, credentials: 'omit' });
-			if(!res.ok) throw new Error('HTTP ' + res.status);
-			return await res.text();
-		} finally {
-			clearTimeout(t);
-		}
-	}
-
-	async function loadPage(url) {
-		try {
-			return await fetchWithTimeout(url, 8000);
-		} catch (e) {
-			// most sites block direct reading from another site, so try the proxy
-		}
-		if(!PROXY) throw new Error('blocked');
-		return fetchWithTimeout(PROXY + encodeURIComponent(url), 15000);
 	}
 
 	function words(text) {
@@ -570,14 +547,21 @@
 		analyzeBtn.lastElementChild.textContent = 'Reading…';
 		statusEl.textContent = 'Reading ' + url + ' …';
 		try {
-			const html = await loadPage(url);
-			if(!html || html.length < 50) throw new Error('empty');
-			showSite(parsePage(html), url);
+			if(!window.MatteFetch) throw new Error('fetch-page.js is not loaded');
+			const r = await MatteFetch.load(url, {
+				onTry: (name) => (statusEl.textContent = 'Reading ' + url + (name === 'direct' ? ' …' : ' · trying ' + name + ' …'))
+			});
+			showSite(parsePage(r.text), url + (r.via !== 'direct' ? ' (read via ' + r.via + ')' : ''));
 		} catch (e) {
 			statusEl.textContent = 'Could not read that website';
-			errBox.textContent = 'This website could not be read. It may block other sites from reading it, need a login, or be offline. Use "Or paste the page’s text or HTML source" below instead.';
+			errBox.textContent = (e.status === 404 || e.status === 410 ?
+				'This page was not found (error ' + e.status + '). Check the link.' :
+				e.status ? 'The website answered with error ' + e.status + '. It may need a login or block automated visits.' :
+				'This website could not be read. It may block other sites from reading it, or all the free reading services are busy right now. Try again in a minute, or use "Or paste the page\u2019s text or HTML source" below.') +
+				(e.tried && e.tried.length ? ' [Tried: ' + e.tried.join(', ') + ']' : '');
 			errBox.classList.add('show');
 			pasteBox.classList.remove('is-hidden');
+			if(window.console) console.warn('[SEO Keywords] ' + (e.message || e));
 		} finally {
 			analyzeBtn.disabled = false;
 			analyzeBtn.lastElementChild.textContent = 'Analyze';

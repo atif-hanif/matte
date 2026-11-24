@@ -12,7 +12,6 @@
     <link href="assets/css/style.css" rel="stylesheet">
 	<link href="assets/css/dark-mode.css" rel="stylesheet">
 	<link href="assets/css/responsive.css" rel="stylesheet">
-	<link href="assets/css/seo-keywords-generator.css" rel="stylesheet">
 </head>   
 
 <body>
@@ -120,7 +119,7 @@
 						</div>
 					</div>
 					<div class="kw-site-form">
-						<input type="url" id="kwUrl" class="form-control kw-input kw-url" placeholder="https://crezialab.html" autocomplete="off" spellcheck="false">
+						<input type="url" id="kwUrl" class="form-control kw-input kw-url" placeholder="https://crezialab.com" autocomplete="off" spellcheck="false">
 						<button type="button" class="btn btn-primary" id="kwAnalyzeBtn">
 							<i class="fa-solid fa-magnifying-glass-chart me-2"></i>
 							<span>Analyze</span>
@@ -154,9 +153,10 @@
 			</div>
 
 			<div class="settings-bar show" id="kwSettings">
+
 				<div class="settings-group kw-grow">
 					<label for="kwSeed">Main keyword</label>
-					<input type="text" id="kwSeed" class="form-control kw-input" value="website design" placeholder="e.g. website design" autocomplete="off" maxlength="80">
+					<input type="text" id="kwSeed" class="form-control kw-input kw-seed" value="website design" placeholder="e.g. website design" autocomplete="off" maxlength="80">
 				</div>
 
 				<div class="settings-group">
@@ -432,6 +432,7 @@
 
 	<script src="assets/vendors/jquery/jquery.js"></script>
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/fetch-page.js"></script>
 	<script src="assets/js/seo-keywords-generator.js"></script>
 	<script src="assets/js/script.js"></script>
 </body>

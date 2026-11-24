@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — PDF Creator</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document Tools
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate-tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="document-tools.html">Document Tools</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="creator-tools.html">Creator Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">PDF Creator</li>
+				</ol>
+			</nav>
+
+			<h2>PDF Creator</h2>
+			<p>Create a PDF from scratch with text, shapes, pictures and signatures</p>
+
+			<div id="pcSetup" class="pc-setup">
+				<div class="pc-setup-head">
+					<div class="icon">
+						<i class="fa-regular fa-file-circle-plus"></i>
+					</div>
+					<div>
+						<div class="big">Start a new PDF</div>
+						<div class="small">Pick a page size, then add text, shapes, pictures and more.</div>
+					</div>
+				</div>
+
+				<div class="pc-setup-grid">
+					<label class="pe-field pe-wide">
+						Document name
+						<input type="text" id="pcSetupName" class="pe-number" value="Untitled" maxlength="80" autocomplete="off">
+					</label>
+
+					<label class="pe-field">
+						Page size
+						<select id="pcSetupSize" class="pe-select">
+							<option value="a4" selected>A4 (210 &times; 297 mm)</option>
+							<option value="a3">A3 (297 &times; 420 mm)</option>
+							<option value="a5">A5 (148 &times; 210 mm)</option>
+							<option value="letter">Letter (8.5 &times; 11 in)</option>
+							<option value="legal">Legal (8.5 &times; 14 in)</option>
+							<option value="tabloid">Tabloid (11 &times; 17 in)</option>
+							<option value="custom">Custom size</option>
+						</select>
+					</label>
+
+					<div class="pe-field">
+						Orientation
+						<div class="mode-switch" id="pcSetupOrient">
+							<button type="button" class="mode-btn active" data-orient="portrait">Portrait</button>
+							<button type="button" class="mode-btn" data-orient="landscape">Landscape</button>
+						</div>
+					</div>
+
+					<div class="pe-grid pe-wide is-hidden" id="pcSetupCustom">
+						<label class="pe-field">
+							Width (mm)
+							<input type="number" id="pcSetupW" class="pe-number" min="26" max="5080" step="0.1" value="210">
+						</label>
+						<label class="pe-field">
+							Height (mm)
+							<input type="number" id="pcSetupH" class="pe-number" min="26" max="5080" step="0.1" value="297">
+						</label>
+					</div>
+
+					<label class="pe-field">
+						Number of pages
+						<input type="number" id="pcSetupCount" class="pe-number" min="1" max="200" step="1" value="1">
+					</label>
+
+					<label class="pe-field">
+						Page color
+						<input type="color" id="pcSetupBg" class="color-input" value="#ffffff">
+					</label>
+				</div>
+
+				<div>
+					<button type="button" class="btn btn-primary" id="pcCreateBtn">
+						<i class="fa-solid fa-plus me-2"></i>
+						Create PDF
+					</button>
+				</div>
+			</div>
+
+			<div id="peErr" class="err"></div>
+
+			<input type="file" id="peImageInput" accept="image/*">
+
+			<div id="peWorkspace" class="is-hidden">
+				<div class="pe-toolbar">
+					<div class="mode-switch" id="peTools">
+						<button type="button" class="mode-btn active" data-tool="select">Select</button>
+						<button type="button" class="mode-btn" data-tool="text">Text</button>
+						<button type="button" class="mode-btn" data-tool="rect">Rectangle</button>
+						<button type="button" class="mode-btn" data-tool="ellipse">Ellipse</button>
+						<button type="button" class="mode-btn" data-tool="line">Line</button>
+						<button type="button" class="mode-btn" data-tool="highlight">Highlight</button>
+						<button type="button" class="mode-btn" data-tool="draw">Draw</button>
+						<button type="button" class="mode-btn" data-tool="signature">Signature</button>
+					</div>
+
+					<button type="button" class="btn btn-primary-outlined" id="peAddImageBtn">
+						<i class="fa-regular fa-image me-2"></i>
+						Picture
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="pcAddPageBtn">
+						<i class="fa-regular fa-file-plus me-2"></i>
+						Add page
+					</button>
+					<span class="pe-sep"></span>
+					<button type="button" class="btn btn-secondary-outlined" id="peUndoBtn" disabled>
+						<i class="fa-regular fa-arrow-rotate-left me-2"></i>
+						Undo
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="peRedoBtn" disabled>
+						<i class="fa-regular fa-arrow-rotate-right"></i>
+						Redo
+					</button>
+					<span class="pe-sep"></span>
+					<button type="button" class="btn btn-primary-outlined" id="pePrevBtn" aria-label="Previous page">
+						<i class="fa-solid fa-chevron-left"></i>
+					</button>
+					<span class="pe-label" id="pePageLabel">Page 1 of 1</span>
+					<button type="button" class="btn btn-primary-outlined" id="peNextBtn" aria-label="Next page">
+						<i class="fa-solid fa-chevron-right"></i>
+					</button>
+					<span class="pe-sep"></span>
+					<button type="button" class="btn btn-secondary-outlined" id="peZoomOut" aria-label="Zoom out">
+						<i class="fa-solid fa-minus"></i>
+					</button>
+					<span class="pe-label" id="peZoomLabel">100%</span>
+					<button type="button" class="btn btn-secondary-outlined" id="peZoomIn" aria-label="Zoom in">
+						<i class="fa-solid fa-plus"></i>
+					</button>
+					<button type="button" class="btn btn-secondary-outlined" id="peFitBtn">
+						<i class="fa-solid fa-expand me-2"></i>
+						Fit
+					</button>
+
+					<div class="pe-toolbar-right">
+						<span class="pe-status" id="peStatus"></span>
+						<input type="text" id="pcFileName" class="pe-number pc-filename" aria-label="File name" title="File name" maxlength="80" autocomplete="off">
+						<button type="button" class="btn btn-secondary" id="peNewBtn">
+							<i class="fa-solid fa-burst-new me-2"></i>
+							New file
+						</button>
+						<button type="button" class="btn btn-primary" id="peDownloadBtn">
+							<i class="fa-solid fa-download me-2"></i>
+							Download PDF
+						</button>
+					</div>
+				</div>
+
+				<div class="pe-layout">
+					<div class="pe-pages" id="pePages"></div>
+
+					<div class="pe-canvas-wrap" id="peCanvasWrap">
+						<div class="pe-page" id="pePageBox">
+							<canvas id="peBase"></canvas>
+							<canvas id="peOver" class="pe-over"></canvas>
+						</div>
+					</div>
+
+					<aside class="pe-panel">
+						<p class="pe-hint" id="peHint"></p>
+
+						<section class="pe-section" id="pcPagePanel">
+							<h3>Page</h3>
+							<label class="pe-field">
+								Size
+								<select id="pcPageSize" class="pe-select">
+									<option value="a4">A4 (210 &times; 297 mm)</option>
+									<option value="a3">A3 (297 &times; 420 mm)</option>
+									<option value="a5">A5 (148 &times; 210 mm)</option>
+									<option value="letter">Letter (8.5 &times; 11 in)</option>
+									<option value="legal">Legal (8.5 &times; 14 in)</option>
+									<option value="tabloid">Tabloid (11 &times; 17 in)</option>
+									<option value="custom">Custom size</option>
+								</select>
+							</label>
+							<div class="pe-grid is-hidden" id="pcPageCustom">
+								<label class="pe-field">
+									Width (mm)
+									<input type="number" id="pcPageW" class="pe-number" min="26" max="5080" step="0.1">
+								</label>
+								<label class="pe-field">
+									Height (mm)
+									<input type="number" id="pcPageH" class="pe-number" min="26" max="5080" step="0.1">
+								</label>
+							</div>
+							<div class="pe-field">
+								Orientation
+								<div class="mode-switch" id="pcPageOrient">
+									<button type="button" class="mode-btn active" data-orient="portrait">Portrait</button>
+									<button type="button" class="mode-btn" data-orient="landscape">Landscape</button>
+								</div>
+							</div>
+							<div class="pe-row">
+								<label for="pcPageBg">Color</label>
+								<input type="color" id="pcPageBg" class="color-input" value="#ffffff">
+							</div>
+							<div class="pe-actions">
+								<button type="button" class="btn btn-secondary-outlined btn-sm" id="pcPageAll">
+									<i class="fa-regular fa-copy me-2"></i>
+									Apply to all pages
+								</button>
+							</div>
+						</section>
+
+						<section class="pe-section is-hidden" id="peSigPanel">
+							<h3>Signature</h3>
+							<canvas id="peSigPad" class="pe-sigpad" width="600" height="240"></canvas>
+
+							<div class="pe-row">
+								<label for="peSigColor">Ink</label>
+								<input type="color" id="peSigColor" class="color-input" value="#1B2A6B">
+							</div>
+
+							<div class="pe-actions">
+								<button type="button" class="btn btn-secondary btn-sm" id="peSigClear">
+									<i class="fa-solid fa-eraser me-2"></i>
+									Clear
+								</button>
+								<button type="button" class="btn btn-primary btn-sm" id="peSigPlace">
+									<i class="fa-regular fa-page me-2"></i>
+									Place on page
+								</button>
+							</div>
+						</section>
+
+						<section class="pe-section is-hidden" id="peRectPanel">
+							<h3>Highlight color</h3>
+							<div class="pe-row">
+								<input type="color" id="peRectColor" class="color-input" value="#FFE600">
+							</div>
+						</section>
+
+						<section class="pe-section is-hidden" id="pcShapePanel">
+							<h3 id="pcShapeTitle">Shape</h3>
+							<div class="pe-row" id="pcShapeFillRow">
+								<label for="pcShapeFill">Fill</label>
+								<input type="color" id="pcShapeFill" class="color-input" value="#FFE3D6">
+								<label class="pc-check"><input type="checkbox" id="pcShapeNoFill"> No fill</label>
+							</div>
+							<div class="pe-row">
+								<label for="pcShapeStroke" id="pcShapeStrokeLabel">Border</label>
+								<input type="color" id="pcShapeStroke" class="color-input" value="#FF6224">
+								<label class="pc-check"><input type="checkbox" id="pcShapeDash"> Dashed</label>
+							</div>
+							<div class="pe-row">
+								<label for="pcShapeWidth">Width</label>
+								<input type="range" id="pcShapeWidth" min="0" max="30" step="1" value="2">
+								<output id="pcShapeWidthVal">2</output>
+							</div>
+						</section>
+
+						<section class="pe-section is-hidden" id="peDrawPanel">
+							<h3>Pen</h3>
+							<div class="pe-row">
+								<label for="peDrawColor">Color</label>
+								<input type="color" id="peDrawColor" class="color-input" value="#e03131">
+							</div>
+							<div class="pe-row">
+								<label for="peDrawWidth">Width</label>
+								<input type="range" id="peDrawWidth" min="1" max="24" step="1" value="3">
+								<output id="peDrawWidthVal">3</output>
+							</div>
+						</section>
+
+						<section class="pe-section is-hidden" id="peTextPanel">
+							<h3>Text</h3>
+							<textarea id="peTextValue" class="pe-textarea" rows="3" placeholder="Type your text"></textarea>
+							<div class="pe-grid">
+								<div class="pe-field pe-fontfield pe-wide">Font
+									<button type="button" class="pe-select pe-fontbtn" id="peFontBtn" aria-haspopup="listbox" aria-expanded="false"><span id="peFontName">Sans-serif (Helvetica)</span></button>
+									<div class="pe-fontmenu is-hidden" id="peFontMenu">
+										<input type="search" id="peFontSearch" class="pe-number pe-wide" placeholder="Search fonts" autocomplete="off">
+										<div class="pe-fontcats" id="peFontCats"></div>
+										<ul class="pe-fontlist" id="peFontList" role="listbox"></ul>
+									</div>
+								</div>
+								<label class="pe-field">
+									Size (pt)
+									<input type="number" id="peFontSize" class="pe-number" min="4" max="400" step="1" value="18">
+								</label>
+
+								<label class="pe-field">
+									Color
+									<input type="color" id="peTextColor" class="color-input" value="#111111">
+								</label>
+
+								<div class="pe-field">
+									Style
+									<div class="pe-actions">
+										<button type="button" class="btn btn-secondary-outlined btn-sm" id="peBold" aria-label="Bold">
+											<i class="fa-solid fa-bold"></i>
+										</button>
+										<button type="button" class="btn btn-secondary-outlined btn-sm" id="peItalic" aria-label="Italic">
+											<i class="fa-solid fa-italic"></i>
+										</button>
+										<button type="button" class="btn btn-secondary-outlined btn-sm" id="peUnderline" aria-label="Underline">
+											<i class="fa-solid fa-underline"></i>
+										</button>
+									</div>
+								</div>
+
+								<div class="pe-field">
+									Align
+									<div class="pe-actions" id="pcAlign">
+										<button type="button" class="btn btn-secondary-outlined btn-sm is-active" data-align="left" aria-label="Align left">
+											<i class="fa-solid fa-align-left"></i>
+										</button>
+										<button type="button" class="btn btn-secondary-outlined btn-sm" data-align="center" aria-label="Align center">
+											<i class="fa-solid fa-align-center"></i>
+										</button>
+										<button type="button" class="btn btn-secondary-outlined btn-sm" data-align="right" aria-label="Align right">
+											<i class="fa-solid fa-align-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+
+							<label class="pe-field pe-wide">Link (optional)
+								<input type="text" id="peLinkUrl" class="pe-number pe-wide" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://example.com">
+							</label>
+
+							<p class="pe-hint pe-linknote is-hidden" id="peLinkNote"></p>
+							<p class="pe-hint is-hidden" id="peTextNote">Some of these characters can't be stored as text with this font (it holds Western European letters). They are saved as a picture of the text instead: it looks the same but can't be selected. Pick a Google font to keep them as real text.</p>
+						</section>
+
+						<section class="pe-section is-hidden" id="peLayerPanel">
+							<h3 id="peLayerTitle">Item</h3>
+							<div class="pe-row" id="peRotateRow">
+								<label for="peRotation">Rotate</label>
+								<input type="range" id="peRotation" min="-180" max="180" step="1" value="0">
+								<output id="peRotationVal">0&deg;</output>
+							</div>
+							<div class="pe-row" id="pcOpacityRow">
+								<label for="pcOpacity">Opacity</label>
+								<input type="range" id="pcOpacity" min="5" max="100" step="1" value="100">
+								<output id="pcOpacityVal">100%</output>
+							</div>
+
+							<div class="pe-actions">
+								<button type="button" class="btn btn-secondary-outlined btn-sm" id="pcCenterX">
+									<i class="fa-regular fa-objects-align-center-horizontal me-2"></i>
+									Center
+								</button>
+								<button type="button" class="btn btn-secondary-outlined btn-sm" id="pcCenterY">
+									<i class="fa-regular fa-objects-align-center-vertical me-2"></i>
+									Middle
+								</button>
+								<button type="button" class="btn btn-secondary-outlined btn-sm" id="peDupBtn">
+									<i class="fa-solid fa-clone me-2"></i>
+									Duplicate
+								</button>
+								<button type="button" class="btn btn-primary-outlined btn-sm" id="peForwardBtn">
+									<i class="fa-regular fa-bring-forward me-2"></i>
+									Bring forward
+								</button>
+								<button type="button" class="btn btn-secondary-outlined btn-sm" id="peBackBtn">
+									<i class="fa-regular fa-send-backward me-2"></i>
+									Send back
+								</button>
+								<button type="button" class="btn btn-primary-outlined btn-sm" id="peDeleteBtn">
+									<i class="fa-regular fa-trash me-2"></i>
+									Delete
+								</button>
+							</div>
+						</section>
+					</aside>
+				</div>
+			</div>
+
+			<h2 class="mt-5">About</h2>
+			<p>Build a PDF from a blank page: choose A4, Letter or a custom size, then add text in hundreds of fonts, rectangles, circles, lines, pictures, freehand drawings and your signature. Add, copy and reorder pages, then download a real PDF with selectable text and clickable links. Everything runs in your browser, so nothing you make leaves your device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="pdf-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/document-editor.png" class="icon">
+								<h6 class="mb-0">PDF Editor</h6>
+								<p class="mb-0">Add / remove text and images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-merger.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/merge.png" class="icon">
+								<h6 class="mb-0">PDF Merger</h6>
+								<p class="mb-0">Combine multiple PDFs into one file</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="pdf-compress.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/compression.png" class="icon">
+								<h6 class="mb-0">PDF Compress</h6>
+								<p class="mb-0">Reduce PDF file size</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="creator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/create.png" class="icon">
+								<h6 class="mb-0">Creator Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="editor-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Editor Tools</h6>
+								<p class="mb-0">Edit images, PDFs, and Word, Excel, and PowerPoint files in your browser</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Converter Tools</h6>
+								<p class="mb-0">Convert images, videos, and documents between popular formats</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="beautifier-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Beautifier Tools</h6>
+								<p class="mb-0">Clean up and indent HTML, CSS, JS, PHP, JSON, and XML code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="minifier-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Minifier Tools</h6>
+								<p class="mb-0">Remove extra spaces and comments from HTML, CSS, JS, PHP, JSON, and XML</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.html">Generator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link active" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="sitemap.html">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/vendors/pdf/pdf-lib.min.js"></script>
+	<script src="assets/vendors/fontkit/fontkit.umd.min.js"></script>
+	<script src="assets/js/google-fonts-list.js"></script>
+	<script src="assets/js/script.js"></script>
+	<script src="assets/js/pdf-creator.js"></script>
+</body>
+
+</html>
