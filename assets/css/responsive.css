@@ -47,6 +47,14 @@
 		grid-template-columns: 1fr;
 		gap: 2px;
 	}
+
+	.st-site-result .st-current {
+		grid-template-columns: 1fr;
+	}
+
+	.sd-site-result .sd-current {
+		grid-template-columns: 1fr;
+	}
 }
 
 @media (max-width: 640px) {
@@ -181,13 +189,13 @@
 	}
 }
 
-@media (max-width:860px) {
+@media (max-width: 860px) {
 	.ed-layout {
 		grid-template-columns: 1fr;
 	}
 }
 
-@media (max-width:900px) {
+@media (max-width: 900px) {
 	.we-paper.is-letter,.we-paper.is-a4 {
 		width: 100%;
 		padding: 32px 24px;

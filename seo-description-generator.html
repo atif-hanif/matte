@@ -110,6 +110,26 @@
 			<h2>SEO Description Generator</h2>
 			<p>Write meta descriptions that fit Google's limit, include your keyword and get more clicks</p>
 
+			<div class="sd-site" id="sdSite">
+				<div class="sd-site-row">
+					<div class="sd-site-label">
+						<i class="fa-solid fa-globe"></i>
+						<div>
+							<strong>Start from a website</strong>
+							<small>Enter a page link to fill in the details from the page and check its current description</small>
+						</div>
+					</div>
+					<div class="sd-site-form">
+						<input type="url" id="sdSiteUrl" class="form-control sd-input" placeholder="https://crezialab.com" autocomplete="off" spellcheck="false">
+						<button type="button" class="btn btn-primary" id="sdAnalyzeBtn">
+							<i class="fa-solid fa-magnifying-glass-chart me-2"></i>
+							<span>Analyze</span>
+						</button>
+					</div>
+				</div>
+				<div class="sd-site-result is-hidden" id="sdSiteResult"></div>
+			</div>
+
 			<div class="settings-bar show" id="sdSettings">
 				<div class="settings-group">
 					<label for="sdType">Page type</label>
@@ -178,15 +198,13 @@
 				<div class="bm-pane">
 					<div class="bm-title">Page details</div>
 					<div class="sd-card" id="sdFields">
-						<label class="sd-label" for="sdKeyword">Main keyword 
-							<span class="sd-req">required</span>
-						</label>
-						<input type="text" id="sdKeyword" class="form-control sd-input" placeholder="e.g. website design" maxlength="70" autocomplete="off">
+						<label class="sd-label" for="sdKeyword">Main keyword <span class="sd-req">required, or analyze a website</span></label>
+						<input type="text" id="sdKeyword" class="form-control sd-input" value="website design" placeholder="e.g. website design" maxlength="70" autocomplete="off">
 
 						<div class="sd-row">
 							<div>
 								<label class="sd-label" for="sdBrand">Brand or business name</label>
-								<input type="text" id="sdBrand" class="form-control sd-input" placeholder="e.g. Crezia Lab" maxlength="40" autocomplete="off">
+								<input type="text" id="sdBrand" class="form-control sd-input" value="Crezia Lab" placeholder="e.g. Crezia Lab" maxlength="40" autocomplete="off">
 							</div>
 							<div>
 								<label class="sd-label" for="sdLoc">Location <span class="sd-opt">optional</span></label>
@@ -194,20 +212,14 @@
 							</div>
 						</div>
 
-						<label class="sd-label" for="sdAudience">Who is it for? 
-							<span class="sd-opt">optional</span>
-						</label>
-						<input type="text" id="sdAudience" class="form-control sd-input" placeholder="e.g. small businesses, students, homeowners" maxlength="50" autocomplete="off">
+						<label class="sd-label" for="sdAudience">Who is it for? <span class="sd-opt">optional</span></label>
+						<input type="text" id="sdAudience" class="form-control sd-input" value="small businesses" placeholder="e.g. small businesses, students, homeowners" maxlength="50" autocomplete="off">
 
-						<label class="sd-label" for="sdPoints">Benefits or features 
-							<span class="sd-opt">comma separated, best first</span>
-						</label>
-						<input type="text" id="sdPoints" class="form-control sd-input" placeholder="e.g. free delivery, 24/7 support, 10 years experience" maxlength="160" autocomplete="off">
+						<label class="sd-label" for="sdPoints">Benefits or features <span class="sd-opt">comma separated, best first</span></label>
+						<input type="text" id="sdPoints" class="form-control sd-input" value="mobile-friendly, fast loading, SEO-ready" placeholder="e.g. free delivery, 24/7 support, 10 years experience" maxlength="160" autocomplete="off">
 
-						<label class="sd-label" for="sdUrl">Page link 
-							<span class="sd-opt">for the Google preview</span>
-						</label>
-						<input type="url" id="sdUrl" class="form-control sd-input" placeholder="https://example.com" autocomplete="off" spellcheck="false">
+						<label class="sd-label" for="sdUrl">Page link <span class="sd-opt">for the Google preview</span></label>
+						<input type="url" id="sdUrl" class="form-control sd-input" value="https://crezialab.com/website-design" placeholder="https://example.com/page" autocomplete="off" spellcheck="false">
 					</div>
 				</div>
 
@@ -221,6 +233,7 @@
 
 			<h2 class="mt-5">Check a description</h2>
 			<p>Paste or write a meta description to check its length and see how it may look in Google search results.</p>
+
 			<div class="sd-check">
 				<div class="sd-check-left">
 					<label class="sd-label" for="sdCheckTitle">Page title <span class="sd-opt">optional</span></label>
@@ -456,6 +469,8 @@
 
 	<script src="assets/vendors/jquery/jquery.js"></script>
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/fetch-page.js"></script>
+	<script src="assets/js/page-analyzer.js"></script>
 	<script src="assets/js/seo-description-generator.js"></script>
 	<script src="assets/js/script.js"></script>
 </body>

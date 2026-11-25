@@ -6895,6 +6895,256 @@ mark.dc-ins {
 	color: var(--black);
 }
 
+.st-site {
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: var(--surface);
+	padding: 14px 16px;
+	margin-bottom: 14px;
+}
+
+.st-site-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	flex-wrap: wrap;
+}
+
+.st-site-label {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.st-site-label > i {
+	width: 38px;
+	height: 38px;
+	border-radius: 10px;
+	background: rgba(255, 98, 36, 0.1);
+	color: var(--primary);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 17px;
+	flex-shrink: 0;
+}
+
+.st-site-label strong {
+	display: block;
+	font-size: 14.5px;
+	color: var(--secondary);
+}
+
+.st-site-label small {
+	font-size: 14px;
+	color: var(--gray-1);
+}
+
+.st-site-form {
+	display: flex;
+	gap: 8px;
+	flex: 1 1 380px;
+	max-width: 560px;
+}
+
+.st-site-form .st-input {
+	flex: 1;
+	min-width: 0;
+}
+
+.st-site-form .btn {
+	white-space: nowrap;
+}
+
+.st-site-result {
+	margin-top: 14px;
+	padding-top: 12px;
+	border-top: 1px solid var(--line);
+	font-size: 13px;
+	color: var(--black);
+	line-height: 1.55;
+}
+
+.st-site-result .st-filled {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.st-site-result .st-filled b {
+	color: var(--secondary);
+	margin-right: 2px;
+}
+
+.st-site-result .st-current {
+	display: grid;
+	grid-template-columns: 130px 1fr;
+	gap: 4px 12px;
+}
+
+.st-site-result .st-current > span:nth-child(odd) {
+	color: var(--gray-1);
+}
+
+.st-site-result .st-current > span:nth-child(even) {
+	color: var(--secondary);
+	word-break: break-word;
+}
+
+.st-chip {
+	font-size: 12px;
+	border-radius: 20px;
+	padding: 2px 10px;
+	background: var(--white);
+	border: 1px solid var(--line);
+	color: var(--secondary);
+}
+
+.st-chip i {
+	color: var(--green);
+	margin-right: 4px;
+}
+
+.st-val {
+	font-style: normal;
+	color: var(--gray-2);
+	font-size: 14px;
+}
+
+.st-current-note {
+	margin-top: 10px;
+	font-size: 14px;
+	color: var(--gray-4);
+}
+
+.sd-site {
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: var(--surface);
+	padding: 14px 16px;
+	margin-bottom: 14px;
+}
+
+.sd-site-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 14px;
+	flex-wrap: wrap;
+}
+
+.sd-site-label {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.sd-site-label > i {
+	width: 38px;
+	height: 38px;
+	border-radius: 10px;
+	background: rgba(255, 98, 36, 0.1);
+	color: var(--primary);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 17px;
+	flex-shrink: 0;
+}
+
+.sd-site-label strong {
+	display: block;
+	font-size: 14px;
+	color: var(--secondary);
+}
+
+.sd-site-label small {
+	font-size: 14px;
+	color: var(--gray-1);
+}
+
+.sd-site-form {
+	display: flex;
+	gap: 8px;
+	flex: 1 1 380px;
+	max-width: 560px;
+}
+
+.sd-site-form .sd-input {
+	flex: 1;
+	min-width: 0;
+}
+
+.sd-site-form .btn {
+	white-space: nowrap;
+}
+
+.sd-site-result {
+	margin-top: 14px;
+	padding-top: 12px;
+	border-top: 1px solid var(--line);
+	font-size: 13px;
+	color: var(--black);
+	line-height: 1.55;
+}
+
+.sd-site-result .sd-filled {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.sd-site-result .sd-filled b {
+	color: var(--secondary);
+	margin-right: 2px;
+}
+
+.sd-site-result .sd-current {
+	display: grid;
+	grid-template-columns: 130px 1fr;
+	gap: 4px 12px;
+}
+
+.sd-site-result .sd-current > span:nth-child(odd) {
+	color: var(--gray-1);
+}
+
+.sd-site-result .sd-current > span:nth-child(even) {
+	color: var(--secondary);
+	word-break: break-word;
+}
+
+.sd-chip {
+	font-size: 14px;
+	border-radius: 20px;
+	padding: 2px 10px;
+	background: var(--white);
+	border: 1px solid var(--line);
+	color: var(--secondary);
+}
+
+.sd-chip i {
+	color: var(--green);
+	margin-right: 4px;
+}
+
+.sd-val {
+	font-style: normal;
+	color: var(--gray-2);
+	font-size: 14px;
+}
+
+.sd-current-note {
+	margin-top: 10px;
+	font-size: 14px;
+	color: var(--gray-4);
+}
+
 /* SEO Title Generator */
 
 #stSettings .settings-group {

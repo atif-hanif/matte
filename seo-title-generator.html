@@ -109,6 +109,26 @@
 			<h2>SEO Title Generator</h2>
 			<p>Write page titles that fit Google's limit, lead with your keyword and stand out in search results</p>
 
+			<div class="st-site" id="stSite">
+				<div class="st-site-row">
+					<div class="st-site-label">
+						<i class="fa-solid fa-globe"></i>
+						<div>
+							<strong>Start from a website</strong>
+							<small>Enter a page link to fill in the details from the page and check its current title</small>
+						</div>
+					</div>
+					<div class="st-site-form">
+						<input type="url" id="stSiteUrl" class="form-control st-input" placeholder="https://crezialab.com" autocomplete="off" spellcheck="false">
+						<button type="button" class="btn btn-primary" id="stAnalyzeBtn">
+							<i class="fa-solid fa-magnifying-glass-chart me-2"></i>
+							<span>Analyze</span>
+						</button>
+					</div>
+				</div>
+				<div class="st-site-result is-hidden" id="stSiteResult"></div>
+			</div>
+
 			<div class="settings-bar show" id="stSettings">
 				<div class="settings-group">
 					<label for="stType">Page type</label>
@@ -185,47 +205,35 @@
 				<div class="bm-pane">
 					<div class="bm-title">Page details</div>
 					<div class="st-card" id="stFields">
-						<label class="st-label" for="stKeyword">Main keyword 
-							<span class="st-req">required</span>
-						</label>
-						<input type="text" id="stKeyword" class="form-control st-input" placeholder="e.g. website design" maxlength="60" autocomplete="off">
+						<label class="st-label" for="stKeyword">Main keyword <span class="st-req">required, or analyze a website</span></label>
+						<input type="text" id="stKeyword" class="form-control st-input" value="website design" placeholder="e.g. website design" maxlength="60" autocomplete="off">
 
 						<div class="st-row">
 							<div>
 								<label class="st-label" for="stBrand">Brand or site name</label>
-								<input type="text" id="stBrand" class="form-control st-input" placeholder="e.g. Crezia Lab" maxlength="30" autocomplete="off">
+								<input type="text" id="stBrand" class="form-control st-input" value="Crezia Lab" placeholder="e.g. Crezia Lab" maxlength="30" autocomplete="off">
 							</div>
 							<div>
-								<label class="st-label" for="stLoc">Location 
-									<span class="st-opt">optional</span>
-								</label>
+								<label class="st-label" for="stLoc">Location <span class="st-opt">optional</span></label>
 								<input type="text" id="stLoc" class="form-control st-input" placeholder="e.g. Karachi" maxlength="30" autocomplete="off">
 							</div>
 						</div>
 
 						<div class="st-row">
 							<div>
-								<label class="st-label" for="stAudience">Who is it for? 
-									<span class="st-opt">optional</span>
-								</label>
-								<input type="text" id="stAudience" class="form-control st-input" placeholder="e.g. beginners, small businesses" maxlength="30" autocomplete="off">
+								<label class="st-label" for="stAudience">Who is it for? <span class="st-opt">optional</span></label>
+								<input type="text" id="stAudience" class="form-control st-input" value="small businesses" placeholder="e.g. beginners, small businesses" maxlength="30" autocomplete="off">
 							</div>
 							<div>
-								<label class="st-label" for="stBenefit">Main benefit 
-									<span class="st-opt">optional</span>
-								</label>
-								<input type="text" id="stBenefit" class="form-control st-input" placeholder="e.g. free delivery, fast & affordable" maxlength="30" autocomplete="off">
+								<label class="st-label" for="stBenefit">Main benefit <span class="st-opt">optional</span></label>
+								<input type="text" id="stBenefit" class="form-control st-input" value="fast & affordable" placeholder="e.g. free delivery, fast & affordable" maxlength="30" autocomplete="off">
 							</div>
 						</div>
 
-						<label class="st-label" for="stUrl">Page link 
-							<span class="st-opt">for the Google preview</span>
-						</label>
-						<input type="url" id="stUrl" class="form-control st-input" placeholder="https://example.html/page" autocomplete="off" spellcheck="false">
+						<label class="st-label" for="stUrl">Page link <span class="st-opt">for the Google preview</span></label>
+						<input type="url" id="stUrl" class="form-control st-input" value="https://crezialab.com/website-design" placeholder="https://example.com/page" autocomplete="off" spellcheck="false">
 
-						<label class="st-label" for="stDesc">Meta description 
-							<span class="st-opt">optional, for the preview</span>
-						</label>
+						<label class="st-label" for="stDesc">Meta description <span class="st-opt">optional, for the preview</span></label>
 						<textarea id="stDesc" class="form-control st-input st-area" rows="3" placeholder="Paste the page's meta description to see the full search result"></textarea>
 					</div>
 				</div>
@@ -240,6 +248,7 @@
 
 			<h2 class="mt-5">Check a title</h2>
 			<p>Paste or write a page title to check its length and see how it may look in Google search results.</p>
+
 			<div class="st-check">
 				<div class="st-check-left">
 					<label class="st-label" for="stCheckIn">Page title</label>
@@ -473,6 +482,8 @@
 
 	<script src="assets/vendors/jquery/jquery.js"></script>
 	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/fetch-page.js"></script>
+	<script src="assets/js/page-analyzer.js"></script>
 	<script src="assets/js/seo-title-generator.js"></script>
 	<script src="assets/js/script.js"></script>
 </body>

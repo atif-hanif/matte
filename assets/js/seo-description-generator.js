@@ -82,11 +82,13 @@
 		tool: 'Try it free.',
 		about: 'Get in touch today.'
 	};
+
 	const FRIENDLY_CTA = {
 		'Get a free quote today.': "Let's talk!",
 		'Get in touch today.': 'Say hello today!',
 		'Call us today.': 'Give us a call!'
 	};
+
 	const BOLD_CTA = {
 		'Get a free quote today.': 'Get your free quote now!',
 		'Shop now.': 'Shop now before it sells out!',
@@ -204,7 +206,7 @@
 		const seen = new Set(),
 			out = [];
 		list.forEach((tpl, order) => {
-			
+
 			const tries = [];
 			for(let n = Math.max(pts.length, 1); n >= 1; n--) tries.push([n, false, false]);
 			tries.push([1, true, false]);
@@ -265,7 +267,7 @@
 			}
 		} catch (e) {}
 		const brand = brandIn.value.trim();
-		host = host || (brand ? brand.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.html' : 'example.html');
+		host = host || (brand ? brand.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.com' : 'example.com');
 		return {
 			name: brand || host,
 			url: 'https://' + host + (path.length ? ' › ' + path.join(' › ') : ''),
@@ -273,7 +275,10 @@
 		};
 	}
 
+	let siteTitle = '';
+
 	function defaultTitle() {
+		if(siteTitle) return siteTitle;
 		const k = kwIn.value.trim().replace(/\b\w/g, (c) => c.toUpperCase());
 		const l = locIn.value.trim();
 		const b = brandIn.value.trim();
@@ -291,10 +296,10 @@
 	function badges(m, isBest) {
 		const out = [];
 		if(isBest) out.push('<span class="sd-badge star"><i class="fa-solid fa-star me-1"></i>Top pick</span>');
-		const lenCls = m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warns' : 'good';
+		const lenCls = m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warn' : 'good';
 		out.push('<span class="sd-badge ' + lenCls + '">' + m.len + ' characters</span>');
 		out.push('<span class="sd-badge ' + (m.px > MAX_PX ? 'bad' : 'good') + '">' + m.px + ' / ' + MAX_PX + ' px</span>');
-		if(kwIn.value.trim()) out.push('<span class="sd-badge ' + (m.kwEarly ? 'good' : m.hasKw ? 'warns' : 'bad') + '">' + (m.kwEarly ? 'Keyword near start' : m.hasKw ? 'Keyword late' : 'No keyword') + '</span>');
+		if(kwIn.value.trim()) out.push('<span class="sd-badge ' + (m.kwEarly ? 'good' : m.hasKw ? 'warn' : 'bad') + '">' + (m.kwEarly ? 'Keyword near start' : m.hasKw ? 'Keyword late' : 'No keyword') + '</span>');
 		return out.join('');
 	}
 
@@ -313,7 +318,7 @@
 			item.dataset.best = i === 0 ? '1' : '';
 			resultsEl.appendChild(item);
 		});
-
+	
 		const first = resultsEl.querySelector('.sd-item');
 		if(first) togglePreview(first, true);
 	}
@@ -421,6 +426,7 @@
 
 	clearBtn.addEventListener('click', () => {
 		[kwIn, brandIn, locIn, audIn, ptsIn, urlIn].forEach((el) => (el.value = ''));
+		siteTitle = '';
 		resultsEl.innerHTML = '<div class="sd-empty">Your descriptions appear here</div>';
 		countEl.textContent = '';
 		statusEl.textContent = 'Fill in the details and press Generate';
@@ -488,6 +494,92 @@
 		el.addEventListener('keydown', (e) => {
 			if(e.key === 'Enter') generate();
 		});
+	});
+
+	const siteUrlIn = $('sdSiteUrl'),
+		analyzeBtn = $('sdAnalyzeBtn'),
+		siteResult = $('sdSiteResult');
+
+	[kwIn, brandIn, locIn, audIn, ptsIn, urlIn, optType].forEach((el) => el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => (el.dataset.user = el.value.trim() ? '1' : '')));
+
+	function fillField(el, value) {
+		if(el.dataset.user && el.value.trim()) return false;
+		el.value = value || '';
+		return !!value;
+	}
+
+	function siteEsc(s) {
+		return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	}
+
+	async function analyzeSite() {
+		errBox.classList.remove('show');
+		const url = window.MatteAnalyze ? MatteAnalyze.normaliseUrl(siteUrlIn.value) : '';
+		if(!url) {
+			errBox.textContent = window.MatteAnalyze ? 'Type a page link, for example https://crezialab.com' : 'page-analyzer.js is not loaded.';
+			errBox.classList.add('show');
+			siteUrlIn.focus();
+			return;
+		}
+		siteUrlIn.value = url;
+		analyzeBtn.disabled = true;
+		analyzeBtn.lastElementChild.textContent = 'Reading…';
+		statusEl.textContent = 'Reading ' + url + ' …';
+		try {
+			const info = await MatteAnalyze.fromUrl(url, {
+				onTry: (name) => (statusEl.textContent = 'Reading ' + url + (name === 'direct' ? ' …' : ' · trying ' + name + ' …'))
+			});
+			if(!info.keyword && !info.title) throw Object.assign(new Error('empty'), { empty: true });
+
+			const filled = [];
+			if(fillField(kwIn, info.keyword)) filled.push('keyword');
+			if(fillField(brandIn, info.brand)) filled.push('brand');
+			if(fillField(locIn, info.location)) filled.push('location');
+			fillField(audIn, '');
+			if(fillField(ptsIn, info.benefits.join(', '))) filled.push('benefits');
+			fillField(urlIn, url);
+			if(!optType.dataset.user) {
+				const t = [...optType.options].some((o) => o.value === info.type) ? info.type : 'service';
+				optType.value = t;
+				filled.push('page type: ' + optType.selectedOptions[0].textContent.toLowerCase());
+			}
+
+			if(info.description) checkIn.value = info.description;
+			if(info.title) checkTitle.value = info.title;
+			siteTitle = info.title || '';
+			runCheck();
+
+			const host = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+			const cur = info.description ? '<div class="sd-current-note">' + (info.description.length > MAX_CH || px(info.description) > MAX_PX ? 'The current description is too long and will be cut off. ' : info.description.length < MIN_CH ? 'The current description is short. ' : 'The current description is a good length. ') + 'See the full check under “Check a description” below.</div>' : '<div class="sd-current-note">Use one of the descriptions below as this page’s meta description.</div>';
+			siteResult.innerHTML =
+				// '<div class="sd-filled"><b>Filled in from ' + siteEsc(host) + (info.via !== 'direct' ? ' (read via ' + siteEsc(info.via) + ')' : '') + ':</b>' +
+				'<div class="sd-filled"><b>Filled in from ' + siteEsc(host) + ':</b>' +
+				(filled.length ? filled.map((f) => '<span class="sd-chip"><i class="fa-solid fa-check"></i>' + siteEsc(f) + '</span>').join('') : '<span class="sd-chip">nothing new: your own entries were kept</span>') +
+				'</div><div class="sd-current">' +
+				'<span>Current title</span><span>' + (info.title ? siteEsc(info.title) + ' <em class="sd-val">(' + info.title.length + ' characters)</em>' : '<em>none found</em>') + '</span>' +
+				'<span>Current description</span><span>' + (info.description ? siteEsc(info.description) + ' <em class="sd-val">(' + info.description.length + ' characters)</em>' : '<em>none found: this page has no meta description</em>') + '</span>' +
+				(info.phrases.length > 1 ? '<span>Other keywords</span><span>' + info.phrases.slice(1, 7).map(siteEsc).join(', ') + '</span>' : '') +
+				'</div>' + cur;
+			siteResult.classList.remove('is-hidden');
+			generate();
+			statusEl.textContent = 'Filled in from ' + host + ' · ' + statusEl.textContent;
+		} catch (e) {
+			statusEl.textContent = 'Could not read that page';
+			errBox.textContent = (e.empty ? 'This page has too little text to work with. Try another page, or fill in the fields yourself.' :
+				e.status === 404 || e.status === 410 ? 'This page was not found (error ' + e.status + '). Check the link.' :
+				e.status ? 'The website answered with error ' + e.status + '. It may need a login or block automated visits.' :
+				'This page could not be read. It may block other sites from reading it, or the free reading services are busy right now. Try again in a minute, or fill in the fields yourself.') +
+				(e.tried && e.tried.length ? ' [Tried: ' + e.tried.join(', ') + ']' : '');
+			errBox.classList.add('show');
+		} finally {
+			analyzeBtn.disabled = false;
+			analyzeBtn.lastElementChild.textContent = 'Analyze';
+		}
+	}
+
+	analyzeBtn.addEventListener('click', analyzeSite);
+	siteUrlIn.addEventListener('keydown', (e) => {
+		if(e.key === 'Enter') analyzeSite();
 	});
 
 	generate();

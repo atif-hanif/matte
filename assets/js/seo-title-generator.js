@@ -3,10 +3,6 @@
 
 	const $ = (id) => document.getElementById(id);
 
-	/* ---------- Templates (the main part of the title; the brand is added after) ----------
-	   {K} keyword  {L} location  {A} audience  {B} benefit  {Y} year
-	   [ ... ] is an optional part, dropped when a value inside it is empty or the title is too long. */
-
 	const T = {
 		service: [
 			'{K}[ in {L}]', '{K} Services[ in {L}]', 'Professional {K}[ for {A}]', '{B} {K}[ in {L}]', '{K}[ in {L}]: {B}',
@@ -48,8 +44,6 @@
 
 	const SMALL = new Set('a an and as at but by for from in into nor of on or per the to vs via with'.split(' '));
 
-	/* ---------- Elements ---------- */
-
 	const optType = $('stType'),
 		optTone = $('stTone'),
 		optSep = $('stSep'),
@@ -70,8 +64,6 @@
 		copyBtn = $('stCopyBtn'),
 		clearBtn = $('stClearBtn');
 
-	/* ---------- Measuring (Google shows titles in 20px Arial, about 600px wide) ---------- */
-
 	const ctx = document.createElement('canvas').getContext('2d');
 	const pxTitle = (s) => {
 		ctx.font = '20px Arial, Helvetica, sans-serif';
@@ -85,11 +77,9 @@
 		MAX_CH = 60,
 		MIN_CH = 30;
 
-	/* ---------- Helpers ---------- */
-
 	function titleCase(s) {
 		return s.trim().replace(/\s+/g, ' ').split(' ').map((w, i) => {
-			if(w !== w.toLowerCase()) return w; // keep SEO, iPhone, WordPress as typed
+			if(w !== w.toLowerCase()) return w;
 			if(i > 0 && SMALL.has(w)) return w;
 			return w.charAt(0).toUpperCase() + w.slice(1);
 		}).join(' ');
@@ -153,13 +143,11 @@
 		return s;
 	}
 
-	/* ---------- Generate ---------- */
-
 	function candidates() {
 		const type = optType.value;
 		let list = T[type].slice();
 		if(type === 'local' && !locIn.value.trim()) list = T.service.slice();
-		// catchy phrasings ("That Converts", "Done Right") only suit service-style pages
+		
 		if(optTone.value !== 'bold' || ['service', 'home', 'local'].includes(type)) list = list.concat(TONE[optTone.value] || []);
 
 		const v = values();
@@ -169,7 +157,7 @@
 			out = [];
 
 		list.forEach((tpl, order) => {
-			// full version first, then without the optional parts, then without the brand
+			
 			const tries = [];
 			[true, false].forEach((keep) => {
 				let main = fill(tpl, v, keep);
@@ -191,8 +179,6 @@
 		});
 		return out.sort((a, b) => b.score - a.score || a.order - b.order).slice(0, 10);
 	}
-
-	/* ---------- Google preview ---------- */
 
 	function esc(s) {
 		return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -228,7 +214,7 @@
 			}
 		} catch (e) {}
 		const brand = brandIn.value.trim();
-		host = host || (brand ? brand.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.html' : 'example.html');
+		host = host || (brand ? brand.toLowerCase().replace(/[^a-z0-9]+/g, '') + '.com' : 'example.com');
 		return {
 			name: brand || host,
 			url: 'https://' + host + (path.length ? ' › ' + path.join(' › ') : ''),
@@ -241,23 +227,21 @@
 		const desc = descIn.value.replace(/\s+/g, ' ').trim();
 		return '<div class="st-serp-site"><span class="st-serp-fav">' + esc(s.letter) + '</span><div><div class="st-serp-name">' + esc(s.name) +
 			'</div><div class="st-serp-url">' + esc(s.url) + '</div></div></div>' +
-			'<div class="st-serp-title">' + (title ? esc(truncate(title, MAX_PX, pxTitle)) : 'Your title appears here') + '</div>' +
-			'<div class="st-serp-desc">' + (desc ? boldKeyword(esc(truncate(desc, 920, pxDesc))) : 'Add a meta description to see the full result.') + '</div>';
+			'<div class="st-serp-title">' + (title ? esc(truncate(title, MAX_PX, pxTitle)) : '<span style="color:#9aa0a6">Your title appears here</span>') + '</div>' +
+			'<div class="st-serp-desc">' + (desc ? boldKeyword(esc(truncate(desc, 920, pxDesc))) : '<span style="color:#9aa0a6">Add a meta description to see the full result.</span>') + '</div>';
 	}
-
-	/* ---------- Render ---------- */
 
 	function badges(m, isBest, droppedBrand) {
 		const out = [];
 		if(isBest) out.push('<span class="st-badge star"><i class="fa-solid fa-star me-1"></i>Top pick</span>');
-		out.push('<span class="st-badge ' + (m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warns' : 'good') + '">' + m.len + ' characters</span>');
+		out.push('<span class="st-badge ' + (m.len > MAX_CH ? 'bad' : m.len < MIN_CH ? 'warn' : 'good') + '">' + m.len + ' characters</span>');
 		out.push('<span class="st-badge ' + (m.px > MAX_PX ? 'bad' : 'good') + '">' + m.px + ' / ' + MAX_PX + ' px</span>');
 		if(kwIn.value.trim()) {
-			const kw = m.kwAt === 0 ? ['good', 'Keyword first'] : m.kwAt > 0 && m.kwAt <= 30 ? ['good', 'Keyword early'] : m.kwAt > 30 ? ['warns', 'Keyword late'] : ['bad', 'No keyword'];
+			const kw = m.kwAt === 0 ? ['good', 'Keyword first'] : m.kwAt > 0 && m.kwAt <= 30 ? ['good', 'Keyword early'] : m.kwAt > 30 ? ['warn', 'Keyword late'] : ['bad', 'No keyword'];
 			out.push('<span class="st-badge ' + kw[0] + '">' + kw[1] + '</span>');
 		}
-		if(m.kwCount > 1) out.push('<span class="st-badge warns">Keyword repeated</span>');
-		if(droppedBrand) out.push('<span class="st-badge warns">Brand left out to fit</span>');
+		if(m.kwCount > 1) out.push('<span class="st-badge warn">Keyword repeated</span>');
+		if(droppedBrand) out.push('<span class="st-badge warn">Brand left out to fit</span>');
 		return out.join('');
 	}
 
@@ -315,12 +299,11 @@
 		render(list);
 		const fit = list.filter((r) => r.m.px <= MAX_PX).length;
 		countEl.textContent = list.length + ' options';
-		statusEl.textContent = list.length + ' titles ready · ' + fit + ' fit Google’s width' + (fit < list.length ? ' · shorten the brand or benefit to fit more' : '');
+		// statusEl.textContent = list.length + ' titles ready · ' + fit + ' fit Google’s width' + (fit < list.length ? ' · shorten the brand or benefit to fit more' : '');
+		statusEl.textContent = list.length + ' titles ready · ' + fit + ' fit Google’s width' + (fit < list.length ? '' : '');
 		copyBtn.disabled = false;
 		runCheck();
 	}
-
-	/* ---------- Copy ---------- */
 
 	function copyText(text, btn) {
 		const done = () => {
@@ -373,7 +356,7 @@
 	});
 
 	resultsEl.addEventListener('keydown', (e) => {
-		// a title is one line
+		
 		if(e.key === 'Enter' && e.target.closest('.st-item-text')) e.preventDefault();
 	});
 
@@ -397,8 +380,6 @@
 		runCheck();
 		kwIn.focus();
 	});
-
-	/* ---------- Checker ---------- */
 
 	const checkIn = $('stCheckIn'),
 		checkBar = $('stCheckBar'),
@@ -444,8 +425,6 @@
 
 	checkIn.addEventListener('input', runCheck);
 
-	/* ---------- Events ---------- */
-
 	genBtn.addEventListener('click', generate);
 	[optType, optTone, optSep, optBrandPos, optYear].forEach((el) => el.addEventListener('change', generate));
 	let typing = null;
@@ -458,12 +437,98 @@
 			if(e.key === 'Enter') generate();
 		});
 	});
+
 	descIn.addEventListener('input', () => {
 		resultsEl.querySelectorAll('.st-item').forEach((item) => {
 			const serp = item.querySelector('.st-serp');
 			if(!serp.classList.contains('is-hidden')) serp.innerHTML = serpHtml(itemText(item));
 		});
 		runCheck();
+	});
+
+	const siteUrlIn = $('stSiteUrl'),
+		analyzeBtn = $('stAnalyzeBtn'),
+		siteResult = $('stSiteResult');
+
+	[kwIn, brandIn, locIn, audIn, benIn, urlIn, optType].forEach((el) => el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => (el.dataset.user = el.value.trim() ? '1' : '')));
+
+	function fillField(el, value) {
+		if(el.dataset.user && el.value.trim()) return false;
+		el.value = value || '';
+		return !!value;
+	}
+
+	function siteEsc(s) {
+		return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+	}
+
+	async function analyzeSite() {
+		errBox.classList.remove('show');
+		const url = window.MatteAnalyze ? MatteAnalyze.normaliseUrl(siteUrlIn.value) : '';
+		if(!url) {
+			errBox.textContent = window.MatteAnalyze ? 'Type a page link, for example https://crezialab.com' : 'page-analyzer.js is not loaded.';
+			errBox.classList.add('show');
+			siteUrlIn.focus();
+			return;
+		}
+		siteUrlIn.value = url;
+		analyzeBtn.disabled = true;
+		analyzeBtn.lastElementChild.textContent = 'Reading…';
+		statusEl.textContent = 'Reading ' + url + ' …';
+		try {
+			const info = await MatteAnalyze.fromUrl(url, {
+				onTry: (name) => (statusEl.textContent = 'Reading ' + url + (name === 'direct' ? ' …' : ' · trying ' + name + ' …'))
+			});
+			if(!info.keyword && !info.title) throw Object.assign(new Error('empty'), { empty: true });
+
+			const filled = [];
+			if(fillField(kwIn, info.keyword)) filled.push('keyword');
+			if(fillField(brandIn, info.brand)) filled.push('brand');
+			if(fillField(locIn, info.location)) filled.push('location');
+			fillField(audIn, '');
+			fillField(benIn, ''); 
+			fillField(urlIn, url);
+			if(!optType.dataset.user) {
+				const t = [...optType.options].some((o) => o.value === info.type) ? info.type : 'service';
+				optType.value = t;
+				filled.push('page type: ' + optType.selectedOptions[0].textContent.toLowerCase());
+			}
+			
+			if(info.title) checkIn.value = info.title;
+			if(info.description && !descIn.value.trim()) descIn.value = info.description;
+			runCheck();
+
+			const host = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+			const cur = info.title ? '<div class="st-current-note">' + (pxTitle(info.title) > MAX_PX ? 'The current title is too wide for Google (' + pxTitle(info.title) + ' / ' + MAX_PX + ' px). ' : 'The current title fits Google’s width. ') + 'See the full check under “Check a title” below.</div>' : '';
+			siteResult.innerHTML =
+				//'<div class="st-filled"><b>Filled in from ' + siteEsc(host) + (info.via !== 'direct' ? ' (read via ' + siteEsc(info.via) + ')' : '') + ':</b>' +
+				'<div class="st-filled"><b>Filled in from ' + siteEsc(host) + ':</b>' +
+				(filled.length ? filled.map((f) => '<span class="st-chip"><i class="fa-solid fa-check"></i>' + siteEsc(f) + '</span>').join('') : '<span class="st-chip">nothing new: your own entries were kept</span>') +
+				'</div><div class="st-current">' +
+				'<span>Current title</span><span>' + (info.title ? siteEsc(info.title) + ' <em class="st-val">(' + info.title.length + ' characters)</em>' : '<em>none found</em>') + '</span>' +
+				'<span>Current description</span><span>' + (info.description ? siteEsc(info.description) + ' <em class="st-val">(' + info.description.length + ' characters)</em>' : '<em>none found: this page has no meta description</em>') + '</span>' +
+				(info.phrases.length > 1 ? '<span>Other keywords</span><span>' + info.phrases.slice(1, 7).map(siteEsc).join(', ') + '</span>' : '') +
+				'</div>' + cur;
+			siteResult.classList.remove('is-hidden');
+			generate();
+			statusEl.textContent = 'Filled in from ' + host + ' · ' + statusEl.textContent;
+		} catch (e) {
+			statusEl.textContent = 'Could not read that page';
+			errBox.textContent = (e.empty ? 'This page has too little text to work with. Try another page, or fill in the fields yourself.' :
+				e.status === 404 || e.status === 410 ? 'This page was not found (error ' + e.status + '). Check the link.' :
+				e.status ? 'The website answered with error ' + e.status + '. It may need a login or block automated visits.' :
+				'This page could not be read. It may block other sites from reading it, or the free reading services are busy right now. Try again in a minute, or fill in the fields yourself.') +
+				(e.tried && e.tried.length ? ' [Tried: ' + e.tried.join(', ') + ']' : '');
+			errBox.classList.add('show');
+		} finally {
+			analyzeBtn.disabled = false;
+			analyzeBtn.lastElementChild.textContent = 'Analyze';
+		}
+	}
+
+	analyzeBtn.addEventListener('click', analyzeSite);
+	siteUrlIn.addEventListener('keydown', (e) => {
+		if(e.key === 'Enter') analyzeSite();
 	});
 
 	generate();
