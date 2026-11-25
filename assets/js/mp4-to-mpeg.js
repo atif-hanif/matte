@@ -1,8 +1,10 @@
 (function() {
 	var VENDOR = 'assets/vendors/ffmpeg/'; 
+
 	var $ = function(i) {
 		return document.getElementById(i)
 	};
+	
 	var opt = {
 			fmt: 'mpeg2',
 			q: 'med',

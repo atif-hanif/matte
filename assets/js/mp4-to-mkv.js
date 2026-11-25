@@ -188,6 +188,7 @@
 					m.appendChild(pre)
 				}
 			}
+
 			if(it.state === 'working') {
 				var pb = document.createElement('div');
 				pb.className = 'pbar';
@@ -198,6 +199,7 @@
 				it.bar = pi;
 				it.label = sm
 			}
+			
 			var c = document.createElement('div');
 			c.className = 'ctl d-flex gap-2';
 			if(it.state === 'done') {
@@ -209,6 +211,7 @@
 				a.download = it.outName;
 				c.appendChild(a)
 			}
+
 			var x = document.createElement('button');
 			x.className = 'btn btn-secondary-outlined';
 			//x.textContent = '✕';
@@ -269,7 +272,7 @@
 
 	function ensureLoaded() {
 		if(ff) return Promise.resolve(ff);
-		// the converter's browser build registers one of these names, depending on its version
+		
 		var NS = [window.FFmpegWASM, window.FFmpegWrapper].filter(function(x) {
 			return x && typeof x.FFmpeg === 'function'
 		})[0];
@@ -326,6 +329,7 @@
 				return pump();
 			});
 		}
+
 		stage('Loading the converter (first time only, about 30 MB)', 0);
 		return grab(0).then(function(coreURL) {
 			return grab(1).then(function(wasmURL) {
@@ -459,6 +463,6 @@
 				ff.terminate()
 			} catch(e) {}
 			ff = null
-		} // the converter reloads on the next run
+		}
 	};
 })();

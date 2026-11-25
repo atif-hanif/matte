@@ -1,5 +1,6 @@
 (function() {
-	var VENDOR = 'assets/vendors/ffmpeg/'; // see README.txt for the files that go in this folder
+	var VENDOR = 'assets/vendors/ffmpeg/';
+
 	var $ = function(i) {
 		return document.getElementById(i)
 	};
@@ -190,6 +191,7 @@
 					m.appendChild(pre)
 				}
 			}
+
 			if(it.state === 'working') {
 				var pb = document.createElement('div');
 				pb.className = 'pbar';
@@ -200,6 +202,7 @@
 				it.bar = pi;
 				it.label = sm
 			}
+
 			var c = document.createElement('div');
 			c.className = 'ctl d-flex gap-2';
 			if(it.state === 'done') {
@@ -210,6 +213,7 @@
 				a.download = it.outName;
 				c.appendChild(a)
 			}
+
 			var x = document.createElement('button');
 			x.className = 'btn btn-secondary-outlined';
 			//x.textContent = '✕';
@@ -382,7 +386,6 @@
 		});
 	}
 
-	
 	function convertOne(it) {
 		return new Promise(function(resolve) {
 			current = it;

@@ -139,6 +139,14 @@
 	.dc-table td {
 		padding: 1px 3px;
 	}
+
+	.i2p-opts {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.i2p .item {
+		flex-wrap: wrap;
+	}
 }
 
 @media (min-width: 767px) and (max-width: 991px) {
@@ -254,25 +262,10 @@
 		min-height: 300px;
 	}
 
-	.sd-panes,
-	.sd-check {
-		grid-template-columns: 1fr;
-	}
-
-	.st-panes,
-	.st-check {
-		grid-template-columns: 1fr;
-	}
-
-	.fb-panes {
-		grid-template-columns: 1fr;
-	}
-
-	.ph-panes {
-		grid-template-columns: 1fr;
-	}
-
-	.sm-panes {
+	.sd-panes, .sd-check,
+	.st-panes, .st-check,
+	.fb-panes, .ph-panes, 
+	.sm-panes, .cp-layout {
 		grid-template-columns: 1fr;
 	}
 }

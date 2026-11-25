@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — Color Picker</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>  
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link active" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate-tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="image-tools.html">Image Tools</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="editor-tools.html">Editor Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">Color Picker</li>
+				</ol>
+			</nav>
+
+			<h2>Color Picker</h2>
+			<p>Find every color in your images as HEX, RGB, HSL, HWB and CMYK</p>
+
+			<div id="cpStage" class="stage" tabindex="0">
+				<div class="drop-msg">
+					<div class="icons">
+						<i class="fa-utility fa-semibold fa-cloud-arrow-up"></i>
+					</div>
+					<div class="big">Drop images here</div>
+					<div class="small">or <b>click to browse</b> — select as many as you like</div>
+				</div>
+			</div>
+
+			<div class="settings-bar" id="cpSettings">
+				<div class="settings-group">
+					<label for="cpCount">Colors per image</label>
+					<select id="cpCount" class="form-select img-convert">
+						<option value="5">5</option>
+						<option value="8">8</option>
+						<option value="10" selected>10</option>
+						<option value="12">12</option>
+						<option value="16">16</option>
+						<option value="20">20</option>
+					</select>
+				</div>
+				<span class="pj-hint">Click an image to see only its colors and pick exact colors from it. Click any value in the table to copy it.</span>
+			</div>
+
+			<div id="cpErr" class="err"></div>
+
+			<div id="cpToolbar" class="toolbar">
+				<div class="toolbar-status" id="cpStatus">Ready</div>
+				<div class="toolbar-actions">
+					<button type="button" class="btn btn-primary" id="cpAddBtn">
+						<i class="fa-solid fa-plus me-2"></i>
+						Add more
+					</button>
+					<button type="button" class="btn btn-secondary" id="cpClearBtn">
+						<i class="fa-solid fa-xmark me-2"></i>
+						Clear all
+					</button>
+				</div>
+			</div>
+
+			<div id="cpWork" class="cp-layout" hidden>
+				<div class="cp-col cp-left">
+					<div class="cp-head">
+						<h3>Images</h3>
+						<button type="button" class="btn btn-secondary-outlined btn-sm" id="cpAllBtn">All images</button>
+					</div>
+
+					<div class="cp-preview" id="cpPreviewBox" hidden>
+						<div class="cp-preview-in">
+							<canvas id="cpPreview"></canvas>
+							<div class="cp-loupe" id="cpLoupe" hidden><span class="sw"></span><span class="tx"></span></div>
+						</div>
+						<p class="cp-tip"><i class="fa-solid fa-eye-dropper me-2"></i>Click on the picture to add an exact color.</p>
+					</div>
+
+					<div class="cp-images" id="cpImages"></div>
+				</div>
+
+				<div class="cp-col cp-right">
+					<div class="cp-head">
+						<div class="cp-titles">
+							<h3 id="cpTableTitle">All colors</h3>
+							<small id="cpTableSub"></small>
+						</div>
+						<div class="cp-head-actions">
+							<button type="button" class="btn btn-secondary-outlined btn-sm" id="cpCopyHex">
+								<i class="fa-regular fa-copy me-2"></i>
+								Copy HEX list
+							</button>
+							<button type="button" class="btn btn-primary btn-sm" id="cpCsvBtn">
+								<i class="fa-solid fa-download me-2"></i>
+								CSV
+							</button>
+						</div>
+					</div>
+
+					<div class="cp-table-wrap">
+						<table class="cp-table">
+							<thead>
+								<tr>
+									<th>HEX</th>
+									<th>RGB</th>
+									<th>RGBA</th>
+									<th>HSL</th>
+									<th>HSLA</th>
+									<th>HWB</th>
+									<th>CMYK</th>
+								</tr>
+							</thead>
+							<tbody id="cpRows"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="cp-toast" id="cpToast" role="status" aria-live="polite"></div>
+
+			<input type="file" id="cpFileInput" accept="image/*" multiple>
+
+			<h2 class="mt-5">About</h2>
+			<p>Pull the colors out of any picture. Drop in one or more images and see their main colors together in one table, each with its share of the image, or click an image to see only its colors. Use the eyedropper to pick an exact color from any spot. Every color is shown as HEX, RGB, RGBA, HSL, HSLA, HWB and CMYK; click a value to copy it, or download the whole palette as a CSV file. Everything runs in your browser, so your images never leave your device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="image-editor.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/image-editing.png" class="icon">
+								<h6 class="mb-0">Image Editor</h6>
+								<p class="mb-0">Add &amp; remove text and image</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="image-compress.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/compression.png" class="icon">
+								<h6 class="mb-0">Image Compress</h6>
+								<p class="mb-0">Reduce image file size</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="background-remover.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/background-remover.png" class="icon">
+								<h6 class="mb-0">Background Remover</h6>
+								<p class="mb-0">Remove backgrounds instantly</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="creator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/create.png" class="icon">
+								<h6 class="mb-0">Creator Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="editor-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Editor Tools</h6>
+								<p class="mb-0">Edit images, PDFs, and Word, Excel, and PowerPoint files in your browser</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Converter Tools</h6>
+								<p class="mb-0">Convert images, videos, and documents between popular formats</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="beautifier-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Beautifier Tools</h6>
+								<p class="mb-0">Clean up and indent HTML, CSS, JS, PHP, JSON, and XML code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="minifier-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Minifier Tools</h6>
+								<p class="mb-0">Remove extra spaces and comments from HTML, CSS, JS, PHP, JSON, and XML</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link active" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools.html">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generator-tools.html">Generator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Type</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="sitemap.html">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/script.js"></script>
+	<script src="assets/js/color-picker.js"></script>
+</body>
+
+</html>

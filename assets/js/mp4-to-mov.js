@@ -1,5 +1,6 @@
 (function() {
-	var VENDOR = 'assets/vendors/ffmpeg/'; // see README.txt for the files that go in this folder
+	var VENDOR = 'assets/vendors/ffmpeg/';
+
 	var $ = function(i) {
 		return document.getElementById(i)
 	};
@@ -437,6 +438,6 @@
 				ff.terminate()
 			} catch(e) {}
 			ff = null
-		} // the converter reloads on the next run
+		}
 	};
 })();
