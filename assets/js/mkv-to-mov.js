@@ -103,10 +103,12 @@
         var arr = [].slice.call(list).filter(function(f) {
             return /^video\//.test(f.type) || /\.(mkv)$/i.test(f.name)
         });
+
         if (!arr.length) {
             showErr('Please choose video files.');
             return
         }
+        
         arr.forEach(function(f) {
             items.push({
                 id: ++uid,

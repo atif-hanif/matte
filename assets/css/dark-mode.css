@@ -40,7 +40,18 @@
 .dark .pg-legend,
 .dark .bm-title,
 .dark .bm-size,
-.dark .pg-tips li {
+.dark .pg-tips li,
+.dark .eg-tips li,
+.dark .ug-range-val,
+.dark .sd-check-left > .sd-label,
+.dark .sd-check-right > .sd-label,
+.dark .sd-meter-row,
+.dark .sd-tips li,
+.dark .st-check-left > .st-label,
+.dark .st-check-right > .st-label,
+.dark .st-meter-row,
+.dark .st-tips li,
+.dark .ph-tab:not(.active) {
 	color: var(--white);
 }
 
@@ -48,11 +59,6 @@
 	color: var(--white);
 }
 
-.dark .bm-title,
-.dark .bm-size,
-.dark .eg-tips li {
-	color: var(--white);
-}
 
 .dark .eg-verdict.ok {
 	color: var(--teal);
@@ -60,13 +66,6 @@
 
 .dark .eg-verdict.bad {
 	color: var(--red);
-}
-
-.dark .ug-range-val,
-.dark .bm-title,
-.dark .bm-size,
-.dark .ug-tips li {
-	color: var(--white);
 }
 
 .dark .ug-verdict.ok {
@@ -77,10 +76,6 @@
 	color: var(--red);
 }
 
-.dark .bm-title,
-.dark .bm-size {
-	color: var(--white);
-}
 
 .dark .qr-warn {
 	color: var(--orange);
@@ -98,20 +93,6 @@
 .dark .kw-group li,
 .dark .kw-group-head h6 {
 	color: var(--black);
-}
-
-.dark .bm-title,
-.dark .bm-size,
-.dark .sd-check-left > .sd-label,
-.dark .sd-check-right > .sd-label,
-.dark .sd-meter-row,
-.dark .sd-tips li,
-.dark .st-check-left > .st-label,
-.dark .st-check-right > .st-label,
-.dark .st-meter-row,
-.dark .st-tips li,
-.dark .ph-tab:not(.active) {
-	color: var(--white);
 }
 
 .dark .ph-tab:not(.active) {

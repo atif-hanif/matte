@@ -5347,6 +5347,338 @@ mark.dc-ins {
 	background: var(--background-5);
 }
 
+/* CSS Gradient Generator */
+
+#cgSettings .mode-switch {
+	display: flex;
+	background: var(--surface-2);
+	border-radius: 8px;
+	padding: 3px;
+	gap: 2px;
+}
+
+#cgSettings .mode-btn {
+	font-family: inherit;
+	border: none;
+	background: none;
+	color: var(--black);
+	font-size: 12.5px;
+	font-weight: 500;
+	padding: 7px 14px;
+	border-radius: 6px;
+	cursor: pointer;
+}
+
+#cgSettings .mode-btn.active {
+	background: var(--white);
+	color: var(--black);
+	box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+#cgSettings .settings-group {
+	gap: 8px;
+}
+
+.cg-input {
+	font-size: 13px;
+	background: var(--white);
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	padding: 7px 10px;
+}
+
+.form-select.cg-input {
+	padding-right: 2.25rem;
+	width: auto;
+}
+
+.cg-range {
+	width: 130px;
+	accent-color: var(--primary);
+	cursor: pointer;
+}
+
+.cg-num {
+	width: 64px;
+	font-size: 14px;
+	background: var(--white);
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	padding: 6px 8px;
+	color: var(--black);
+}
+
+.cg-unit {
+	font-size: 14px;
+	color: var(--gray-1);
+	margin-left: -4px;
+}
+
+.cg-dial {
+	position: relative;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	border: 2px solid var(--line);
+	background: var(--white);
+	cursor: grab;
+	flex-shrink: 0;
+	touch-action: none;
+}
+
+.cg-dial:active {
+	cursor: grabbing;
+}
+
+.cg-dial span {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 2px;
+	height: 13px;
+	margin-left: -1px;
+	background: var(--primary);
+	border-radius: 2px;
+	transform-origin: 50% 0;
+}
+
+.cg-dial span::after {
+	content: '';
+	position: absolute;
+	bottom: -3px;
+	left: -2px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--primary);
+}
+
+.cg-pos {
+	display: grid;
+	grid-template-columns: repeat(3, 12px);
+	gap: 3px;
+	padding: 4px;
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	background: var(--white);
+}
+
+.cg-pos button {
+	width: 12px;
+	height: 12px;
+	border: none;
+	border-radius: 3px;
+	background: var(--surface-2);
+	padding: 0;
+	cursor: pointer;
+}
+
+.cg-pos button:hover {
+	background: #d6d6d6;
+}
+
+.cg-pos button.active {
+	background: var(--primary);
+}
+
+.cg-panes {
+	grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+	align-items: start;
+}
+
+.cg-preview-wrap {
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	padding: 10px;
+	background-color: var(--surface);
+	background-image:
+		linear-gradient(45deg, var(--surface-2) 25%, transparent 25%),
+		linear-gradient(-45deg, var(--surface-2) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, var(--surface-2) 75%),
+		linear-gradient(-45deg, transparent 75%, var(--surface-2) 75%);
+	background-size: 16px 16px;
+	background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+.cg-preview {
+	height: 300px;
+	border-radius: 8px;
+}
+
+.cg-stops-wrap {
+	position: relative;
+	margin: 14px 12px 0;
+	padding-bottom: 30px;
+}
+
+.cg-track {
+	position: relative;
+	height: 28px;
+	border-radius: 8px;
+	border: 1px solid var(--line);
+	cursor: copy;
+	background-color: var(--white);
+	background-image:
+		linear-gradient(45deg, #e6e6e6 25%, transparent 25%),
+		linear-gradient(-45deg, #e6e6e6 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, #e6e6e6 75%),
+		linear-gradient(-45deg, transparent 75%, #e6e6e6 75%);
+	background-size: 10px 10px;
+	background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+	overflow: hidden;
+}
+
+.cg-track-fill {
+	position: absolute;
+	inset: 0;
+}
+
+.cg-handles {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 22px;
+	height: 0;
+}
+
+.cg-handle {
+	position: absolute;
+	top: 0;
+	width: 22px;
+	height: 22px;
+	margin-left: -11px;
+	border-radius: 50%;
+	border: 3px solid var(--white);
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.2);
+	cursor: grab;
+	touch-action: none;
+	padding: 0;
+}
+
+.cg-handle::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: -10px;
+	width: 2px;
+	height: 8px;
+	margin-left: -1px;
+	background: rgba(0, 0, 0, 0.35);
+}
+
+.cg-handle.active {
+	box-shadow: 0 0 0 2px var(--primary), 0 2px 8px rgba(0, 0, 0, 0.25);
+	z-index: 2;
+}
+
+.cg-handle:active {
+	cursor: grabbing;
+}
+
+.cg-editor {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	gap: 14px 18px;
+	margin-top: 6px;
+	padding: 12px 14px;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: var(--surface);
+}
+
+.cg-ed-group label {
+	display: block;
+	font-size: 12.5px;
+	font-weight: 600;
+	color: var(--black);
+	margin-bottom: 5px;
+}
+
+.cg-val {
+	font-weight: 400;
+	color: var(--gray-1);
+	margin-left: 4px;
+}
+
+.cg-color {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.cg-color input[type=color] {
+	width: 38px;
+	height: 34px;
+	/* padding: 2px;
+	border: 1px solid var(--line);
+	border-radius: 8px;
+	background: var(--white); */
+	cursor: pointer;
+}
+
+.cg-color .cg-input {
+	width: 100px;
+	text-transform: uppercase;
+}
+
+.cg-inline {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.cg-ed-actions {
+	display: flex;
+	gap: 6px;
+	margin-left: auto;
+}
+
+.cg-code-opts {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px 18px;
+	margin-bottom: 8px;
+}
+
+.cg-code {
+	height: 170px;
+	font-size: 14px;
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.cg-presets {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+}
+
+.cg-preset {
+	height: 54px;
+	border-radius: 10px;
+	border: 1px solid var(--line);
+	cursor: pointer;
+	position: relative;
+	overflow: hidden;
+	padding: 0;
+}
+
+.cg-preset span {
+	position: absolute;
+	left: 6px;
+	bottom: 5px;
+	font-size: 14px;
+	color: var(--white);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+	font-weight: 600;
+}
+
+.cg-preset:hover {
+	outline: 2px solid var(--primary);
+	outline-offset: 1px;
+}
+
 /* Generator Tools */
 
 /* Password Generator */

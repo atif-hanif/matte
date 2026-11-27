@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matte — CSS Gradient Generator</title>
+    <link rel="icon" href="assets/images/favicon.webp">
+    <link href="assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/vendors/fontawesome/css/all.css" rel="stylesheet">
+    <link href="assets/css/fraunces.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+	<link href="assets/css/dark-mode.css" rel="stylesheet">
+	<link href="assets/css/responsive.css" rel="stylesheet">
+</head>   
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-xl py-3">
+			<div class="container align-items-center gap-3">
+				<a class="navbar-brand" href="index.html">
+					<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+				</a>
+				<div class="offcanvas offcanvas-end offcanvas-xl" id="demo">
+					<div class="offcanvas-header">
+						<a class="navbar-brand" href="index.html">
+							<img src="assets/images/matte-tools-logo.webp" alt="logo" class="header-logo">
+						</a>
+						<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+					</div>
+					<div class="offcanvas-body justify-content-start">
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link" href="image-tools.html" role="button">
+									Image
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="document-tools.html" role="button">
+									Document
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="video-tools.html" role="button">
+									Video
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="text-tools.html" role="button">
+									Text
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="generate-tools.html" role="button">
+									Generate
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="developer-tools.html" role="button">
+									Developer
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="d-flex align-items-center gap-2">
+					<select class="form-select">
+						<option value="en" selected>EN</option>
+						<option value="ru">RU</option>
+						<option value="ch">CH</option>
+						<option value="fr">FR</option>
+					</select>
+					<button class="btn offcanvas-btn d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<div class="input-group d-none d-xl-flex">
+						<input type="text" class="form-control" placeholder="Find any tool" aria-describedby="button-addon2">
+						<button class="btn btn-secondary" type="button" id="button-addon2"><i class="fa-utility fa-semibold fa-magnifying-glass"></i></button>
+					</div>
+					<div>
+						<input type="checkbox" class="checkbox" id="checkbox">
+						<label for="checkbox" class="checkbox-label">
+							<i class="fa-solid fa-moon"></i>
+							<i class="fa-solid fa-sun-bright"></i>
+							<span class="ball"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						<a href="index.html">
+							<i class="fa-regular fa-house"></i>
+						</a>
+					</li>
+					<li class="breadcrumb-item">
+						<a href="developer-tools.html">Developer Tools</a>
+					</li>
+					<li class="breadcrumb-item active" aria-current="page">CSS Gradient Generator</li>
+				</ol>
+			</nav>
+
+			<h2>CSS Gradient Generator</h2>
+			<p>Design linear, radial and conic gradients visually and copy the CSS code</p>
+
+			<div class="settings-bar show" id="cgSettings">
+				<div class="settings-group">
+					<label>Type</label>
+					<div class="mode-switch" id="cgMode">
+						<button type="button" class="mode-btn active" data-mode="linear">Linear</button>
+						<button type="button" class="mode-btn" data-mode="radial">Radial</button>
+						<button type="button" class="mode-btn" data-mode="conic">Conic</button>
+					</div>
+				</div>
+
+				<div class="settings-group" data-for="linear conic">
+					<label for="cgAngle">Angle</label>
+					<div class="cg-dial" id="cgDial" title="Drag to set the angle"><span id="cgDialHand"></span></div>
+					<input type="range" id="cgAngle" class="cg-range" min="0" max="360" value="90">
+					<input type="number" id="cgAngleNum" class="cg-num" min="0" max="360" value="90">
+					<span class="cg-unit">°</span>
+				</div>
+
+				<div class="settings-group is-hidden" data-for="radial">
+					<label for="cgShape">Shape</label>
+					<select id="cgShape" class="form-select cg-input">
+						<option value="circle" selected>Circle</option>
+						<option value="ellipse">Ellipse</option>
+					</select>
+				</div>
+
+				<div class="settings-group is-hidden" data-for="radial conic">
+					<label>Centre</label>
+					<div class="cg-pos" id="cgPos">
+						<button type="button" data-pos="left top" title="Top left"></button>
+						<button type="button" data-pos="center top" title="Top"></button>
+						<button type="button" data-pos="right top" title="Top right"></button>
+						<button type="button" data-pos="left center" title="Left"></button>
+						<button type="button" data-pos="center" class="active" title="Centre"></button>
+						<button type="button" data-pos="right center" title="Right"></button>
+						<button type="button" data-pos="left bottom" title="Bottom left"></button>
+						<button type="button" data-pos="center bottom" title="Bottom"></button>
+						<button type="button" data-pos="right bottom" title="Bottom right"></button>
+					</div>
+				</div>
+
+				<div class="settings-group">
+					<label class="bm-check"><input type="checkbox" id="cgRepeat"> Repeating</label>
+				</div>
+			</div>
+
+			<div id="cgErr" class="err"></div>
+
+			<div class="toolbar show">
+				<div class="toolbar-status" id="cgStatus">Click the colour bar to add a colour, drag the handles to move them</div>
+
+				<div class="toolbar-actions">
+					<button type="button" class="btn btn-primary-outlined" id="cgRandomBtn">
+						<i class="fa-solid fa-shuffle me-2"></i>
+						Random
+					</button>
+
+					<button type="button" class="btn btn-secondary-outlined" id="cgPngBtn">
+						<i class="fa-solid fa-image me-2"></i>
+						PNG
+					</button>
+
+					<button type="button" class="btn btn-primary" id="cgCopyBtn">
+						<i class="fa-regular fa-copy me-2"></i>
+						Copy CSS
+					</button>
+				</div>
+			</div>
+
+			<div class="bm-panes cg-panes">
+				<div class="bm-pane">
+					<div class="bm-title">Preview <span class="bm-size" id="cgInfo"></span></div>
+					<div class="cg-preview-wrap">
+						<div class="cg-preview" id="cgPreview"></div>
+					</div>
+
+					<div class="cg-stops-wrap">
+						<div class="cg-track" id="cgTrack" title="Click to add a colour">
+							<div class="cg-track-fill" id="cgTrackFill"></div>
+						</div>
+						<div class="cg-handles" id="cgHandles"></div>
+					</div>
+
+					<div class="cg-editor" id="cgEditor">
+						<div class="cg-ed-group">
+							<label for="cgColor">Colour</label>
+							<div class="cg-color">
+								<input type="color" id="cgColor" value="#ff6224">
+								<input type="text" id="cgHex" class="form-control cg-input cg-mono" maxlength="9" spellcheck="false">
+							</div>
+						</div>
+						<div class="cg-ed-group">
+							<label for="cgAlpha">Opacity <span class="cg-val" id="cgAlphaVal">100%</span></label>
+							<input type="range" id="cgAlpha" class="cg-range" min="0" max="100" value="100">
+						</div>
+						<div class="cg-ed-group">
+							<label for="cgStopPos">Position</label>
+							<div class="cg-inline">
+								<input type="number" id="cgStopPos" class="cg-num" min="0" max="100" value="0">
+								<span class="cg-unit">%</span>
+							</div>
+						</div>
+						<div class="cg-ed-group cg-ed-actions">
+							<button type="button" class="btn btn-secondary-outlined btn-sm" id="cgReverse" title="Reverse the colours">
+								<i class="fa-solid fa-right-left"></i>
+							</button>
+							<button type="button" class="btn btn-secondary-outlined btn-sm" id="cgEven" title="Space colours evenly">
+								<i class="fa-solid fa-arrows-left-right-to-line"></i>
+							</button>
+							<button type="button" class="btn btn-primary-outlined btn-sm" id="cgDelete" title="Remove this colour">
+								<i class="fa-regular fa-trash-can me-2"></i>Remove
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="bm-pane">
+					<div class="bm-title">CSS <span class="bm-size" id="cgBytes"></span></div>
+					<div class="cg-code-opts">
+						<label class="bm-check"><input type="checkbox" id="cgFallback" checked> Solid colour fallback</label>
+						<label class="bm-check"><input type="checkbox" id="cgSelector"> Wrap in a CSS rule</label>
+					</div>
+					<textarea id="cgCode" class="bm-text cg-mono cg-code" readonly spellcheck="false"></textarea>
+
+					<div class="bm-title mt-3">Presets</div>
+					<div class="cg-presets" id="cgPresets"></div>
+				</div>
+			</div>
+
+			<h2 class="mt-5">About</h2>
+			<p>Create CSS gradients for backgrounds, buttons and cards without writing the code by hand. Choose a linear, radial or conic gradient, then click the colour bar to add colours, drag the handles to move them, and pick each colour and its opacity. Set the angle by dragging the dial or typing a number, choose the centre of radial and conic gradients, or make the pattern repeat to create stripes. The live preview shows exactly what you get, and the CSS updates as you go, with a solid colour fallback for very old browsers. Start from one of the presets or press Random for ideas, then copy the CSS or download the gradient as a PNG image for use in designs. Everything runs in your browser, so your css gradient generator never leave your device.</p>
+
+			<h2 class="mt-5">Related Tools</h2>
+			<div class="grid-container">
+				<div>
+					<a href="css-minifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/css.png" class="icon">
+								<h6 class="mb-0">CSS Minifier</h6>
+								<p class="mb-0">Make CSS files smaller</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="css-beautifier.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/css.png" class="icon">
+								<h6 class="mb-0">CSS Beautifier</h6>
+								<p class="mb-0">Format CSS so it is easy to read</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="password-hash-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Password Hash Generator</h6>
+								<p class="mb-0">Hash passwords with bcrypt or Argon2id</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="qr-code-generator.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">QR Code Generator</h6>
+								<p class="mb-0">Make QR codes with your colours and logo</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<h2 class="mt-5">Tool by Type</h2>
+			<div class="grid-container">
+				<div>
+					<a href="create-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Create Tools</h6>
+								<p class="mb-0">Create images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="edit-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/edit.png" class="icon">
+								<h6 class="mb-0">Edit Tools</h6>
+								<p class="mb-0">Resize, crop, and edit your images</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="converter-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/convert.png" class="icon">
+								<h6 class="mb-0">Convert Tools</h6>
+								<p class="mb-0">Convert images and documents</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div>
+					<a href="generator-tools.html">
+						<div class="card card-style">
+							<div class="card-body">
+								<img src="assets/images/icons/generate.png" class="icon">
+								<h6 class="mb-0">Generate Tools</h6>
+								<p class="mb-0">Create images and code</p>
+								<span class="text-end d-block">View <i class="fa-solid fa-arrow-right ps-2"></i></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<a id="back-to-top"></a>
+
+	<footer class="border-top border-1">
+		<div class="container py-5">
+			<div class="row">
+				<div class="col-md-6 col-lg-3">
+					<a class="navbar-brand" href="index.html">
+						<img src="assets/images/matte-tools-logo.webp" alt="logo" class="footer-logo">
+					</a>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-md-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="image-tools.html">Image Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="document-tools.html">Document Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="video-tools">Video Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="text-tools.html">Text Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="generate-tools.html">Generate Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="developer-tools.html">Developer Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Tools by Categories</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="creator-tools.html">Creator Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="editor-tools.html">Editor Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="converter-tools.html">Converter Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="beautifier-tools.html">Beautifier Tools</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="minifier-tools.html">Minifier Tools</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col-md-6 col-lg-3 mt-4 mt-lg-0">
+					<h6>Useful Links</h5>
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="#">Privacy Policy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Sitemap</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-footer">
+			<div class="container border-top border-1 py-3 d-flex justify-content-between align-items-center">
+				<p class="mb-0 text-center">&copy; 2026 Matte Tools. All Rights Reserved.</p>
+				<ul class="nav social-media">
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-facebook"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-instagram"></i>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">
+							<i class="fa-brands fa-tiktok"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</footer>
+
+	<script src="assets/vendors/jquery/jquery.js"></script>
+	<script src="assets/vendors/bootstrap/js/bootstrap.bundle.js"></script>
+	<script src="assets/js/css-gradient-generator.js"></script>
+	<script src="assets/js/script.js"></script>
+</body>
+
+</html>

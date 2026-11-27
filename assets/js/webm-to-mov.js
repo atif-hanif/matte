@@ -190,6 +190,7 @@
                     m.appendChild(pre)
                 }
             }
+            
             if (it.state === 'working') {
                 var pb = document.createElement('div');
                 pb.className = 'pbar';

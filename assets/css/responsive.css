@@ -55,6 +55,14 @@
 	.sd-site-result .sd-current {
 		grid-template-columns: 1fr;
 	}
+
+	.cg-presets {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	.cg-ed-actions {
+		margin-left: 0;
+	}
 }
 
 @media (max-width: 640px) {
@@ -267,6 +275,14 @@
 	.fb-panes, .ph-panes, 
 	.sm-panes, .cp-layout {
 		grid-template-columns: 1fr;
+	}
+
+	.cg-panes {
+		grid-template-columns: 1fr;
+	}
+
+	.cg-preview {
+		height: 220px;
 	}
 }
 

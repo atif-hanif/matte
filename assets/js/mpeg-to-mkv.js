@@ -169,6 +169,7 @@
 				sm.className = 'st bad';
 				txt = it.msg || 'Failed'
 			}
+
 			sm.textContent = txt;
 			m.appendChild(s);
 			m.appendChild(sm);
@@ -189,6 +190,7 @@
 					m.appendChild(pre)
 				}
 			}
+
 			if(it.state === 'working') {
 				var pb = document.createElement('div');
 				pb.className = 'pbar';
@@ -199,6 +201,7 @@
 				it.bar = pi;
 				it.label = sm
 			}
+
 			var c = document.createElement('div');
 			c.className = 'ctl d-flex gap-2';
 			if(it.state === 'done') {
@@ -210,6 +213,7 @@
 				a.download = it.outName;
 				c.appendChild(a)
 			}
+
 			var x = document.createElement('button');
 			x.className = 'btn btn-secondary-outlined';
 			//x.textContent = '✕';
@@ -222,6 +226,7 @@
 				items.splice(items.indexOf(it), 1);
 				render()
 			};
+			
 			c.appendChild(x);
 			d.appendChild(n);
 			d.appendChild(m);
