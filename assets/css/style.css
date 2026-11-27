@@ -664,6 +664,7 @@ input[type=file] {
 
 .settings-group label {
 	color: var(--black);
+	width: 100%;
 }
 
 .scale-input {
